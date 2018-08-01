@@ -1,0 +1,95 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 18 juil. 2018, 10:39:39
+    Author     : s_nicolas
+*/
+@font-face {
+    font-family: 'GothamRounded';
+    src: url(../fonts/GothamRounded-Light.otf);
+    font-weight: 300;
+}
+@font-face {
+    font-family: 'GothamRounded';
+    src: url(../fonts/GothamRounded-Book.otf);
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'GothamRounded';
+    src: url(../fonts/GothamRounded-Medium.otf);
+    font-weight: 500;
+}
+@font-face {
+    font-family: 'GothamRounded';
+    src: url(../fonts/GothamRounded-Bold.otf);
+    font-weight: bold;
+}
+body {
+    font-family: GothamRounded;
+}
+*{
+    margin:0;
+    padding:0;
+}
+p{
+    margin-bottom: 0 !important;
+}
+$border-radius: 15px;
+$image-height: 4rem;
+$medal-width: 4.2rem;
+.container-fluid{
+    background-color: white;
+    border-radius: $border-radius;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+.medalSize{
+    height: $image-height;
+    width: $medal-width;
+}
+$text-color: black;
+.bg-color-1{
+    background-color: rgba(72,72,72,0.2);
+    color:$text-color;
+    border-radius:$border-radius;
+}
+.bg-color-2{
+    background-color:rgba(102,102,102,0.2);
+    color:$text-color;
+    border-radius: $border-radius;
+}
+.userImage{
+    border-radius: $image-height / 2;
+    height: $image-height;
+    width: $image-height;
+}
+$break-small: 576px;
+$break-medium: 768px;
+$break-large: 992px;
+$break-extra-large: 1200px;
+@media (max-width: $break-small) {
+    body{
+        font-size: 0.7rem;
+    }
+    .medalSize{
+        height: $image-height / 2;
+        width: $medal-width / 2;
+    }
+    .userImage{
+        border-radius: $image-height / 4;
+        height: $image-height / 2;
+        width: $image-height / 2;
+    }
+}
+@media (max-width: $break-medium) {
+
+}
+@media (max-width: $break-large) {
+
+}
+@media (max-width: $break-extra-large) {
+
+}
