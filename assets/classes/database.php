@@ -1,5 +1,6 @@
 <?php
-include_once path::$regex;
+include_once path::getRegex();
+include_once path::getHelpers();
 /*
  * Error Code : 
  * -2 echec de la regex

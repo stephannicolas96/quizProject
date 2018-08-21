@@ -1,5 +1,5 @@
 <?php
-include_once 'assets/controllers/loginController.php';
+include_once path::getControllers() . 'loginController.php';
 ?>
 <form id="loginForm" action="index.php" method="POST">
     <div class="modal" id="loginModal">
@@ -12,10 +12,9 @@ include_once 'assets/controllers/loginController.php';
                 </div>
                 <!-- Modal body -->
                 <div class="modal-body">
-
                     <div class="row">
                         <div class="col-12 white-bg">
-                            <p class="text-danger"><?= isset($formError['connexion']) ? $formError['connexion'] : '' ?></p>
+                            <p class="text-danger"><?= isset($loginErrors['connexion']) ? $loginErrors['connexion'] : '' ?></p>
                             <div class="row">
                                 <div class="col pt-2">
                                     <label for="login"><b>Email/Nom d'utilisateur</b></label>
@@ -23,7 +22,7 @@ include_once 'assets/controllers/loginController.php';
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <input class="w-100" type="text" placeholder="Enter Email Or Username" name="login" required>
+                                    <input class="w-100" type="text" placeholder="Enter Email Or Username" name="login" value="<?= ($previousLogin) ? $previousLogin : null ?>" required>
                                 </div>
                             </div>
                             <div class="row">
@@ -50,8 +49,8 @@ include_once 'assets/controllers/loginController.php';
     </div>
 </form>
 <script><?php
-if (count($formError) > 0) {
+if (count($loginErrors) > 0) {
     echo '$(\'#loginModal\').modal(\'show\')';
-    $formError = array();
+    unset($loginErrors);
 }
 ?></script>

@@ -1,0 +1,122 @@
+body{
+    background-color: black;
+}
+
+*, *::before, *::after {
+    webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.file-input{
+    display: block;
+    position: relative;
+    height: 10em;
+    width: 10em;
+
+    &::after{
+        content: "Changer l'avatar";
+        position: absolute;
+        color: white;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(72,72,72,0.7);  
+        border: solid white 1px;
+        transform: scale(0) rotate(-360deg);
+        opacity: 0;
+        transition: opacity ease-out 250ms,
+            transform ease-out 250ms;
+    }
+
+    &:hover::after{    
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+}
+
+img {
+    width: 100%;
+    height: 100%;
+}
+
+input[type="file"] { display: none; }
+
+//---------------------------------------------- BASE CLASSES ----------------------------------------------//
+
+.required{
+    position: relative;
+
+    b::after{
+        content: "*";
+        color: red;
+        position: absolute;
+        right: -10px;
+        top: -5px;
+    }
+}
+
+/**[data-tooltip]{
+    position: relative;
+
+    &::before{
+        content: " ";
+        position: absolute;
+        left: calc(100% - 8px);
+        top: 25%;
+        height: 0;
+        width: 0;
+        border-bottom: 10px solid transparent;
+        border-top: 10px solid transparent;
+        border-right: 10px solid rgba(255,0,0,0.8);
+    }
+
+    &::after{
+        content: attr(data-tooltip);
+        display: block;
+        position: absolute;
+        color: rgba(0,0,0,.8);
+        background-color: rgba(255,255,255,0.8);
+        padding: .5em 1.5em;
+        border-radius: 5px;
+        border: 2px solid rgba(255,0,0,0.8);
+        left: 100%;
+        top: 0;
+    }
+}*/
+
+.round { border-radius: 50%; }
+
+.profile-cart {
+
+    display: block;
+    position: relative;
+    height: 30em;
+    width: 50em;
+    background-color: darkgrey;
+    border-radius: 1em;
+
+    .image{
+
+        position: absolute;
+        width: 10em;
+        top: 2em;
+        left: 2em;
+
+        button {
+
+            width: 100%;
+            border: none;
+            background: none;
+            color: white;    
+            outline: none;
+
+            &:hover { text-decoration: underline; }
+        }
+    }
+}
+

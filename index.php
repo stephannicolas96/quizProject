@@ -9,7 +9,7 @@ session_start();
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="Stephan Nicolas" />
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/css/index.css">
+        <link rel="stylesheet" href="assets/css/style.css">
         <script src="assets/js/import/jquery.min.js"></script>
         <script src="assets/js/import/popper.min.js"></script>
         <script src="assets/js/import/bootstrap.min.js"></script>
@@ -21,7 +21,7 @@ session_start();
             
         </div>                  
         <?php
-        include path::$layout . 'navbar.php';
+        include path::getLayout() . 'navbar.php';
         ?>
     </body>
 </html>

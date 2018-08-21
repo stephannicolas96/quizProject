@@ -1,8 +1,8 @@
 <?php
-include 'assets/layout/modalLogin.php';
-include 'assets/layout/modalRegistration.php';
-include 'assets/layout/modalForgotPassword.php';
-include 'assets/layout/modalLogout.php';
+include path::getLayout() . 'modalLogin.php';
+include path::getLayout() . 'modalRegistration.php';
+include path::getLayout() . 'modalForgotPassword.php';
+include path::getLayout() . 'modalLogout.php';
 ?>
 <nav class="navbar navbar-expand-sm">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">

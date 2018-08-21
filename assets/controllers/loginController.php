@@ -1,24 +1,28 @@
 <?php
 
-include_once path::$classes . 'user.php';
+include_once path::getClasses() . 'user.php';
 
 $loginUserInstance = new user();
 
 $loginSuccess = false;
-$formError = array();
+$loginErrors = array();
+$previousLogin = null;
 
 if (!empty($_POST) && isset($_POST['connect'])) {
-    
+
     $loginError = true;
-    
+
     //MAIL/USERNAME
     if (isset($_POST['login'])) {
-      
+
         $login = htmlspecialchars($_POST['login']);
         $loginUserInstance->mail = $loginUserInstance->username = $login;
-         
-        if($loginUserInstance->getUserByMail() == 1 || $loginUserInstance->getUserByUsername() == 1){
-           $loginError=false;
+
+        if ((!preg_match(regex::getUsername(), $loginUserInstance->username) || empty($loginUserInstance->username)) && (!preg_match(regex::getMail(), $loginUserInstance->mail) || empty($loginUserInstance->mail))) {
+            $loginError = true;
+        } else if ($loginUserInstance->getUserByMail() == 1 || $loginUserInstance->getUserByUsername() == 1) {
+            $loginError = false;
+            $previousLogin = $loginUserInstance->username;
         }
     }
 
@@ -26,17 +30,20 @@ if (!empty($_POST) && isset($_POST['connect'])) {
     if (isset($_POST['password'])) {
 
         $loginUserInstance->password = htmlspecialchars($_POST['password']);
-
-        if (!preg_match(regex::$password, $loginUserInstance->password) || empty($loginUserInstance->password)) {
+        if (!preg_match(regex::getPassword(), $loginUserInstance->password) || empty($loginUserInstance->password)) {
             $loginError = true;
+        } else {
+             if (!password_verify($loginUserInstance->password, $loginUserInstance->hashedPassword)) {
+                $loginError = true;
+            }
         }
     }
-    
-    if($loginError){
-        $formError['connexion'] = 'Mail/Nom d\'utilisateur ou mot de passe incorrecte';
+
+    if ($loginError) {
+        $loginErrors['connexion'] = 'Mail/Nom d\'utilisateur ou mot de passe incorrecte';
     }
-    
-    if(count($formError) == 0 && password_verify($loginUserInstance->password, $loginUserInstance->hashedPassword)){
+
+    if (count($loginErrors) == 0) {
         $_SESSION['username'] = $loginUserInstance->username;
         $_SESSION['mail'] = $loginUserInstance->mail;
         $_SESSION['image'] = $loginUserInstance->image;

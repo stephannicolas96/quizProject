@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once 'assets/classes/path.php';
-include path::$controllers . 'leaderboardController.php';
+include path::getControllers() . 'leaderboardController.php';
 
 $medalLink = array('gold', 'silver', 'bronze');
 ?>
@@ -21,17 +21,17 @@ $medalLink = array('gold', 'silver', 'bronze');
         <title>QUIZ</title>
     </head>
     <body>
-        <?php include path::$layout . 'navbar.php'; ?>
+        <?php include path::getLayout() . 'navbar.php'; ?>
         <div class="container-fluid w-75 mt-5 p-0">
             <div class="row m-0">
                 <div class="col-12 p-2">
                     <?php foreach ($leaderboardTop as $key => $user) { ?>
                         <div class="row m-0 p-3 <?= ($key % 2 == 1) ? 'bg-color-1' : 'bg-color-2'; ?>">
                             <div class="col-3 col-xl-1 p-0">
-                                <img class="medalSize" src="<?= path::$images . $medalLink[$key]; ?>.png" title="<?= $medalLink[$key] ?> medal" alt="<?= $medalLink[$key] ?> medal" />
+                                <img class="medalSize" src="<?= path::getImages() . $medalLink[$key]; ?>.png" title="<?= $medalLink[$key] ?> medal" alt="<?= $medalLink[$key] ?> medal" />
                             </div>
                             <div class="col-3 col-xl-1 p-0" >
-                                <img class="userImage d-flex align-items-center text-center" src="<?= (file_exists(path::$userImages . $user['id'] . '.png')) ? path::$userImages . $user['id'] . '.png' : path::$userImages . 'user-image.png' ?>" style="background-color: <?= '#' . $user['color'] ?>" title="user image" alt="user image" />
+                                <img class="userImage d-flex align-items-center text-center" src="<?= (file_exists(path::getUserImages() . $user['id'] . '.png')) ? path::getUserImages() . $user['id'] . '.png' : path::getUserImages() . 'user-image.png' ?>" style="background-color: <?= '#' . $user['color'] ?>" title="user image" alt="user image" />
                             </div>
                             <div class="col-4 col-xl-3 d-flex align-items-center p-0">
                                 <p class="font-italic"><?= $user['username'] ?></p>
@@ -53,7 +53,7 @@ $medalLink = array('gold', 'silver', 'bronze');
                                     <p class="font-weight-bold"><?= $user['id'] + $index ?>.</p>
                                 </div>
                                 <div class="col-3 col-xl-1 p-0" >
-                                    <img class="userImage d-flex align-items-center text-center" src="<?= (file_exists(path::$userImages . $user['id'] . '.png')) ? path::$userImages . $user['id'] . '.png' : path::$userImages . 'user-image.png' ?>" style="background-color: <?= '#' . $user['color'] ?>" title="user image" alt="user image" />
+                                    <img class="userImage d-flex align-items-center text-center" src="<?= (file_exists(path::getUserImages() . $user['id'] . '.png')) ? path::getUserImages() . $user['id'] . '.png' : path::getUserImages() . 'user-image.png' ?>" style="background-color: <?= '#' . $user['color'] ?>" title="user image" alt="user image" />
                                 </div>
                                 <div class="col-4 col-xl-3 d-flex align-items-center p-0">
                                     <p class="font-italic"><?= $user['username'] ?></p>
