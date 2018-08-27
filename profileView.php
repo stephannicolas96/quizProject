@@ -11,7 +11,6 @@ include path::getControllers() . 'profileController.php';
         <meta name="author" content="Stephan Nicolas" />
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/index.css">
-        <link rel="stylesheet" href="assets/css/temp.css"/>
         <link rel="stylesheet" href="assets/css/style.css"/>
         <script src="assets/js/import/jquery.min.js"></script>
         <script src="assets/js/import/popper.min.js"></script>
@@ -36,10 +35,12 @@ include path::getControllers() . 'profileController.php';
                                         <!-- user image -->
                                         <div class="col-4">
                                             <div class="row">
-                                                <div class="col d-block">
-                                                    <label for="newUserImage" class="file-input mx-auto my-2">      
-                                                        <img class="userImage rounded-circle" src="<?= ($profileUserInstance->id != null && $userImageExist) ? path::getUserImages() . $profileUserInstance->id . '.png' : path::getUserImages() . 'user-image.png' ?>" style="background-color: <?= '#' . $profileUserInstance->color ?>" title="user image" alt="user image" />
-                                                    </label>
+                                                <div class="col d-flex">
+                                                    <div class="userImageContainer  mx-auto" style="background-color: <?= '#' . $profileUserInstance->color ?>">
+                                                        <label for="newUserImage" class="file-input">      
+                                                            <img class="userImage rounded-circle" src="<?= ($profileUserInstance->id != null && $userImageExist) ? path::getUserImages() . $profileUserInstance->id . '.png' : path::getUserImages() . 'user-image.png' ?>" title="user image" alt="user image" />
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <?php if ($profileUserInstance->id != null && $userImageExist) { ?>
@@ -134,8 +135,8 @@ include path::getControllers() . 'profileController.php';
                                     <div class="row">
                                         <!-- user image -->
                                         <div class="col-4 d-flex">
-                                            <div>
-                                                <img class="userImage rounded-circle  mx-auto my-2" src="<?= ($profileUserInstance->id != null && $userImageExist) ? path::getUserImages() . $profileUserInstance->id . '.png' : path::getUserImages() . 'user-image.png' ?>" style="background-color: <?= '#' . $profileUserInstance->color ?>" title="user image" alt="user image" />
+                                            <div class="userImageContainer" style="background-color: <?= '#' . $profileUserInstance->color ?>">
+                                                <img class="userImage rounded-circle  mx-auto" src="<?= ($profileUserInstance->id != null && $userImageExist) ? path::getUserImages() . $profileUserInstance->id . '.png' : path::getUserImages() . 'user-image.png' ?>" title="user image" alt="user image" />
                                             </div>
                                         </div>
                                         <!-- user fields -->

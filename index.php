@@ -1,6 +1,7 @@
 <?php
-include_once 'assets/classes/path.php';
 session_start();
+include_once 'assets/classes/path.php';
+include path::getControllers() . 'langageController.php';
 ?>
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
@@ -8,17 +9,20 @@ session_start();
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="Stephan Nicolas" />
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/css/import/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/import/msdropdown/dd.css" />
+        <link rel="stylesheet" type="text/css" href="assets/css/import/msdropdown/flags.css" />
         <script src="assets/js/import/jquery.min.js"></script>
         <script src="assets/js/import/popper.min.js"></script>
         <script src="assets/js/import/bootstrap.min.js"></script>
+        <script src="assets/js/import/msdropdown/jquery.dd.min.js"></script>
         <script src="assets/js/index.js"></script>
         <title>QUIZ</title>
     </head>
     <body>
         <div id="pageTop">
-            
+
         </div>                  
         <?php
         include path::getLayout() . 'navbar.php';

@@ -11,7 +11,7 @@ include path::getLayout() . 'modalLogout.php';
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="index.php">Home</a>
+                <a class="nav-link" href="index.php"><?= home ?></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="quizCreation.php">Create</a>
@@ -29,7 +29,7 @@ include path::getLayout() . 'modalLogout.php';
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="modal" href="#loginModal">Sign In</a>
                 </li> 
-                <?php } else if ($isLoggedSet && $_SESSION['logged']) { ?>
+            <?php } else if ($isLoggedSet && $_SESSION['logged']) { ?>
                 <li>
                     <a class="nav-link" href="profileView.php">Profile</a>
                 </li>
@@ -39,6 +39,22 @@ include path::getLayout() . 'modalLogout.php';
                     </form>
                 </li>    
             <?php } ?>
+            <li>
+                <form action="action" method='GET'>
+                    <select name="lang" id="language" style="width:300px;">
+                        <option value='fr' data-image="assets/images/msdropdown/icons/blank.gif" data-imagecss="flag fr" data-title="France"><?= french ?></option>
+                        <option value='en' data-image="assets/images/msdropdown/icons/blank.gif" data-imagecss="flag en" data-title="United-Kingdom"><?= english ?></option>
+                    </select>  
+                </form>
+            </li>
         </ul>
     </div>  
 </nav>
+<script>
+    $(document).ready(function () {
+        $('languageSelect').on('change', function () {
+            document.forms['languageSelection'].submit();
+        });
+         $("#language").msDropdown();
+    });
+</script>

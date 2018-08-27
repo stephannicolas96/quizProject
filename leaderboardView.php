@@ -2,6 +2,7 @@
 session_start();
 include_once 'assets/classes/path.php';
 include path::getControllers() . 'leaderboardController.php';
+include path::getControllers() . 'langageController.php';
 
 $medalLink = array('gold', 'silver', 'bronze');
 ?>

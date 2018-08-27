@@ -63,7 +63,7 @@ if (!empty($_POST)) {
         }
     } else if (isset($_POST['deleteUserImage'])) { //DELETE USER IMAGE
         // PERMISSION DENIED !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!F
-        unlink(path::$userImages . $profileUserInstance->id . '.png');
+        unlink(path::getUserImages() . $profileUserInstance->id . '.png');
         unset($_POST);
     } else if (isset($_POST['deleteUser'])) { // DELETE USER
         $profileUserInstance->deleteUserById();

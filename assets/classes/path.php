@@ -7,6 +7,7 @@ class path {
     private static $layout = 'assets/layout/';
     private static $images = 'assets/images/';
     private static $userImages = 'userImages/';
+    private static $langage = 'assets/langage/';
     private static $regex = 'assets/classes/regex.php';
     private static $helpers = 'assets/classes/helpers.php';
     private static $database = 'assets/classes/database.php';
@@ -29,6 +30,10 @@ class path {
 
     public function getUserImages() {
         return self::$userImages;
+    }
+    
+    public function getLangage() {
+        return self::$langage;
     }
 
     public function getRegex() {
