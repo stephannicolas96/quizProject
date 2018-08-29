@@ -1,21 +1,32 @@
 //------------------------------------ VARIABLES ------------------------------------//
 $aColor: #ccc;
+$aOnHoverColor: white;
 $aShadowColor: #4e9dec;
 $baseTextColor: #404040;
 
 //------------------------------------ A ------------------------------------//
 a.highlighted, li a.highlighted{
     color: $aColor;
-
+    text-transform: uppercase;
     &:hover{
-        color: white;
+        color: $aOnHoverColor;
         text-shadow: 0 0 5px $aShadowColor,0 0 5px $aShadowColor,0 0 15px $aShadowColor;
         text-decoration: none;
+        & > img.settingsIcon{
+            opacity: .9;
+        }
+    }
+    & > img.settingsIcon{
+        height: 15px;
+        opacity: .7;
+        margin-left: 20px;
+        margin-right: 10px;
     }
 }
 //------------------------------------ BODY ------------------------------------//
 body{
     text-align: center;
+    background-color: #ccc
 }
 //------------------------------------ FOCUS ------------------------------------//
 :focus{
@@ -25,6 +36,11 @@ body{
 ul, ol{
     list-style: none;
     margin : 0;
+}
+//------------------------------------ P ------------------------------------//
+p{
+    line-height: 1.5;
+    margin-bottom: 0;
 }
 //------------------------------------ NAVBAR ------------------------------------//
 nav{
@@ -43,6 +59,7 @@ nav{
 
     & > ul{
         float: left;
+        text-align: left;
         width: calc(100% - 158px);
         & > li{
             display: inline-block;
@@ -50,8 +67,81 @@ nav{
             
             &#SignUp{
                 float: right;
+                margin-right: 5px;
             }
         }
+    }
+}
+ul#settingsMenu{
+    position: fixed;
+    top:40px;
+    left: 0;
+    background-image: url(../images/settings-menu-background.png);
+    background-position: right bottom;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 3px 76px 0 10px;
+    & > li{
+        position: relative;
+        display: inline-block;
+        vertical-align: text-top;
+        & > a {
+            display: inline-block;
+            vertical-align: text-top;
+            & > img{
+                position: relative;
+                top: 0;
+            }
+        }
+        &.hasChildren{
+            position: static;
+            padding-bottom: 18px;
+            & > ul{
+                position: absolute;
+                top: 36px;
+                left: 0;               
+                margin: 0;
+                width: auto;
+                overflow: visible;
+                background-color: rgba(0,14,12,.9);
+                padding: 10px;
+                display: none;
+                & > li{
+                    display: block;
+                    padding: 5px;
+                    & > p > a {
+                        display: inline-block;
+                    }
+                    & img{
+                        margin-right: 3px;
+                    }
+                }
+            }
+            &:hover > ul{
+                display: block;
+            }
+        }
+    }
+}
+li.hasChildren > a{
+    & > img{
+        display: inline-block;
+    }
+    &::after{
+        content: "";
+        background-image: url(../images/dropdown-arrow.png);
+        background-position: top center;
+        background-size: cover;
+        height: 10px;
+        width: 11px;
+        display: inline-block;
+        position: relative;
+        vertical-align: text-top;
+        margin-left: 3px;
+        top: 4.5px;
+    }
+    &:hover::after{
+        background-position: bottom center;
     }
 }
 

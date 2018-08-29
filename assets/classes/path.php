@@ -12,39 +12,39 @@ class path {
     private static $helpers = 'assets/classes/helpers.php';
     private static $database = 'assets/classes/database.php';
 
-    public function getClasses() {
+    public static function getClasses() {
         return self::$classes;
     }
 
-    public function getControllers() {
+    public static function getControllers() {
         return self::$controllers;
     }
 
-    public function getLayout() {
+    public static function getLayout() {
         return self::$layout;
     }
 
-    public function getImages() {
+    public static function getImages() {
         return self::$images;
     }
 
-    public function getUserImages() {
+    public static function getUserImages() {
         return self::$userImages;
     }
     
-    public function getLangage() {
+    public static function getLangage() {
         return self::$langage;
     }
 
-    public function getRegex() {
+    public static function getRegex() {
         return self::$regex;
     }
 
-    public function getHelpers() {
+    public static function getHelpers() {
         return self::$helpers;
     }
 
-    public function getDatabase() {
+    public static function getDatabase() {
         return self::$database;
     }
 

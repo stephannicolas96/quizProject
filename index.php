@@ -10,7 +10,7 @@ include path::getControllers() . 'langageController.php';
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="Stephan Nicolas" />
         <link rel="stylesheet" href="assets/css/import/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/css/temp.css">
+        <link rel="stylesheet" href="assets/css/temp.min.css">
         <script src="assets/js/import/jquery.min.js"></script>
         <script src="assets/js/import/popper.min.js"></script>
         <script src="assets/js/import/bootstrap.min.js"></script>
@@ -24,5 +24,6 @@ include path::getControllers() . 'langageController.php';
         <?php
         include path::getLayout() . 'navbar.php';
         ?>
+        
     </body>
 </html>
