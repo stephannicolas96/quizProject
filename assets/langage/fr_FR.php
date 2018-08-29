@@ -1,4 +1,9 @@
 <?php
-define("home", "Accueil");
-define("french", "Français");
-define("english", "Anglais");
+//---------------NAVBAR---------------//
+define('home', 'Acceuil');
+define('create', 'Créer');
+define('leaderboard', 'Classement');
+define('duel', 'Défis');
+define('signIn', 'Connexion');
+define('profile', 'Profile');
+define('logout', 'Logout');

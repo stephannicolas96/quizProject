@@ -1,0 +1,57 @@
+//------------------------------------ VARIABLES ------------------------------------//
+$aColor: #ccc;
+$aShadowColor: #4e9dec;
+$baseTextColor: #404040;
+
+//------------------------------------ A ------------------------------------//
+a.highlighted, li a.highlighted{
+    color: $aColor;
+
+    &:hover{
+        color: white;
+        text-shadow: 0 0 5px $aShadowColor,0 0 5px $aShadowColor,0 0 15px $aShadowColor;
+        text-decoration: none;
+    }
+}
+//------------------------------------ BODY ------------------------------------//
+body{
+    text-align: center;
+}
+//------------------------------------ FOCUS ------------------------------------//
+:focus{
+    outline: none;
+}
+//------------------------------------ LIST BASE ------------------------------------//
+ul, ol{
+    list-style: none;
+    margin : 0;
+}
+//------------------------------------ NAVBAR ------------------------------------//
+nav{
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(to right,#222629,#3c4043,#222629);
+
+    & > #headerLogo{
+        float: left;
+        padding: 9px 0 0 9px;
+        width: 158px;
+    }
+
+    & > ul{
+        float: left;
+        width: calc(100% - 158px);
+        & > li{
+            display: inline-block;
+            padding: 9px 4.5px 0 4.5px;
+            
+            &#SignUp{
+                float: right;
+            }
+        }
+    }
+}
+

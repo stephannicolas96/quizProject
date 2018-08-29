@@ -1,11 +1,13 @@
 <?php
 
-if (isset($_COOKIE['lang'])) {
+//TODO : REGEX GET COOKIE
+
+if(isset($_GET['lang'])){
+   $lang = $_GET['lang'];
+} else if (isset($_COOKIE['lang'])) {
     $lang = $_COOKIE['lang'];
-    $_GET['lang'] = $lang;
 } else {
     $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-    $_GET['lang'] = $lang;
 }
 
 setcookie("lang", $lang, time() + 365 * 24 * 3600);
