@@ -1,21 +1,12 @@
 <?php
 
-$langage = 'cpp';
-$userCode = '#include <iostream> ' . PHP_EOL .
-            '#include <limits> ' . PHP_EOL .
-            '#include <sstream> ' . PHP_EOL .
-            'int main() {' . PHP_EOL .
-            'std::string line;' . PHP_EOL .
-            'while (std::getline(std::cin, line))' . PHP_EOL .
-            '{' . PHP_EOL .
-            'std::cout << line;' . PHP_EOL .
-            '}' . PHP_EOL .
-            '}';
+$langage = 'cpp'; // ADD POST VARIABLE
+$userCode = $_POST['code']; // SECURE THIS
 //PHP COMPILER
 $parameterFile = tmpfile();
-$output = null;
-$parameter = '<?php echo  \'1200 489489 489 9989 97676 884849\'' . PHP_EOL . ' ?>';
+$parameter = '<?php echo  \'1200 489489 489 9989 97676 884849\'' . PHP_EOL . '  ?>';
 fwrite($parameterFile, $parameter);
+$output = null;
 switch ($langage) {
     case 'php':
         $tempFile = tmpfile();
@@ -25,13 +16,11 @@ switch ($langage) {
         fclose($tempFile);
         break;
     case 'cpp':
-        $date = new DateTime();
-        $timestamp = $date->getTimestamp();
-        $cppFile = fopen('../cpp/' . $timestamp . '.cpp', 'w');
-        $code = $userCode;
-        fwrite($cppFile, $code);
+
+        $cppFile = fopen('../../temp/' . getFileName('cpp'), 'w');
+        fwrite($cppFile, $userCode);
         $filePath = stream_get_meta_data($cppFile)['uri'];
-        shell_exec('g++ ' . $filePath . ' -O3 -o ' . $filePath . '.exe');
+        $output = shell_exec('g++ ' . $filePath . ' -O3 -o ' . $filePath . '.exe 2>&1'); //2 standard error 1 standard output >& redirection
         $output = shell_exec('php  ' . stream_get_meta_data($parameterFile)['uri'] . ' | ' . $filePath . '.exe');
         fclose($cppFile);
         if (file_exists($filePath)) {
@@ -44,5 +33,17 @@ switch ($langage) {
     default:
         break;
 }
-echo $output;
+
+var_dump($output); //TEMP REMOVE
+
 fclose($parameterFile);
+
+/**
+ * Return current timestamp to create a unique filename.
+ * @param string $extension
+ * @return string
+ */
+function getFileName($extension) {
+    $date = new DateTime();
+    return $date->getTimestamp() . '.' . $extension;  
+}

@@ -13,7 +13,7 @@ var myCodeMirror = CodeMirror(document.getElementById('editor'), {
             'std::string line;\n\t' +
             'while (std::getline(std::cin, line))\n\t' +
             '{\n\t\t' +
-            'cout << line;\n\t' +
+            'std::cout << line;\n\t' +
             '}\n' +
             '}',
     mode: 'cpp'

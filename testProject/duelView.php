@@ -13,11 +13,9 @@ include_once path::getControllersPath() . 'duelController.php';
         <title>TODO: FIND A TITLE FOR THIS PAGE</title>
         <style type="text/css" media="screen">
             #editor { 
-                position: absolute;
-                top: 10%;
-                right: 10%;
-                bottom: 10%;
-                left: 10%;
+                position: relative;
+                width: 300px;
+                height: 300px;
             }
         </style>
     </head>
