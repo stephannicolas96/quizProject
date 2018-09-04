@@ -1,6 +1,8 @@
 <?php
 session_start();
 include_once 'assets/classes/path.php';
+include path::getLangagePath() . 'fr_FR.php'; //TEMP REMOVE
+include_once path::getControllersPath() . 'indexController.php';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -11,7 +13,7 @@ include_once 'assets/classes/path.php';
         <title>TODO: FIND A TITLE FOR THIS PAGE</title>
     </head>
     <body>        
-
+        <?php include path::getLayoutPath() . 'navbar.php'; ?>
     </body>
 </html>
 

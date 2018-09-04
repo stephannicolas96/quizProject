@@ -9,7 +9,9 @@ class user extends database {
     public $mail = null;
     public $password = null;
     public $confirmPassword = null;
+    public $newPassword = null;
     public $hashedPassword = null;
+    public $databaseHashedPassword = null;
     public $image = null;
     public $color = null;
     private $colorsForUserCreation = ['F9D400', '4ED37C', '00C7FF', 'DC00FF'];
@@ -79,7 +81,7 @@ class user extends database {
 
     /**
      * Get user information using MAIL
-     * (-2 = prefix doesn't match regex, -1 = request execution fails, 0 = TODO, 1 = TODO)
+     * (-2 = prefix doesn't match regex, -1 = request execution fails, 0 = user data not found, 1 = success)
      * @return int
      */
     public function getUserByMail() {
@@ -99,7 +101,7 @@ class user extends database {
 
     /**
      * Get user information using USERNAME
-     * (-2 = prefix doesn't match regex, -1 = request execution fails, 0 = TODO, 1 = TODO)
+     * (-2 = prefix doesn't match regex, -1 = request execution fails, 0 = user data not found, 1 = success)
      * @return int
      */
     public function getUserByUsername() {
@@ -119,7 +121,7 @@ class user extends database {
 
     /**
      * Get user information using ID
-     * (-2 = prefix doesn't match regex, -1 = request execution fails, 0 = TODO, 1 = TODO)
+     * (-2 = prefix doesn't match regex, -1 = request execution fails, 0 = user data not found, 1 = success)
      * @return int
      */
     public function getUserByID() {
@@ -136,12 +138,12 @@ class user extends database {
         }
         return $returnValue;
     }
-    
-    
+
     /**
-     * TODO: CHANGE THIS !!!!!!!!!!!
      * Stocke les données du paramétre dans les variables de l'instance de cette classe
+     * (0 = userData wasn't an object, 1 = success);
      * @param $userData données d'un utilisateur récupéré d'une requête sql
+     * @return int
      */
     private function setUserData($userData) {
         $returnValue = 0;
@@ -149,7 +151,7 @@ class user extends database {
             $this->id = $userData->id;
             $this->username = $userData->username;
             $this->mail = $userData->mail;
-            $this->hashedPassword = $userData->password;
+            $this->databaseHashedPassword = $userData->password;
             $this->image = $userData->id . '.png';
             $this->color = $userData->color;
             $returnValue = 1;
@@ -157,7 +159,6 @@ class user extends database {
         return $returnValue;
     }
 
-    
     /**
      * Update user informations using ID (the password isn't changed)
      *  (-2 = prefix doesn't match regex, -1 = request execution fails, 1 = sucess)
@@ -169,6 +170,29 @@ class user extends database {
             $updateUser = $this->db->prepare('UPDATE `' . $this->prefix . 'user` SET `mail` = LCASE(:mail), `username` = CONCAT(UCASE(LEFT(:username, 1)), SUBSTRING(:username, 2)) WHERE `id` = :id');
             $updateUser->bindValue(':id', $this->id, PDO::PARAM_STR);
             $updateUser->bindValue(':mail', $this->mail, PDO::PARAM_STR);
+            $updateUser->bindValue(':username', $this->username, PDO::PARAM_STR);
+
+            if ($updateUser->execute()) {
+                $returnValue = 1;
+            } else {
+                $returnValue = -1;
+            }
+        }
+        return $returnValue;
+    }
+
+    /**
+     * Update user informations using ID (the password isn't changed)
+     *  (-2 = prefix doesn't match regex, -1 = request execution fails, 1 = sucess)
+     * @return int
+     */
+    public function updateUserWithPasswordById() {
+        $returnValue = -2;
+        if (preg_match(regex::getPrefixRegex(), $this->prefix)) {
+            $updateUser = $this->db->prepare('UPDATE `' . $this->prefix . 'user` SET `mail` = LCASE(:mail),`password` = :password, `username` = CONCAT(UCASE(LEFT(:username, 1)), SUBSTRING(:username, 2)) WHERE `id` = :id');
+            $updateUser->bindValue(':id', $this->id, PDO::PARAM_STR);
+            $updateUser->bindValue(':mail', $this->mail, PDO::PARAM_STR);
+            $updateUser->bindValue(':password', $this->hashedPassword, PDO::PARAM_STR);
             $updateUser->bindValue(':username', $this->username, PDO::PARAM_STR);
 
             if ($updateUser->execute()) {
@@ -199,4 +223,5 @@ class user extends database {
         }
         return $returnValue;
     }
+
 }
