@@ -1,4 +1,5 @@
 <?php
+// set_time_limit ( int $seconds );
 
 $langage = 'cpp'; // ADD POST VARIABLE
 $userCode = $_POST['code']; // SECURE THIS
@@ -16,13 +17,26 @@ switch ($langage) {
         fclose($tempFile);
         break;
     case 'cpp':
-
         $cppFile = fopen('../../temp/' . getFileName('cpp'), 'w');
         fwrite($cppFile, $userCode);
         $filePath = stream_get_meta_data($cppFile)['uri'];
         $output = shell_exec('g++ ' . $filePath . ' -O3 -o ' . $filePath . '.exe 2>&1'); //2 standard error 1 standard output >& redirection
         $output = shell_exec('php  ' . stream_get_meta_data($parameterFile)['uri'] . ' | ' . $filePath . '.exe');
         fclose($cppFile);
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
+        if (file_exists($filePath . '.exe')) {
+            unlink($filePath . '.exe');
+        }
+        break;
+    case 'c' :
+        $cFile = fopen('../../temp/' . getFileName('c'), 'w');
+        fwrite($cFile, $userCode);
+        $filePath = stream_get_meta_data($cFile)['uri'];
+        $output = shell_exec('gcc ' . $filePath . ' -O3 -o ' . $filePath . '.exe 2>&1'); //2 standard error 1 standard output >& redirection
+        $output = shell_exec('php  ' . stream_get_meta_data($parameterFile)['uri'] . ' | ' . $filePath . '.exe');
+        fclose($cFile);
         if (file_exists($filePath)) {
             unlink($filePath);
         }
@@ -45,5 +59,5 @@ fclose($parameterFile);
  */
 function getFileName($extension) {
     $date = new DateTime();
-    return $date->getTimestamp() . '.' . $extension;  
+    return $date->getTimestamp() . '.' . $extension;
 }

@@ -6,7 +6,7 @@ class user extends database {
 
     public $id = null;
     public $username = null;
-    public $mail = null;
+    public $email = null;
     public $password = null;
     public $confirmPassword = null;
     public $newPassword = null;
@@ -24,8 +24,8 @@ class user extends database {
     public function addUser() {
         $returnValue = -2;
         if (preg_match(regex::getPrefixRegex(), $this->prefix)) {
-            $addUserToDB = $this->db->prepare('INSERT INTO `' . $this->prefix . 'user` (`mail`, `password`, `username`, `color`) ' . 'VALUES (LCASE(:mail), :password, CONCAT(UCASE(LEFT(:username, 1)), SUBSTRING(:username, 2)), :color)');
-            $addUserToDB->bindValue(':mail', $this->mail, PDO::PARAM_STR);
+            $addUserToDB = $this->db->prepare('INSERT INTO `' . $this->prefix . 'user` (`email`, `password`, `username`, `color`) ' . 'VALUES (LCASE(:email), :password, CONCAT(UCASE(LEFT(:username, 1)), SUBSTRING(:username, 2)), :color)');
+            $addUserToDB->bindValue(':email', $this->email, PDO::PARAM_STR);
             $addUserToDB->bindValue(':password', $this->hashedPassword, PDO::PARAM_STR);
             $addUserToDB->bindValue(':username', $this->username, PDO::PARAM_STR);
             $addUserToDB->bindValue(':color', $this->colorsForUserCreation[rand(0, count($this->colorsForUserCreation) - 1)], PDO::PARAM_STR);
@@ -40,18 +40,18 @@ class user extends database {
     }
 
     /**
-     * Check if the mail already exist in the database
-     * (-2 = prefix doesn't match regex, -1 = request execution fails, 0 = mail doesn't exist, 1 = mail already exist)
+     * Check if the email already exist in the database
+     * (-2 = prefix doesn't match regex, -1 = request execution fails, 0 = email doesn't exist, 1 = email already exist)
      * @return int
      */
-    public function checkIfMailAlreadyExist() {
+    public function checkIfEmailAlreadyExist() {
         $returnValue = -2;
         if (preg_match(regex::getPrefixRegex(), $this->prefix)) {
-            $checkMail = $this->db->prepare('SELECT COUNT(`mail`) FROM `' . $this->prefix . 'user` WHERE `mail` = :mail');
-            $checkMail->bindValue(':mail', $this->mail, PDO::PARAM_STR);
+            $checkEmail = $this->db->prepare('SELECT COUNT(`email`) FROM `' . $this->prefix . 'user` WHERE `email` = :email');
+            $checkEmail->bindValue(':email', $this->email, PDO::PARAM_STR);
 
-            if ($checkMail->execute()) {
-                $returnValue = $checkMail->fetchColumn();
+            if ($checkEmail->execute()) {
+                $returnValue = $checkEmail->fetchColumn();
             } else {
                 $returnValue = -1;
             }
@@ -80,15 +80,15 @@ class user extends database {
     }
 
     /**
-     * Get user information using MAIL
+     * Get user information using EMAIL
      * (-2 = prefix doesn't match regex, -1 = request execution fails, 0 = user data not found, 1 = success)
      * @return int
      */
-    public function getUserByMail() {
+    public function getUserByEmail() {
         $returnValue = -2;
         if (preg_match(regex::getPrefixRegex(), $this->prefix)) {
-            $getUser = $this->db->prepare('SELECT `id`, `mail`, `password`, `username`, `color`  FROM `' . $this->prefix . 'user` WHERE `mail` = :mail');
-            $getUser->bindValue(':mail', $this->mail, PDO::PARAM_STR);
+            $getUser = $this->db->prepare('SELECT `id`, `email`, `password`, `username`, `color`  FROM `' . $this->prefix . 'user` WHERE `email` = :email');
+            $getUser->bindValue(':email', $this->email, PDO::PARAM_STR);
 
             if ($getUser->execute()) {
                 $returnValue = $this->setUserData($getUser->fetch(PDO::FETCH_OBJ));
@@ -107,7 +107,7 @@ class user extends database {
     public function getUserByUsername() {
         $returnValue = -2;
         if (preg_match(regex::getPrefixRegex(), $this->prefix)) {
-            $getUser = $this->db->prepare('SELECT `id`, `mail`, `password`, `username`, `color`  FROM `' . $this->prefix . 'user` WHERE `username` = :username');
+            $getUser = $this->db->prepare('SELECT `id`, `email`, `password`, `username`, `color`  FROM `' . $this->prefix . 'user` WHERE `username` = :username');
             $getUser->bindValue(':username', $this->username, PDO::PARAM_STR);
 
             if ($getUser->execute()) {
@@ -127,7 +127,7 @@ class user extends database {
     public function getUserByID() {
         $returnValue = -2;
         if (preg_match(regex::getPrefixRegex(), $this->prefix)) {
-            $getUser = $this->db->prepare('SELECT `id`, `mail`, `password`, `username`, `color`  FROM `' . $this->prefix . 'user` WHERE `id` = :id');
+            $getUser = $this->db->prepare('SELECT `id`, `email`, `password`, `username`, `color`  FROM `' . $this->prefix . 'user` WHERE `id` = :id');
             $getUser->bindValue(':id', $this->id, PDO::PARAM_STR);
 
             if ($getUser->execute()) {
@@ -150,7 +150,7 @@ class user extends database {
         if (is_object($userData)) {
             $this->id = $userData->id;
             $this->username = $userData->username;
-            $this->mail = $userData->mail;
+            $this->email = $userData->email;
             $this->databaseHashedPassword = $userData->password;
             $this->image = $userData->id . '.png';
             $this->color = $userData->color;
@@ -167,9 +167,9 @@ class user extends database {
     public function updateUserWithoutPasswordById() {
         $returnValue = -2;
         if (preg_match(regex::getPrefixRegex(), $this->prefix)) {
-            $updateUser = $this->db->prepare('UPDATE `' . $this->prefix . 'user` SET `mail` = LCASE(:mail), `username` = CONCAT(UCASE(LEFT(:username, 1)), SUBSTRING(:username, 2)) WHERE `id` = :id');
+            $updateUser = $this->db->prepare('UPDATE `' . $this->prefix . 'user` SET `email` = LCASE(:email), `username` = CONCAT(UCASE(LEFT(:username, 1)), SUBSTRING(:username, 2)) WHERE `id` = :id');
             $updateUser->bindValue(':id', $this->id, PDO::PARAM_STR);
-            $updateUser->bindValue(':mail', $this->mail, PDO::PARAM_STR);
+            $updateUser->bindValue(':email', $this->email, PDO::PARAM_STR);
             $updateUser->bindValue(':username', $this->username, PDO::PARAM_STR);
 
             if ($updateUser->execute()) {
@@ -189,9 +189,9 @@ class user extends database {
     public function updateUserWithPasswordById() {
         $returnValue = -2;
         if (preg_match(regex::getPrefixRegex(), $this->prefix)) {
-            $updateUser = $this->db->prepare('UPDATE `' . $this->prefix . 'user` SET `mail` = LCASE(:mail),`password` = :password, `username` = CONCAT(UCASE(LEFT(:username, 1)), SUBSTRING(:username, 2)) WHERE `id` = :id');
+            $updateUser = $this->db->prepare('UPDATE `' . $this->prefix . 'user` SET `email` = LCASE(:email),`password` = :password, `username` = CONCAT(UCASE(LEFT(:username, 1)), SUBSTRING(:username, 2)) WHERE `id` = :id');
             $updateUser->bindValue(':id', $this->id, PDO::PARAM_STR);
-            $updateUser->bindValue(':mail', $this->mail, PDO::PARAM_STR);
+            $updateUser->bindValue(':email', $this->email, PDO::PARAM_STR);
             $updateUser->bindValue(':password', $this->hashedPassword, PDO::PARAM_STR);
             $updateUser->bindValue(':username', $this->username, PDO::PARAM_STR);
 

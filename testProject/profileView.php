@@ -1,9 +1,8 @@
 <?php
 session_start();
-include_once 'assets/classes/path.php';
-include path::getControllersPath() . 'logoutController.php';
-include path::getLangagePath() . 'fr_FR.php'; //TEMP REMOVE
-include path::getControllersPath() . 'profileController.php';
+include_once 'classes/path.php';
+include_once path::getControllersPath() . 'profileController.php';
+include_once path::getControllersPath() . 'langageController.php';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -12,6 +11,7 @@ include path::getControllersPath() . 'profileController.php';
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="Stephan Nicolas" />
         <title>TODO: FIND A TITLE FOR THIS PAGE</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     </head>
     <body>            
         <?php include path::getLayoutPath() . 'navbar.php'; ?>
@@ -25,19 +25,24 @@ include path::getControllersPath() . 'profileController.php';
                     <input id="newUserImage" type="file" name="newUserImage"/>
                 <?php } ?>
 
-                <label for="username"><?= defined('username') ? username : 'Username' ?></label>
-                <input id="username" type="text" name="username"  value="<?= ($savedUsername) ? $savedUsername : '' ?>" required />
-
-                <label for="mail"><?= defined('mail') ? mail : 'Mail' ?></label>
-                <input id="mail" type="text" name="mail" value="<?= ($savedMail) ? $savedMail : '' ?>" required />
-
-                <label for="actualPassword"><?= defined('password') ? password : 'Password' ?></label>
-                <input id="actualPassword" type="password" name="actualPassword" required />
+                <label>
+                    <?= defined('username') ? username : 'Username' ?>
+                    <input type="text" name="username"  value="<?= ($savedUsername) ? $savedUsername : '' ?>" required />
+                </label>
+                <label>
+                    <?= defined('mail') ? mail : 'Mail' ?>
+                    <input type="text" name="mail" value="<?= ($savedMail) ? $savedMail : '' ?>" required />
+                </label>
+                <label>
+                    <?= defined('password') ? password : 'Password' ?>
+                    <input type="password" name="actualPassword" required />
+                </label>
                 <input type="button" value="<?= defined('changePassword') ? changePassword : 'Change password' ?>" />
 
-                <label for="newPassword"><?= defined('password') ? password : 'New password' ?></label>
-                <input id="newPassword" type="password" name="newPassword" />
-
+                <label>
+                    <?= defined('password') ? password : 'New password' ?>
+                    <input type="password" name="newPassword" />
+                </label>
                 <?php foreach ($profileErrors as $errorMessage) { ?>
                     <p><?= $errorMessage ?></p>
                 <?php } ?>
@@ -61,7 +66,7 @@ include path::getControllersPath() . 'profileController.php';
                 <p><?= $savedUsername ?></p>
             <?php } ?>
 
-            <h2><?= defined('mail') ? mail : 'Mail' ?></h2>
+            <h2><?= defined('email') ? email : 'Mail' ?></h2>
             <?php if ($savedMail) { ?>
                 <p><?= $savedMail ?></p>
             <?php } ?>
@@ -69,9 +74,13 @@ include path::getControllersPath() . 'profileController.php';
                 <form action="#" method="POST">
                     <input type="submit" name="modify" value="Modifier" />
                 </form>
-            <?php
+                <?php
             }
         }
         ?>
+        <script src="assets/js/import/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+        <script src="assets/js/valueChecker.js"></script>
+        <script src="assets/js/materializeInitializer.js"></script>
     </body>
 </html>
