@@ -10,7 +10,6 @@ $isLoggedSet = isset($_SESSION['logged']);
 <nav>
     <a href="/" id="headerLogo"><img src="" alt="LOGO" width="140"></a>
     <ul>
-        <li><a href="duel.php" class="highlighted"><?= (defined('duel')) ? duel : 'Duel' ?></a></li>
         <li><a href="quizCreation.php" class="highlighted"><?= (defined('create')) ? create : 'Create' ?></a></li>
         <li><a href="leaderboardView.php" class="highlighted"><?= (defined('leaderboard')) ? leaderboard : 'Leaderboard' ?></a></li>
         <li id="SignUp"><a href="" class="highlighted"><?= (defined('signUp')) ? signUp : 'Sign Up' ?></a></li>
