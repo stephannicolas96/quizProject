@@ -9,7 +9,7 @@ $registrationErrors = array();
 $savedUsername = null;
 $savedMail = null;
 
-if (!empty($_POST) && isset($_POST['register'])) {
+if (isset($_POST['register'])) {
     unset($_POST['register']);
 
     //USERNAME
@@ -19,10 +19,10 @@ if (!empty($_POST) && isset($_POST['register'])) {
             unset($_POST['username']);
             $savedUsername = $registrationUserInstance->username; //TODO HTMLSPECIALCHART ????
         } else {
-            $registrationErrors['username'] = (defined(usernameRegexFail)) ? usernameRegexFail : 'Username incorrect';
+            $registrationErrors['username'] = (defined('usernameRegexFail')) ? usernameRegexFail : 'Username incorrect';
         }
     } else {
-        $registrationErrors['username'] = (defined(usernameEmpty)) ? usernameEmpty : 'Username can\'t be empty';
+        $registrationErrors['username'] = (defined('usernameEmpty')) ? usernameEmpty : 'Username can\'t be empty';
     }
 
     //MAIL
@@ -32,10 +32,10 @@ if (!empty($_POST) && isset($_POST['register'])) {
             unset($_POST['mail']);
             $savedMail = $registrationUserInstance->mail; //TODO HTMLSPECIALCHART ????
         } else {
-            $registrationErrors['mail'] = (defined(mailRegexFail)) ? mailRegexFail : 'Mail incorrect';
+            $registrationErrors['mail'] = (defined('mailRegexFail')) ? mailRegexFail : 'Mail incorrect';
         }
     } else {
-        $registrationErrors['mail'] = (defined(mailEmpty)) ? mailEmpty : 'Mail can\'t be empty';
+        $registrationErrors['mail'] = (defined('mailEmpty')) ? mailEmpty : 'Mail can\'t be empty';
     }
 
     //PASSWORD
@@ -44,10 +44,10 @@ if (!empty($_POST) && isset($_POST['register'])) {
             $registrationUserInstance->password = $_POST['password'];
             unset($_POST['password']);
         } else {
-            $registrationErrors['password'] = (defined(passwordRegexFail)) ? passwordRegexFail : 'Password incorrect';
+            $registrationErrors['password'] = (defined('passwordRegexFail')) ? passwordRegexFail : 'Password incorrect';
         }
     } else {
-        $registrationErrors['password'] = (defined(passwordEmpty)) ? passwordEmpty : 'Password can\'t be empty';
+        $registrationErrors['password'] = (defined('passwordEmpty')) ? passwordEmpty : 'Password can\'t be empty';
     }
 
     //CONFIRM PASSWORD
@@ -56,10 +56,10 @@ if (!empty($_POST) && isset($_POST['register'])) {
             $registrationUserInstance->confirmPassword = $_POST['confirmPassword'];
             unset($_POST['confirmPassword']);
         } else {
-            $registrationErrors['confirmPassword'] = (defined(passwordRegexFail)) ? passwordRegexFail : 'Password incorrect';
+            $registrationErrors['confirmPassword'] = (defined('passwordRegexFail')) ? passwordRegexFail : 'Password incorrect';
         }
     } else {
-        $registrationErrors['confirmPassword'] = (defined(passwordEmpty)) ? passwordEmpty : 'Password can\'t be empty';
+        $registrationErrors['confirmPassword'] = (defined('passwordEmpty')) ? passwordEmpty : 'Password can\'t be empty';
     }
 
     //VERIFICATION DE LA CORRESPONDANCE DES MOT DE PASSES
