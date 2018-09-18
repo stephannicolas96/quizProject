@@ -1,8 +1,9 @@
 <?php
-function generateInput($array) {
+
+/*function generateInput($array) {
     $mainRegex = '/^[\d]+->[\d]+$/';
     $secondRegex = '/^[\d]+->[\d]+[xX][\d]+$/';
-    $splitRegex = '/(->|[xX])/';
+
     $output = null;
     $mainInput = array_shift($array);
     $secondInput = array_shift($array);
@@ -22,21 +23,49 @@ function generateInput($array) {
         }
         $output = $mainAmount . $output;
     } else {
-        return 'error';
+        $output = 'error';
     }
 
+    return $output;
+}*/
+
+function generateInput($array) {
+    $randomBetweenTwoNumber = '/^[\d]+->[\d]+$/';
+    $randomBetweenTwoNumberSplitRegex = '/(->)/';
+    $randomBetweenTwoNumberMultipleTimes = '/^[\d]+->[\d]+[xX][\d]+$/';
+    $randomBetweenTwoNumberMultipleTimesSplitRegex = '/(->|[xX])/';
+    $output = null;
+
+    foreach ($array as $lineNumber=>$line) {
+        $addToOutput = null;
+        if (preg_match($randomBetweenTwoNumber, $line)) {
+            $values = preg_split($randomBetweenTwoNumberSplitRegex, $line);
+            $addToOutput = rand($values[0], $values[1]);
+        } else if (preg_match($randomBetweenTwoNumberMultipleTimes, $line)) {
+            $values = preg_split($randomBetweenTwoNumberMultipleTimesSplitRegex, $line);
+            for ($i = 0; $i < $values[2]; $i++) {
+                $addToOutput = $addToOutput . ' ' . rand($values[0], $values[1]);
+            }
+        } else {
+            $output = 'error on line ' . ($lineNumber + 1) . ' : ' . $line;
+            break;
+        }
+        $output = $output . trim($addToOutput) . '|';
+    }
+    
     return $output;
 }
 
 $input = $_POST['input'];
-
+$numberOfInputToGenerate = $_POST['numberOfInput'];
 $input = explode(';', $input);
 $input = array_map('trim', $input);
 $input = array_filter($input, function($element) {
     return strlen($element) != 0;
 });
 $output = null;
-for ($i = 0; $i < 20; $i++) {
+
+for ($i = 0; $i < $numberOfInputToGenerate; $i++) {
     echo generateInput($input) . '/';
 }
 

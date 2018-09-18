@@ -20,7 +20,10 @@
                         <div class="input-field col s12">
                             <input id="registrationPassword" type="password" name="password" required maxlength="60"/>
                             <label for="registrationPassword"><?= defined('password') ? password : 'Password' ?></label>
-                            <button id="passwordVisibility" type="button"><i class="fas fa-eye"></i></button>
+                            <button id="registrationPasswordVisibility" type="button"><i class="fas fa-eye"></i></button>
+                            <div id="passwordDifficultyProgressBar">
+                                <div id="passwordDifficultyProgressBarForeground"></div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -29,8 +32,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col s12 errors"></div>
+                <div class="row errors">
+                    <div class="col s12"></div>
                 </div>
             </div>
             <div class="success">
@@ -41,7 +44,10 @@
             </div>
         </div>
         <div class="modal-footer">
-            <input id="registrationSubmit" class="modal-action waves-effect waves-green btn-flat" type="button" name="register" value="<?= defined('submit') ? submit : 'Register' ?>" />
+            <input id="registrationSubmit" class="modal-action waves-effect waves-green btn-flat" type="button" name="register" value="<?= defined('submit') ? submit : 'Submit' ?>" />
         </div>
     </form>
 </div>
+
+
+<p class="mt-3"><?= defined('alreadyHaveAnAccount') ? alreadyHaveAnAccount : 'Already have an account?' ?><a class="link" data-dismiss="modal" data-toggle="modal" href="#loginModal"><?= defined('logIn') ? logIn : 'Log In' ?></a></p>

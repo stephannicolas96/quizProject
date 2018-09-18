@@ -18,13 +18,28 @@ include_once path::getControllersPath() . 'langageController.php'
                 width: 100%;
                 height: 300px;
             }
+            #question{
+                height: 200px;
+                overflow: scroll;
+            }
         </style>
         <link rel="stylesheet" href="assets/js/import/codeMirror/lib/codemirror.css" />
         <link rel="stylesheet" href="assets/js/import/codeMirror/theme/monokai.css" />
+        <link rel="stylesheet" href="assets/css/style.css" />
     </head>
     <body>        
         <?php include path::getLayoutPath() . 'navbar.php'; ?>
-        <div>
+        <div id="languageSelector">
+            <input id="php" name="mode" type="radio" />
+            <label for="php"><img src="assets/images/php.png" /></label>
+            <input id="cpp" name="mode" type="radio" />
+            <label for="cpp"><img src="assets/images/cpp.png" /></label>
+            <input id="c" name="mode" type="radio" />
+            <label for="c"><img src="assets/images/c.png" /></label>
+            <input id="cSharp" name="mode" type="radio" />
+            <label for="cSharp"><img src="assets/images/csharp.png" /></label>
+        </div>
+        <div id="question">
             <p>Énoncé
                 Vous avez mis en place un site de recommandations de restaurants. A partir des opinons laissées par les visiteurs, vous avez pu construire pour chaque restaurant 3 notes sur 20 :- Qualité de la nourriture<br/>
                 - Qualité de la salle<br/>
@@ -40,9 +55,6 @@ include_once path::getControllersPath() . 'langageController.php'
                 Sortie<br/>
                 Un entier représentant le score du meilleur restaurant de votre base arrondi à l\'entier supérieur.</p>
         </div>
-        <button id="php">php</button>
-        <button id="cpp">cpp</button>
-        <button id="c">c</button>
 
         <div id="editor"></div>
         <div id="error"></div>
@@ -54,6 +66,7 @@ include_once path::getControllersPath() . 'langageController.php'
         <script src="assets/js/valueChecker.js"></script>
 
         <script src="assets/js/import/ace/ace.js"></script>
+        <script src="assets/js/editor.js"></script>
         <script src="assets/js/duel.js"></script>
     </body>
 </html>

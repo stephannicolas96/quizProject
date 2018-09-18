@@ -24,16 +24,43 @@ $('input[type=email]').change(function (event) {
     });
 });
 
-$('#registrationForm input[type=password]').change(function () {
+$('#registrationPassword').change(function () {
     $.ajax({
         type: 'POST',
-        url: 'assets/controllers/passwordChecker.php',
+        url: 'controllers/passwordChecker.php',
         data: {
             inputValue: $(this).val()
         },
         timeout: 1000,
         success: function (data) {
-            console.log(data);
+            switch (data) {
+                case '5':
+                    $('#passwordDifficultyProgressBarForeground').css('background-color', 'green');
+                    $('#passwordDifficultyProgressBarForeground').css('width', '100%');
+                    break;
+                case '4':
+                    $('#passwordDifficultyProgressBarForeground').css('background-color', 'green');
+                    $('#passwordDifficultyProgressBarForeground').css('width', '80%');
+                    break;
+                case '3':
+                    $('#passwordDifficultyProgressBarForeground').css('background-color', 'orange');
+                    $('#passwordDifficultyProgressBarForeground').css('width', '60%');
+                    break;
+                case '2':
+                    $('#passwordDifficultyProgressBarForeground').css('background-color', 'orange');
+                    $('#passwordDifficultyProgressBarForeground').css('width', '40%');
+                    break;
+                case '1':
+                    $('#passwordDifficultyProgressBarForeground').css('background-color', 'red');
+                    $('#passwordDifficultyProgressBarForeground').css('width', '20%');
+                    break;
+                case '0':
+                    $('#passwordDifficultyProgressBarForeground').css('background-color', 'red');
+                    $('#passwordDifficultyProgressBarForeground').css('width', '0');
+                    break;
+                default:
+                    break;
+            }
         },
         error: function () {
 

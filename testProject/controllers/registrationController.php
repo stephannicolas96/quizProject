@@ -5,7 +5,6 @@ include_once path::getClassesPath() . 'user.php';
 
 $registrationUserInstance = new user();
 $registrationErrors = array();
-$registrationSuccess = false;
 $usernameAlreadyExist = null;
 $mailAlreadyExist = null;
 

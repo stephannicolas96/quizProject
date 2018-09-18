@@ -1,34 +1,6 @@
 $(function () {
     var selectedMode = 0;
-    var scriptingLanguages = [{
-            mode: 'php',
-            aceMode: 'php',
-            value: '<?php\n' +
-                    'do{\n\t' +
-                    '$f = stream_get_line(STDIN, 10000, PHP_EOL);\n\t' +
-                    'if($f!==false){\n\t\t' +
-                    '$input[] = $f;\n\t\t' +
-                    'echo $f;\n\t' +
-                    '}\n' +
-                    '}while($f!==false);\n'
-        }, {
-            mode: 'cpp',
-            aceMode: 'c_cpp',
-            value: '#include <iostream>\n' +
-                    '#include <limits>\n' +
-                    '#include <sstream>\n\n' +
-                    'int main() {\n\t' +
-                    'std::string line;\n\t' +
-                    'while (std::getline(std::cin, line))\n\t' +
-                    '{\n\t\t' +
-                    'std::cout << line;\n\t' +
-                    '}\n' +
-                    '}'
-        }, {
-            mode: 'c',
-            aceMode: 'c_cpp',
-            value: ''
-        }];
+
     var questionEditor = ace.edit('questionEditor');
     questionEditor.setTheme('ace/theme/monokai');
     var inputEditor = ace.edit('inputEditor');
@@ -46,10 +18,36 @@ $(function () {
         });
     });
 
+    addCommandToEditor(questionEditor);
+    addCommandToEditor(inputEditor);
+    addCommandToEditor(codeEditor);
 
     $('#action').click(function () {
-        var questionText = questionEditor.getValue();
+        let questionText = questionEditor.getValue();
         checkQuestionEditor(questionText);
+    });
+
+    inputEditor.on('change', function () {
+        let input = inputEditor.getValue();
+        $.ajax({
+            type: 'POST',
+            url: 'controllers/creationInputController.php',
+            data: {
+                input: input,
+                numberOfInput: 1
+            },
+            success: function (data) {
+                $('#inputExample .content').html('');
+                data = data.slice(0, -1);
+                data = data.split('|');
+                $.each(data, function (id, element) {
+                    $('#inputExample .content').append(element + '<br/>');
+                });
+            },
+            error: function () {
+                console.log('error'); // TODO ADD A REAL ERROR...
+            }
+        });
     });
 
     function checkQuestionEditor(input) {
@@ -57,11 +55,12 @@ $(function () {
             type: 'POST',
             url: 'controllers/creationQuestionController.php',
             data: {
-                input: input
+                input: input,
+                numberOfInput: 20
             },
             success: function (data) {
                 if (data == 1) {
-                    var inputValue = inputEditor.getValue();
+                    let inputValue = inputEditor.getValue();
                     checkInputEditor(inputValue, normalInputCheck);
                 } else {
                     console.log('error'); // TODO ADD A REAL ERROR...
@@ -95,8 +94,8 @@ $(function () {
         var inputs = data.split('/');
         inputs.pop();
         if (!inputs.includes('error')) {
-            var code = codeEditor.getValue();
-            var mode = scriptingLanguages[selectedMode].mode;
+            let code = codeEditor.getValue();
+            let mode = scriptingLanguages[selectedMode].mode;
             checkCodeEditor(code, inputs, mode);
         } else {
             console.log('error'); // TODO ADD A REAL ERROR...

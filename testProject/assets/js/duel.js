@@ -1,41 +1,12 @@
 $(function () {
-    var scriptingLanguages = [{
-            mode: 'php',
-            aceMode: 'php',
-            value: '<?php\n' +
-                    'do{\n\t' +
-                    '$f = stream_get_line(STDIN, 10000, PHP_EOL);\n\t' +
-                    'if($f!==false){\n\t\t' +
-                    '$input[] = $f;\n\t\t' +
-                    '}\n' +
-                    '}while($f!==false);\n'
-        }, {
-            mode: 'cpp',
-            aceMode: 'c_cpp',
-            value: '#include <iostream>\n' +
-                    '#include <limits>\n' +
-                    '#include <sstream>\n\n' +
-                    'int main() {\n\t' +
-                    'std::string line;\n\t' +
-                    'while (std::getline(std::cin, line))\n\t' +
-                    '{\n\t\t' +
-                    'std::cout << line;\n\t' +
-                    '}\n' +
-                    '}'
-        }, {
-            mode: 'c',
-            aceMode: 'c_cpp',
-            value: ''
-        }];
-
     var editor = ace.edit('editor');
     editor.setTheme('ace/theme/monokai');
     editor.session.setMode('ace/mode/' + scriptingLanguages[0].aceMode);
     editor.session.setValue(scriptingLanguages[0].value);
     
     $('#action').click(function () {
-        var editorCode = editor.getValue();
-        var editorMode = editor.getOption('mode');
+        let editorCode = editor.getValue();
+        let editorMode = editor.getOption('mode');
         editorMode = editorMode.substr(editorMode.lastIndexOf('/') + 1);
         $.ajax({
             type: 'POST',

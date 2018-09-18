@@ -3,7 +3,7 @@ $(function () {
     $('#registrationForm .success').hide();
     $('#registrationForm .errors').hide();
     $('#registrationSubmit').click(function () {
-        $('#registrationForm .container').hide();
+        $('#registrationForm .content').hide();
         $.ajax({
             type: 'POST',
             url: 'controllers/registrationController.php',
@@ -13,7 +13,7 @@ $(function () {
                 registrationPassword: $('#registrationPassword').val()
             },
             success: function (data) {
-                $('#registrationForm .errors').html('');
+                $('#registrationForm .errors div').html('');
                 $('#registrationForm .success').hide();
                 $('#registrationForm .errors').hide();
                 if (data == 1) {
@@ -29,10 +29,10 @@ $(function () {
                     var errors = data.split('|');
                     $.each(errors, function (id, error)
                     {
-                        $('#registrationForm .errors').append('<p>' + error + '</p>');
+                        $('#registrationForm .errors div').append('<p>' + error + '</p>');
                     });
                     $('#registrationForm .errors').show();
-                    $('#registrationForm .container').show();
+                    $('#registrationForm .content').show();
                 }
             },
             error: function () {
@@ -41,8 +41,8 @@ $(function () {
         });
     });
 
-    $('#passwordVisibility').click(function () {
-        var registrationPasswordInput = $('#registrationPassword');
+    $('#registrationPasswordVisibility').click(function () {
+        var registrationPasswordInput = $('#registrationPasswordVisibility');
         if (registrationPasswordInput.is(':password')) {
             registrationPasswordInput.attr('type', 'text');
             $(this).html('<i class="fas fa-eye-slash"></i>');

@@ -1,6 +1,6 @@
 <?php
 
-$regexInputOuput = '/(Entrée|Input)\b.*?\b(Sortie|Output)/ms';
+$regexInputOuput = '/(Énoncé|Enunciated)\b.*?\b(Entrée|Input)\b.*?\b(Sortie|Output)/ms';
 
 $input = $_POST['input'];
 

@@ -12,10 +12,13 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/s_nicolas/www/QuizProject/testProject/classes/regex.php</file>
-            <file>file:/home/s_nicolas/www/QuizProject/testProject/creationView.php</file>
-            <file>file:/home/s_nicolas/www/QuizProject/testProject/controllers/creationController.php</file>
-            <file>file:/home/s_nicolas/www/QuizProject/testProject/assets/js/creation.js</file>
+            <file>file:/home/s_nicolas/www/QuizProject/testProject/assets/js/login.js</file>
+            <file>file:/home/s_nicolas/www/QuizProject/testProject/layout/loginView.php</file>
+            <file>file:/home/s_nicolas/www/QuizProject/testProject/layout/registrationView.php</file>
+            <file>file:/home/s_nicolas/www/QuizProject/testProject/assets/scss/style.scss</file>
+            <file>file:/home/s_nicolas/www/QuizProject/testProject/assets/js/valueChecker.js</file>
+            <file>file:/home/s_nicolas/www/QuizProject/testProject/controllers/passwordChecker.php</file>
+            <file>file:/home/s_nicolas/www/QuizProject/testProject/index.php</file>
         </group>
     </open-files>
 </project-private>
