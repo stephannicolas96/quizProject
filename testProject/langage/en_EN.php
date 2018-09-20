@@ -1,42 +1,42 @@
 <?php
 //---------------NAVBAR---------------//
-define('duel', 'Duel');
-define('create', 'Create');
-define('leaderboard', 'Leaderboard');
-define('myAccount', 'My account');
-define('logout', 'Log out');
+define('DUEL', 'Duel');
+define('CREATE', 'Create');
+define('LEADERBOARD', 'Leaderboard');
+define('MY_ACCOUNT', 'My account');
+define('LOGOUT', 'Log out');
 
 
 //---------------ALL---------------//
 
-define('username', 'Display Name');
-define('email', 'Email Address');
-define('password', 'Password');
-define('newPassword', 'New password');
-define('changePassword', 'Change Password');
-define('successfulRegistration', 'Successful registration, log in now');
-define('byCreatingAnAccount', 'byCreatingAnAccount CHANGE');
-define('termsAndPrivacy', 'Privacy Policy');
-define('alreadyHaveAnAccount', 'Already have an account?');
-define('submit', 'Submit');
-define('eraseAccount', 'eraseAccount CHANGE');
-define('eraseUserImage', 'eraseUserImage CHANGE');
-define('cancel', 'cancel CHANGE');
-define('save', 'save CHANGE');
+define('USERNAME', 'Display Name');
+define('EMAIL', 'Email Address');
+define('PASSWORD', 'Password');
+define('NEW_PASSWORD', 'New password');
+define('CHANGE_PASSWORD', 'Change Password');
+define('SUCCESSFUL_REGISTRATION', 'Successful registration, log in now');
+define('BY_CREATING_AN_ACCOUNT', 'byCreatingAnAccount CHANGE');
+define('TERMS_AND_PRIVACY', 'Privacy Policy');
+define('ALREADY_HAVE_AN_ACCOUNT', 'Already have an account?');
+define('SUBMIT', 'Submit');
+define('ERASE_ACCOUNT', 'eraseAccount CHANGE');
+define('ERASE_USER_IMAGE', 'eraseUserImage CHANGE');
+define('CANCEL', 'cancel CHANGE');
+define('SAVE', 'save CHANGE');
 
 //---------------ERROR MESSAGE---------------//
-define('signUp', 'Sign Up');
-define('usernameEmpty', 'usernameEmpty CHANGE');
-define('emailIncorrect', 'mailIncorrect CHANGE');
-define('emailEmpty', 'mailEmpty CHANGE');
-define('registrationFailed', 'registrationFailed CHANGE');
-define('emailAlreadyUsed', 'emailAlreadyUsed CHANGE');
-define('usernameAlreadyUsed', 'usernameAlreadyUsed CHANGE');
-define('logIn', 'Log In');
-define('noAccount', 'Don\'t have an account?');
-define('createOne', 'Create one here.');
-define('forgotPassword', 'Reset Password.');
-define('successfulLogin', 'successfulLogin CHANGE');
-define('clickHereToConnect', 'Click here to log in.');
+define('SIGN_UP', 'Sign Up');
+define('USERNAME_EMPTY', 'usernameEmpty CHANGE');
+define('EMAIL_INCORRECT', 'mailIncorrect CHANGE');
+define('EMAIL_EMPTY', 'mailEmpty CHANGE');
+define('REGISTRATION_FAILED', 'registrationFailed CHANGE');
+define('EMAIL_ALREADY_USED', 'emailAlreadyUsed CHANGE');
+define('USERNAME_ALREADY_USED', 'usernameAlreadyUsed CHANGE');
+define('LOG_IN', 'Log In');
+define('NO_ACCOUNT', 'Don\'t have an account?');
+define('CREATE_ONE', 'Create one here.');
+define('FORGOT_PASSWORD', 'Reset Password.');
+define('SUCCESSFUL_LOG_IN', 'successfulLogin CHANGE');
+define('CLICK_HERE_TO_CONNECT', 'Click here to log in.');
 
 

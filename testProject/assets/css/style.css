@@ -9,35 +9,35 @@
   .container .row .col {
     padding: 0; }
 
-#languageSelector {
+#modeSelector {
   margin-bottom: 0;
   background-color: darkgrey;
   border-radius: 5px 5px 0 0;
   padding-top: 5px;
   padding-bottom: 5px;
   height: 74px; }
-  #languageSelector div {
+  #modeSelector div {
     height: 100%; }
-    #languageSelector div div {
+    #modeSelector div div {
       height: 100%; }
-  #languageSelector input {
+  #modeSelector input {
     display: none; }
-    #languageSelector input + label {
+    #modeSelector input + label {
       opacity: 0.25;
       padding-left: 0;
       width: 64px;
       height: 100%;
       display: block;
       margin: 0 auto; }
-      #languageSelector input + label > img {
+      #modeSelector input + label > img {
         border-radius: 50%;
         height: 100%;
         width: 100%; }
-      #languageSelector input + label::after, #languageSelector input + label::before {
+      #modeSelector input + label::after, #modeSelector input + label::before {
         display: none; }
-    #languageSelector input:checked + label {
+    #modeSelector input:checked + label {
       opacity: 1; }
-      #languageSelector input:checked + label > img {
+      #modeSelector input:checked + label > img {
         border: solid white 1px; }
 
 #passwordDifficultyProgressBar {
@@ -73,5 +73,24 @@
     margin: 0 .25em;
     width: calc(100% - .5em);
     white-space: nowrap; }
+
+#smallMenu {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  grid-gap: .2em; }
+  #smallMenu #languageSelector > a {
+    margin-left: 0.8em; }
+  #smallMenu #languageSelector > ul {
+    background-color: black;
+    border-radius: 0 0 5px 0; }
+    #smallMenu #languageSelector > ul a {
+      display: grid;
+      grid-template-columns: 30px 1fr;
+      grid-gap: .2em;
+      align-items: center;
+      height: 100%; }
+  #smallMenu #languageSelector li {
+    padding: .4em .8em;
+    display: block; }
 
 /*# sourceMappingURL=style.css.map */

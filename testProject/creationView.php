@@ -20,7 +20,7 @@ include_once path::getControllersPath() . 'langageController.php'
         <?php include path::getLayoutPath() . 'navbar.php'; ?>
 
         <div class="container">
-            <div class="row" id="languageSelector">
+            <div class="row" id="modeSelector">
                 <div class="col s4 offset-s4">
                     <div class="col s2 offset-s2">
                         <input id="php" name="mode" type="radio" checked/>
