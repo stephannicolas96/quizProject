@@ -36,7 +36,7 @@ const scriptingLanguages = [{
     }, {
         mode: 'csharp',
         aceMode: 'csharp',
-        value: ''
+        value: 'arezaeaze'
     }];
 
 function addCommandToEditor(editor) {

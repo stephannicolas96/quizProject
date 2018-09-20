@@ -35,8 +35,8 @@ include_once path::getControllersPath() . 'langageController.php'
                         <label for="c"><img src="assets/images/c.png" /></label>
                     </div>  
                     <div class="col s2">
-                        <input id="cSharp" name="mode" type="radio" />
-                        <label for="cSharp"><img src="assets/images/csharp.png" /></label>
+                        <input id="csharp" name="mode" type="radio" />
+                        <label for="csharp"><img src="assets/images/csharp.png" /></label>
                     </div>
                 </div>
             </div>
