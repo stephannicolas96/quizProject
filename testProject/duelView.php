@@ -29,16 +29,27 @@ include_once path::getControllersPath() . 'langageController.php'
     </head>
     <body>        
         <?php include path::getLayoutPath() . 'navbar.php'; ?>
-        <div id="languageSelector">
-            <input id="php" name="mode" type="radio" />
-            <label for="php"><img src="assets/images/php.png" /></label>
-            <input id="cpp" name="mode" type="radio" />
-            <label for="cpp"><img src="assets/images/cpp.png" /></label>
-            <input id="c" name="mode" type="radio" />
-            <label for="c"><img src="assets/images/c.png" /></label>
-            <input id="cSharp" name="mode" type="radio" />
-            <label for="cSharp"><img src="assets/images/csharp.png" /></label>
-        </div>
+        <div class="container">
+            <div class="row" id="modeSelector">
+                <div class="col s4 offset-s4">
+                    <div class="col s2 offset-s2">
+                        <input id="php" name="mode" type="radio" checked/>
+                        <label for="php"><img src="assets/images/php.png" /></label>
+                    </div>
+                    <div class="col s2">
+                        <input id="cpp" name="mode" type="radio" />
+                        <label for="cpp"><img src="assets/images/cpp.png" /></label>
+                    </div>  
+                    <div class="col s2">
+                        <input id="c" name="mode" type="radio" />
+                        <label for="c"><img src="assets/images/c.png" /></label>
+                    </div>  
+                    <div class="col s2">
+                        <input id="csharp" name="mode" type="radio" />
+                        <label for="csharp"><img src="assets/images/csharp.png" /></label>
+                    </div>
+                </div>
+            </div>
         <div id="question">
             <p>Énoncé
                 Vous avez mis en place un site de recommandations de restaurants. A partir des opinons laissées par les visiteurs, vous avez pu construire pour chaque restaurant 3 notes sur 20 :- Qualité de la nourriture<br/>

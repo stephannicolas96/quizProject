@@ -10,7 +10,7 @@
         padding: 0;
     }
 }
-#languageSelector {
+#modeSelector {
     margin-bottom: 0;
     background-color: darkgrey;
     border-radius: 5px 5px 0 0;
@@ -78,7 +78,7 @@
     opacity: 0;
     transition: opacity 250ms,
         height 250ms;
-    
+
     &.opened{
         height: 150px;
         opacity: 1;
@@ -87,5 +87,31 @@
         margin: 0 .25em;
         width: calc(100% - .5em);
         white-space: nowrap;
+    }
+}
+
+#smallMenu{
+    display: grid;
+    grid-template-columns: 7.5rem 1fr;
+    grid-gap: .2em;
+    & #languageSelector{
+        &>a{
+            margin-left: 0.8em;
+        }
+        &>ul{
+            background-color: black;
+            border-radius: 0 0 5px 0;
+            & a{
+                display: grid;
+                grid-template-columns: 30px 1fr;
+                grid-gap: .2em;
+                align-items: center;
+                height: 100%;
+            }
+        }
+        & li{
+            padding: .4em .8em;
+            display: block;
+        }
     }
 }

@@ -16,12 +16,12 @@ include_once path::getControllersPath() . 'logoutController.php';
         </ul>
     </div>
 </nav>
-<ul>
-    <li>
-        <a href="#">TEMP REPLACE WITH CURRENT LANGAGE FLAG</a>
+<ul id="smallMenu">
+    <li id="languageSelector">
+        <a href="#"><img src="assets/images/<?= $lang ?>.png" /></a>
         <ul>
-            <li><a href="?lang=en">english</a></li>
-            <li><a href="?lang=fr">français</a></li>
+            <li><a href="?lang=en"><img src="assets/images/en.png">english</a></li>
+            <li><a href="?lang=fr"><img src="assets/images/fr.png">français</a></li>
         </ul>
     </li>
     <li class="logged" style="<?= ($isLogged) ? '' : 'display:none;' ?>">

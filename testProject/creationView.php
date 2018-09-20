@@ -20,7 +20,7 @@ include_once path::getControllersPath() . 'langageController.php'
         <?php include path::getLayoutPath() . 'navbar.php'; ?>
 
         <div class="container">
-            <div class="row" id="languageSelector">
+            <div class="row" id="modeSelector">
                 <div class="col s4 offset-s4">
                     <div class="col s2 offset-s2">
                         <input id="php" name="mode" type="radio" checked/>
@@ -35,8 +35,8 @@ include_once path::getControllersPath() . 'langageController.php'
                         <label for="c"><img src="assets/images/c.png" /></label>
                     </div>  
                     <div class="col s2">
-                        <input id="cSharp" name="mode" type="radio" />
-                        <label for="cSharp"><img src="assets/images/csharp.png" /></label>
+                        <input id="csharp" name="mode" type="radio" />
+                        <label for="csharp"><img src="assets/images/csharp.png" /></label>
                     </div>
                 </div>
             </div>
