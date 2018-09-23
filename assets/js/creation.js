@@ -31,7 +31,7 @@ $(function () {
         let input = inputEditor.getValue();
         $.ajax({
             type: 'POST',
-            url: 'controllers/creationInputController.php',
+            url: '../ajax/creationInputController.php',
             data: {
                 input: input,
                 numberOfInput: 1
@@ -53,7 +53,7 @@ $(function () {
     function checkQuestionEditor(input) {
         $.ajax({
             type: 'POST',
-            url: 'controllers/creationQuestionController.php',
+            url: '../ajax/creationQuestionController.php',
             data: {
                 input: input,
                 numberOfInput: 20
@@ -75,7 +75,7 @@ $(function () {
     function checkInputEditor(input, callback) {
         $.ajax({
             type: 'POST',
-            url: 'controllers/creationInputController.php',
+            url: '../ajax/creationInputController.php',
             data: {
                 input: input
             },
@@ -105,7 +105,7 @@ $(function () {
     function checkCodeEditor(code, inputs, mode) {
         $.ajax({
             type: 'POST',
-            url: 'controllers/creationCodeController.php',
+            url: '../ajax/creationCodeController.php',
             data: {
                 mode: mode,
                 code: code,

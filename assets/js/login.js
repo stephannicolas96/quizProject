@@ -6,7 +6,7 @@ $(function () {
         $('#loginForm .content').hide();
         $.ajax({
             type: 'POST',
-            url: 'controllers/loginController.php',
+            url: '../ajax/loginController.php',
             data: {
                 login: $('#login').val(),
                 loginPassword: $('#loginPassword').val()

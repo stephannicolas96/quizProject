@@ -6,7 +6,7 @@ $(function () {
         $('#registrationForm .content').hide();
         $.ajax({
             type: 'POST',
-            url: 'controllers/registrationController.php',
+            url: '../ajax/registrationController.php',
             data: {
                 username: $('#username').val(),
                 email: $('#email').val(),

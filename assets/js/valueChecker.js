@@ -2,7 +2,7 @@ $('input[type=email]').change(function (event) {
     var target = $(event.target);
     $.ajax({
         type: 'POST',
-        url: 'assets/controllers/emailChecker.php',
+        url: '../ajax/emailChecker.php',
         data: {
             inputValue: $(this).val()
         },
@@ -27,7 +27,7 @@ $('input[type=email]').change(function (event) {
 $('#registrationPassword').change(function () {
     $.ajax({
         type: 'POST',
-        url: 'controllers/passwordChecker.php',
+        url: '../ajax/passwordChecker.php',
         data: {
             inputValue: $(this).val()
         },

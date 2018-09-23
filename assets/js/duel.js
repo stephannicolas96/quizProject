@@ -10,7 +10,7 @@ $(function () {
         editorMode = editorMode.substr(editorMode.lastIndexOf('/') + 1);
         $.ajax({
             type: 'POST',
-            url: 'controllers/compiler.php',
+            url: '../ajax/compiler.php',
             data: {
                 mode: editorMode,
                 code: editorCode

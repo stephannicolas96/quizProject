@@ -3,6 +3,7 @@ RewriteEngine on
 RewriteRule ^([\w]+)/accueil.html$ index.php?lang=$1
 RewriteRule ^([\w]+)/createBattle.html$ views/creation.php?lang=$1
 RewriteRule ^([\w]+)/battle.html$ views/duel.php?lang=$1
+RewriteRule ^([\w]+)/leaderboard.html$ views/leaderboard.php?lang=$1
 RewriteRule ^([\w]+)/profile/([\d]+)$ views/profile.php?id=$2&lang=$1
 RewriteRule ^logout.html controllers/logout.php
 </ifModule>
