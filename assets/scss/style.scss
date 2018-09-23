@@ -90,28 +90,38 @@
     }
 }
 
-#smallMenu{
-    display: grid;
-    grid-template-columns: 7.5rem 1fr;
-    grid-gap: .2em;
-    & #languageSelector{
-        &>a{
-            margin-left: 0.8em;
+.languageSelector{
+    position: relative;
+    & > a > img{
+        vertical-align: middle; 
+    }
+    & > div{
+        display: none;
+        position: absolute;
+        right: 0;
+        padding: .5em 0 .5em 0;
+        grid-template-rows: 2em 2em;
+        background-color: black;
+        border-radius: 0 0 0 8%;
+        & a{
+            display: grid;
+            grid-template-columns: 1fr 30px;
+            grid-gap: .5em;
+            place-items: center;
+            line-height: 100%;
         }
-        &>ul{
-            background-color: black;
-            border-radius: 0 0 5px 0;
-            & a{
-                display: grid;
-                grid-template-columns: 30px 1fr;
-                grid-gap: .2em;
-                align-items: center;
-                height: 100%;
-            }
-        }
-        & li{
-            padding: .4em .8em;
-            display: block;
-        }
+    }
+
+    &:hover > div{
+        display: grid;
+    }
+}
+
+a.brand-logo{
+    height: 100%;
+    padding-left: 0.5em;
+    & > .logo{
+        width: auto;
+        height: 100%;
     }
 }
