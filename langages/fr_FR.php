@@ -1,45 +1,34 @@
 <?php
-//---------------NAVBAR---------------//
-define('duel', 'Défis');
-define('create', 'Créer');
-define('leaderboard', 'Classement');
-define('myAccount', 'Mon compte');
-define('logout', 'Déconnexion');
-
-
-//---------------ALL---------------//
-
-define('username', 'Nom d\'utilisateur');
-define('usernamePlaceholder', 'Entrer un nom d\'utilisateur');
-define('email', 'Adresse e-mail');
-define('mailPlaceholder', 'Entrer un email');
-define('password', 'Mot de passe');
-define('newPassword', 'Nouveau mot de passe');
-define('changePassword', 'Changer de mot de passe ');
-define('passwordPlaceholder', 'Entrer un mot de passe');
-define('successfulRegistration', 'L\'inscription a bien été prise en compte, vous pouvez vous connecter!');
-define('byCreatingAnAccount', 'byCreatingAnAccount CHANGE');
-define('termsAndPrivacy', 'Conditions de Confidentialité');
-define('alreadyHaveAnAccount', 'Vous avez déjà un compte?');
-define('submit', 'Envoyer');
-define('eraseAccount', 'eraseAccount CHANGE');
-define('eraseUserImage', 'eraseUserImage CHANGE');
-define('cancel', 'cancel CHANGE');
-define('save', 'save CHANGE');
-
-//---------------ERROR MESSAGE---------------//
-define('signUp', 'S\'inscrire');
-define('usernameEmpty', 'usernameEmpty CHANGE');
-define('emailIncorrect', 'mailIncorrect CHANGE');
-define('emailEmpty', 'mailEmpty CHANGE');
-define('registrationFailed', 'registrationFailed CHANGE');
-define('emailAlreadyUsed', 'emailAlreadyUsed CHANGE');
-define('usernameAlreadyUsed', 'usernameAlreadyUsed CHANGE');
-define('logIn', 'Connexion');
-define('noAccount', 'Vous n\'avez pas de compte?');
-define('createOne', 'En créer un ici.');
-define('forgotPassword', 'Réinitialiser le mot de passe.');
-define('successfulLogin', 'successfulLogin CHANGE');
-define('clickHereToConnect', 'Cliquez ici pour vous connecter.');
-
-
+define('DUEL', 'Défis');
+define('CREATE', 'Créer');
+define('LEADERBOARD', 'Classement');
+define('MY_ACCOUNT', 'Mon compte');
+define('LOGOUT', 'Déconnexion');
+define('USERNAME', 'Nom d\'utilisateur');
+define('EMAIL', 'Adresse e-mail');
+define('PASSWORD', 'Mot de passe');
+define('NEW_PASSWORD', 'Nouveau mot de passe');
+define('CHANGE_PASSWORD', 'Changer de mot de passe');
+define('SUCCESSFUL_REGISTRATION', 'L\'inscription a bien été prise en compte, vous pouvez vous connecter!');
+define('BY_CREATING_AN_ACCOUNT', 'byCreatingAnAccount CHANGE');
+define('TERMS_AND_PRIVACY', 'Conditions de Confidentialité');
+define('ALREADY_HAVE_AN_ACCOUNT', 'Vous avez déjà un compte?');
+define('SUBMIT', 'Envoyer');
+define('ERASE_ACCOUNT', 'eraseAccount CHANGE');
+define('ERASE_USER_IMAGE', 'eraseUserImage CHANGE');
+define('CANCEL', 'cancel CHANGE');
+define('SAVE', 'save CHANGE');
+define('SIGN_UP', 'S\'inscrire');
+define('USERNAME_EMPTY', 'usernameEmpty CHANGE');
+define('EMAIL_INCORRECT', 'mailIncorrect CHANGE');
+define('EMAIL_EMPTY', 'mailEmpty CHANGE');
+define('REGISTRATION_FAILED', 'registrationFailed CHANGE');
+define('EMAIL_ALREADY_USED', 'emailAlreadyUsed CHANGE');
+define('USERNAME_ALREADY_USED', 'usernameAlreadyUsed CHANGE');
+define('LOG_IN', 'Connexion');
+define('NO_ACCOUNT', 'Vous n\'avez pas de compte?');
+define('CREATE_ONE', 'En créer un ici.');
+define('FORGOT_PASSWORD', 'Réinitialiser le mot de passe.');
+define('SUCCESSFUL_LOG_IN', 'successfulLogin CHANGE');
+define('CLICK_HERE_TO_CONNECT', 'Cliquez ici pour vous connecter.');
+define('OPPONENT_USERNAME', 'Nom d\'utilisateur de l\'adversaire');

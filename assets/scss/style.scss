@@ -96,6 +96,7 @@
         vertical-align: middle; 
     }
     & > div{
+        z-index: 999;
         display: none;
         position: absolute;
         right: 0;
@@ -115,6 +116,15 @@
     &:hover > div{
         display: grid;
     }
+
+    &.mobile > div{
+        right: 25%;
+        left: 32px;
+        border-radius: 0 0 10px 10px;
+        & a{
+            grid-template-columns: 30px 1fr;
+        }
+    }
 }
 
 a.brand-logo{
@@ -123,5 +133,22 @@ a.brand-logo{
     & > .logo{
         width: auto;
         height: 100%;
+    }
+}
+
+li > a{
+    &.left, &.right{
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+}
+
+#duelCreation{
+    & .modal-content{
+        display: grid;
+        grid-template-columns : 1fr 1fr;
+        & > div{
+            grid-column: span 2;
+        }
     }
 }

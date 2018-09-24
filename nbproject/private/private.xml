@@ -12,12 +12,11 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/s_nicolas/www/QuizProject/layout/header.php</file>
-            <file>file:/home/s_nicolas/www/QuizProject/layout/footer.php</file>
-            <file>file:/home/s_nicolas/www/QuizProject/ajax/login.php</file>
-            <file>file:/home/s_nicolas/www/QuizProject/assets/js/materializeInitializer.js</file>
-            <file>file:/home/s_nicolas/www/QuizProject/index.php</file>
-            <file>file:/home/s_nicolas/www/QuizProject/ajax/registration.php</file>
+            <file>file:/home/s_nicolas/www/QuizProject/views/leaderboard.php</file>
+            <file>file:/home/s_nicolas/www/QuizProject/controllers/leaderboard.php</file>
+            <file>file:/home/s_nicolas/www/QuizProject/classes/score.php</file>
+            <file>file:/home/s_nicolas/www/QuizProject/private/database/populate.sql</file>
+            <file>file:/home/s_nicolas/www/QuizProject/private/database/db.sql</file>
         </group>
     </open-files>
 </project-private>

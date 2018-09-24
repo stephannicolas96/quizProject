@@ -1,14 +1,9 @@
 <?php
-//---------------NAVBAR---------------//
 define('DUEL', 'Duel');
 define('CREATE', 'Create');
 define('LEADERBOARD', 'Leaderboard');
 define('MY_ACCOUNT', 'My account');
 define('LOGOUT', 'Log out');
-
-
-//---------------ALL---------------//
-
 define('USERNAME', 'Display Name');
 define('EMAIL', 'Email Address');
 define('PASSWORD', 'Password');
@@ -23,8 +18,6 @@ define('ERASE_ACCOUNT', 'eraseAccount CHANGE');
 define('ERASE_USER_IMAGE', 'eraseUserImage CHANGE');
 define('CANCEL', 'cancel CHANGE');
 define('SAVE', 'save CHANGE');
-
-//---------------ERROR MESSAGE---------------//
 define('SIGN_UP', 'Sign Up');
 define('USERNAME_EMPTY', 'usernameEmpty CHANGE');
 define('EMAIL_INCORRECT', 'mailIncorrect CHANGE');
@@ -38,5 +31,5 @@ define('CREATE_ONE', 'Create one here.');
 define('FORGOT_PASSWORD', 'Reset Password.');
 define('SUCCESSFUL_LOG_IN', 'successfulLogin CHANGE');
 define('CLICK_HERE_TO_CONNECT', 'Click here to log in.');
-
+define('OPPONENT_USERNAME', 'Opponent username');
 

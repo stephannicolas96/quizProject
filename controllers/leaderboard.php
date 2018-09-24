@@ -1,0 +1,2 @@
+<?php
+$leaderboardTop = array();

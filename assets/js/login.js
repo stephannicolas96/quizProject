@@ -6,10 +6,10 @@ $(function () {
         $('#loginForm .content').hide();
         $.ajax({
             type: 'POST',
-            url: '../ajax/loginController.php',
+            url: '../ajax/login.php',
             data: {
                 login: $('#login').val(),
-                loginPassword: $('#loginPassword').val()
+                password: $('#loginPassword').val()
             },
             success: function (data) {
                 $('#loginForm .errors div').html('');
@@ -43,7 +43,7 @@ $(function () {
     });
 
     $('#loginPasswordVisibility').click(function () {
-        let registrationPasswordInput = $('#loginPasswordVisibility');
+        let registrationPasswordInput = $('#loginPassword');
         if (registrationPasswordInput.is(':password')) {
             registrationPasswordInput.attr('type', 'text');
             $(this).html('<i class="fas fa-eye-slash"></i>');

@@ -1,8 +1,10 @@
 <?php
+
+session_start();
 $langages = ['fr', 'en'];
 
-if(isset($_GET['lang']) && in_array($_GET['lang'], $langages)){
-   $lang = $_GET['lang'];
+if (isset($_GET['lang']) && in_array($_GET['lang'], $langages)) {
+    $lang = $_GET['lang'];
 } else if (isset($_COOKIE['lang']) && in_array($_COOKIE['lang'], $langages)) {
     $lang = $_COOKIE['lang'];
 } else {
@@ -14,11 +16,14 @@ setcookie("lang", $lang, time() + 365 * 24 * 3600);
 switch ($lang) {
     case 'fr':
         include path::getLangagePath() . 'fr_FR.php';
+        $_SESSION['lang'] = 'fr_FR.php';
         break;
     case 'en':
     default:
         include path::getLangagePath() . 'en_EN.php';
+        $_SESSION['lang'] = 'en_EN.php';
         break;
 }
 
 $isLogged = (isset($_SESSION['logged'])) ? $_SESSION['logged'] : false;
+session_write_close();

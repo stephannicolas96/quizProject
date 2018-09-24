@@ -6,11 +6,11 @@ $(function () {
         $('#registrationForm .content').hide();
         $.ajax({
             type: 'POST',
-            url: '../ajax/registrationController.php',
+            url: '../ajax/registration.php',
             data: {
                 username: $('#username').val(),
                 email: $('#email').val(),
-                registrationPassword: $('#registrationPassword').val()
+                password: $('#registrationPassword').val()
             },
             success: function (data) {
                 $('#registrationForm .errors div').html('');
@@ -42,7 +42,7 @@ $(function () {
     });
 
     $('#registrationPasswordVisibility').click(function () {
-        var registrationPasswordInput = $('#registrationPasswordVisibility');
+        var registrationPasswordInput = $('#registrationPassword');
         if (registrationPasswordInput.is(':password')) {
             registrationPasswordInput.attr('type', 'text');
             $(this).html('<i class="fas fa-eye-slash"></i>');

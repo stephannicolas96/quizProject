@@ -4,11 +4,11 @@ include_once path::getClassesPath() . 'database.php';
 
 class user extends database {
 
-    public $id = null;
-    public $email = null;
-    public $username = null;
-    public $password = null;
-    public $color = null;
+    public $id;
+    public $email;
+    public $username;
+    public $password;
+    public $color;
     //TODO : PUT THIS ELSEWHERE
     private $colorsForUserCreation = ['F9D400', '4ED37C', '00C7FF', 'DC00FF'];
 
@@ -29,7 +29,7 @@ class user extends database {
 
         $addUserToDB = database::getInstance()->prepare($query);
         $addUserToDB->bindValue(':email', $this->email, PDO::PARAM_STR);
-        $addUserToDB->bindValue(':password', $this->hashedPassword, PDO::PARAM_STR);
+        $addUserToDB->bindValue(':password', $this->password, PDO::PARAM_STR);
         $addUserToDB->bindValue(':username', $this->username, PDO::PARAM_STR);
         $addUserToDB->bindValue(':color', $this->colorsForUserCreation[rand(0, count($this->colorsForUserCreation) - 1)], PDO::PARAM_STR);
 
@@ -54,7 +54,7 @@ class user extends database {
         $checkEmail->bindValue(':email', $this->email, PDO::PARAM_STR);
 
         if ($checkEmail->execute()) {
-            $returnValue = !is_null($checkEmail->fetchColumn());
+            $returnValue = $checkEmail->fetchColumn() != false;
         }
         return $returnValue;
     }
@@ -74,7 +74,7 @@ class user extends database {
         $checkUsername->bindValue(':username', $this->username, PDO::PARAM_STR);
 
         if ($checkUsername->execute()) {
-            $returnValue = !is_null($checkUsername->fetchColumn());
+            $returnValue = $checkUsername->fetchColumn() != false;
         }
         return $returnValue;
     }
@@ -208,5 +208,4 @@ class user extends database {
         }
         return $returnValue;
     }
-
 }

@@ -1,7 +1,8 @@
 <?php
-
+session_start();
 include_once '../classes/path.php';
 include_once path::getClassesPath() . 'user.php';
+include_once path::getLangagePath() . $_SESSION['lang'];
 
 $userInstance = new user();
 $errors = array();
@@ -13,8 +14,8 @@ $hashedPassword = null;
 if (!empty($_POST['username'])) {
     $userInstance->username = htmlspecialchars($_POST['username']);
     $usernameAlreadyExist = $userInstance->checkIfUsernameAlreadyExist();
-    if ($usernameAlreadyExist && !isset($errors['username'])) {
-        $errors['username'] = defined('usernameAlreadyUsed') ? usernameAlreadyUsed : 'Username Already Used';
+    if ($usernameAlreadyExist) {
+        $errors['username'] = defined('usernameAlreadyUsed') ? usernameAlreadyUsed : 'Username already used';
     }
 } else {
     $errors['username'] = defined('usernameEmpty') ? usernameEmpty : 'Username can\'t be empty';
@@ -25,7 +26,7 @@ if (!empty($_POST['email'])) {
     if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
         $userInstance->email = htmlspecialchars($_POST['email']);
         $mailAlreadyExist = $userInstance->checkIfEmailAlreadyExist();
-        if ($mailAlreadyExist && !isset($errors['email'])) {
+        if ($mailAlreadyExist) {
             $errors['email'] = defined('emailAlreadyUsed') ? emailAlreadyUsed : 'Email already used';
         }
     } else {
@@ -53,3 +54,4 @@ if (count($errors) == 0) {
 } else {
     echo implode('|', $errors);
 }
+session_write_close();

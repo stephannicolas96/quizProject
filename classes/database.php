@@ -1,6 +1,7 @@
 <?php
 
 include_once path::getClassesPath() . 'regex.php';
+include_once path::getClassesPath() . 'helpers.php';
 
 class database {
 
@@ -16,7 +17,7 @@ class database {
     public static function getInstance() {
         if (is_null(self::$_db)) {
             try {
-                self::$_db = new PDO('mysql:host=' . self::SERVER_NAME . ';dbname=' . self::DATABASE_NAME . ';charset=' . self::CHAR_SET, self::USER_NAME, self::PASSWORD);
+                self::$_db = new PDO('mysql:host=' . self::SERVER_NAME . ';dbname=' . self::DATABASE_NAME . ';charset=' . self::CHARSET, self::USER_NAME, self::PASSWORD);
                 self::$_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $e) {
                 die('Connection failed: ' . $e->getMessage());

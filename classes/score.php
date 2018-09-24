@@ -5,8 +5,9 @@ include_once path::getClassesPath() . 'database.php';
 class score extends database {
 
     public $id;
-    public $cppScore;
-    public $phpScore;
+    public $points;
+    public $userId;
+    public $languageType;
 
     /**
      * Get user scores using ID
@@ -27,5 +28,8 @@ class score extends database {
             }
         }
     }
-
+    
+    public function getTopThreePlayers(){
+        
+    }
 }
