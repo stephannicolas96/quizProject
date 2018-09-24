@@ -6,7 +6,6 @@ $pageBackground = '';
 $pageTitle = '';
 include path::getLayoutPath() . 'header.php';
 ?>
-<div class="container-fluid w-75 mt-5 p-0">
     <div class="row m-0">
         <div class="col-12 p-2">
             <?php foreach ($leaderboardTop as $key => $user) { ?>
@@ -19,3 +18,4 @@ include path::getLayoutPath() . 'header.php';
             <?php } ?>
         </div>
     </div>
+    <?php include path::getLayoutPath() . 'footer.php'; ?>

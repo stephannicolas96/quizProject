@@ -26,7 +26,7 @@
                 <p><?= defined('SUCCESSFUL_LOG_IN') ? SUCCESSFUL_LOG_IN : 'Login sucessful !' ?></p>   
             </div>
             <div class="loader">
-                <img src="assets/images/loading.gif"/>
+                <img src="../assets/images/loading.gif"/>
             </div>
             <p><?= defined('NO_ACCOUNT') ? NO_ACCOUNT : 'No account?' ?></p><a href="registrationView.php"><?= defined('CREATE_ONE') ? CREATE_ONE : 'Create one!' ?></a>
             <a href="forgotPasswordView.php"><?= defined('FORGOT_PASSWORD') ? FORGOT_PASSWORD : 'Forgot your password?' ?></a>

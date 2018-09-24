@@ -37,7 +37,7 @@
                 </div>
                 <div class="row loader">
                     <div class="col s12">
-                        <img src="assets/images/loading.gif"/>
+                        <img src="../assets/images/loading.gif"/>
                     </div>
                 </div>
                 <div class="row">
