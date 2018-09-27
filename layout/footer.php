@@ -4,9 +4,18 @@
 <script src="../assets/js/materializeInitializer.js"></script>
 <script src="../assets/js/registration.js"></script>
 <script src="../assets/js/login.js"></script>
-<script src="../assets/js/import/ace/ace.js"></script>
-<script src="../assets/js/editor.js"></script>
-<script src="../assets/js/creation.js"></script>
-
+<?php if($_SERVER['SCRIPT_NAME'] == '/views/creation.php' || $_SERVER['SCRIPT_NAME'] == '/views/duel.php') { ?>
+    <script src="../assets/js/import/ace/ace.js"></script>
+    <script src="../assets/js/editor.js"></script>
+    <?php if($_SERVER['SCRIPT_NAME'] == '/views/creation.php') { ?>
+        <script src="../assets/js/creation.js"></script>
+    <?php } 
+    if($_SERVER['SCRIPT_NAME'] == '/views/duel.php') { ?>
+        <script src="../assets/js/duel.js"></script>
+    <?php }
+    } 
+    if($_SERVER['SCRIPT_NAME'] == '/views/leaderboard.php') {?>
+        <script src="../assets/js/leaderboard.js"></script>
+<?php } ?>
 </body> 
 </html>

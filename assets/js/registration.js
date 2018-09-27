@@ -26,7 +26,7 @@ $(function () {
                         }, 1000);
                     }, 1500);
                 } else {
-                    var errors = data.split('|');
+                    let errors = data.split('|');
                     $.each(errors, function (id, error)
                     {
                         $('#registrationForm .errors div').append('<p>' + error + '</p>');

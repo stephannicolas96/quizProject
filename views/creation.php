@@ -8,29 +8,7 @@ include path::getLayoutPath() . 'header.php';
 ?>
 
 <div class="container">
-    <!-- mode selector begin -->
-    <div class="row" id="modeSelector">
-        <div class="col s4 offset-s4">
-            <div class="col s2 offset-s2">
-                <input id="php" name="mode" type="radio" checked/>
-                <label for="php"><img src="../assets/images/php.png" /></label>
-            </div>
-            <div class="col s2">
-                <input id="cpp" name="mode" type="radio" />
-                <label for="cpp"><img src="../assets/images/cpp.png" /></label>
-            </div>  
-            <div class="col s2">
-                <input id="c" name="mode" type="radio" />
-                <label for="c"><img src="../assets/images/c.png" /></label>
-            </div>  
-            <div class="col s2">
-                <input id="csharp" name="mode" type="radio" />
-                <label for="csharp"><img src="../assets/images/csharp.png" /></label>
-            </div>
-        </div>
-    </div>
-    <!-- mode selector end -->
-    
+    <?php include path::getLayoutPath() . 'modeSelector.php' ?>
     <div class="row">
         <div class="col s3">
             <div id="questionEditor"></div>

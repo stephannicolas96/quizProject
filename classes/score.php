@@ -9,27 +9,37 @@ class score extends database {
     public $userId;
     public $languageType;
 
-    /**
-     * Get user scores using ID
-     * (null = no user found, obj = user data)
-     * @return obj
-     */
-    public function getUserScoresById() {
-        if (preg_match(regex::getPrefixRegex(), $this->prefix)) {
-            $query = 'SELECT `cppScore`, `phpScore`'
-                    . 'FROM `' . $this->prefix . 'score` '
-                    . 'WHERE `id` = :id';
-            
-            $getUserScores = database::getInstance()->prepare($query);
-            $getUserScores->bindValue(':id', $this->id, PDO::PARAM_STR);
+    public function getUserScoresByLanguageTypeOrdered() {
+        $query = 'SELECT `score`.`points`, `user`.`id`, `user`.`username`, `user`.`color` '
+                . 'FROM `' . database::PREFIX . 'score` AS `score` '
+                . 'INNER JOIN `' . database::PREFIX . 'user` AS `user` ON `user`.`id`=`score`.`id_' . database::PREFIX . 'user` '
+                . 'WHERE `id_' . database::PREFIX . 'languageType` = :languageType '
+                . 'ORDER BY `points` DESC';
 
-            if ($getUserScores->execute()) {
-                return $getUserScores->fetch(PDO::FETCH_OBJ);
-            }
+        $stmt = database::getInstance()->prepare($query);
+        
+        $stmt->bindValue(':languageType', $this->languageType, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
         }
     }
     
-    public function getTopThreePlayers(){
+    public function getTopThreeByLanguageTypeOrdered() {
+        $query = 'SELECT `score`.`points`, `user`.`id`, `user`.`username`, `user`.`color` '
+                . 'FROM `' . database::PREFIX . 'score` AS `score` '
+                . 'INNER JOIN `' . database::PREFIX . 'user` AS `user` ON `user`.`id`=`score`.`id_' . database::PREFIX . 'user` '
+                . 'WHERE `id_' . database::PREFIX . 'languageType` = :languageType '
+                . 'ORDER BY `points` DESC '
+                . 'LIMIT 3';
+
+        $stmt = database::getInstance()->prepare($query);
         
+        $stmt->bindValue(':languageType', $this->languageType, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
+        }
     }
+
 }

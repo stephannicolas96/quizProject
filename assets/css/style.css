@@ -9,37 +9,6 @@
   .container .row .col {
     padding: 0; }
 
-#modeSelector {
-  margin-bottom: 0;
-  background-color: darkgrey;
-  border-radius: 5px 5px 0 0;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  height: 74px; }
-  #modeSelector div {
-    height: 100%; }
-    #modeSelector div div {
-      height: 100%; }
-  #modeSelector input {
-    display: none; }
-    #modeSelector input + label {
-      opacity: 0.25;
-      padding-left: 0;
-      width: 64px;
-      height: 100%;
-      display: block;
-      margin: 0 auto; }
-      #modeSelector input + label > img {
-        border-radius: 50%;
-        height: 100%;
-        width: 100%; }
-      #modeSelector input + label::after, #modeSelector input + label::before {
-        display: none; }
-    #modeSelector input:checked + label {
-      opacity: 1; }
-      #modeSelector input:checked + label > img {
-        border: solid white 1px; }
-
 #passwordDifficultyProgressBar {
   width: 150px;
   height: 10px;
@@ -74,16 +43,51 @@
     width: calc(100% - .5em);
     white-space: nowrap; }
 
+#duelCreation .modal-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr; }
+  #duelCreation .modal-content > div {
+    grid-column: span 2; }
+
+.score-row {
+  display: grid;
+  grid-template-columns: 100px 64px 1fr 1fr; }
+
+.navbar {
+  background-image: url(../images/navbar.png);
+  background-color: transparent;
+  height: 103px;
+  box-shadow: none;
+  background-repeat: no-repeat; }
+
+.navbar-fixed {
+  height: 110px; }
+
+a.brand-logo {
+  height: 80%;
+  padding-left: 0.5em;
+  transition: transform 250ms;
+  outline: none; }
+  a.brand-logo > .logo {
+    width: auto;
+    height: 100%; }
+  a.brand-logo:hover {
+    transform: translate(-50%) scale(1.1); }
+
+li > a.left, li > a.right {
+  padding-right: 5px;
+  padding-left: 5px; }
+
 .languageSelector {
   position: relative; }
   .languageSelector > a > img {
     vertical-align: middle; }
   .languageSelector > div {
-    z-index: 999;
+    z-index: -1;
     display: none;
     position: absolute;
     right: 0;
-    padding: .5em 0 .5em 0;
+    padding: 2.5em 0 .5em 0;
     grid-template-rows: 2em 2em;
     background-color: black;
     border-radius: 0 0 0 8%; }
@@ -93,7 +97,7 @@
       grid-gap: .5em;
       place-items: center;
       line-height: 100%; }
-  .languageSelector:hover > div {
+  .languageSelector:active > div {
     display: grid; }
   .languageSelector.mobile > div {
     right: 25%;
@@ -102,21 +106,46 @@
     .languageSelector.mobile > div a {
       grid-template-columns: 30px 1fr; }
 
-a.brand-logo {
-  height: 100%;
-  padding-left: 0.5em; }
-  a.brand-logo > .logo {
-    width: auto;
-    height: 100%; }
-
-li > a.left, li > a.right {
-  padding-right: 5px;
-  padding-left: 5px; }
-
-#duelCreation .modal-content {
+#modeSelector {
   display: grid;
-  grid-template-columns: 1fr 1fr; }
-  #duelCreation .modal-content > div {
-    grid-column: span 2; }
+  grid-template-columns: repeat(4, 32px);
+  grid-gap: .4em;
+  justify-content: center;
+  height: 32px; }
+  #modeSelector div {
+    height: inherit; }
+  #modeSelector input {
+    display: none; }
+    #modeSelector input + label {
+      height: inherit;
+      opacity: 0.25;
+      padding-left: 0; }
+      #modeSelector input + label > img {
+        height: inherit;
+        border-radius: 50%; }
+      #modeSelector input + label::after, #modeSelector input + label::before {
+        display: none; }
+    #modeSelector input:checked + label {
+      opacity: 1; }
+      #modeSelector input:checked + label > img {
+        -webkit-box-shadow: 0px 0px 5px 5px rgba(227, 163, 0, 0.69);
+        -moz-box-shadow: 0px 0px 5px 5px rgba(227, 163, 0, 0.69);
+        box-shadow: 0px 0px 5px 5px rgba(227, 163, 0, 0.69); }
+
+@media (min-width: 992px) {
+  a.brand-logo:hover {
+    transform: scale(1.1); }
+
+  .navbar-fixed {
+    height: 120px; }
+
+  #modeSelector {
+    grid-template-columns: repeat(4, 64px);
+    height: 64px;
+    grid-gap: .7em; }
+    #modeSelector input:checked + label > img {
+      -webkit-box-shadow: 0px 0px 10px 10px rgba(227, 163, 0, 0.69);
+      -moz-box-shadow: 0px 0px 10px 10px rgba(227, 163, 0, 0.69);
+      box-shadow: 0px 0px 10px 10px rgba(227, 163, 0, 0.69); } }
 
 /*# sourceMappingURL=style.css.map */
