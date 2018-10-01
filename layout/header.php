@@ -12,6 +12,30 @@ include_once path::getControllersPath() . 'header.php';
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
         <link rel="stylesheet" href="../assets/css/style.css" />
         <title><?= $pageTitle ?> - BATTLELY</title>
+        <script src="../assets/js/import/tarteaucitron/tarteaucitron.js"></script>
+        <script>
+            tarteaucitron.init({
+                "privacyUrl": "", /* Privacy policy url */
+
+                "hashtag": "#tarteaucitron", /* Open the panel with this hashtag */
+                "cookieName": "tartaucitron", /* Cookie name */
+
+                "orientation": "top", /* Banner position (top - bottom) */
+                "showAlertSmall": false, /* Show the small banner on bottom right */
+                "cookieslist": true, /* Show the cookie list */
+
+                "adblocker": false, /* Show a Warning if an adblocker is detected */
+                "AcceptAllCta": true, /* Show the accept all button when highPrivacy on */
+                "highPrivacy": false, /* Disable auto consent */
+                "handleBrowserDNTRequest": false, /* If Do Not Track == 1, accept all */
+
+                "removeCredit": false, /* Remove credit link */
+                "moreInfoLink": true, /* Show more info link */
+
+                //"cookieDomain": ".my-multisite-domaine.fr" /* Shared cookie for subdomain */
+            });
+            (tarteaucitron.job = tarteaucitron.job || []).push('recaptcha');
+        </script>
     </head>
     <body id="<?= $pageBackground ?>">
         <?php
@@ -38,12 +62,11 @@ include_once path::getControllersPath() . 'header.php';
                             /
                             <a class="right" href="logout.html"><?= defined('LOGOUT') ? LOGOUT : 'logout' ?></a>
                         </li>
-                        <li class="languageSelector">
-                            <a href="#"><img src="../assets/images/<?= $lang ?>.png" /></a>
-                            <div>
-                                <a href="../en/<?= substr($_SERVER['REQUEST_URI'], 4) ?>">english<img src="../assets/images/en.png" /></a>
-                                <a href="../fr/<?= substr($_SERVER['REQUEST_URI'], 4) ?>">français<img src="../assets/images/fr.png" /></a>
-                            </div>
+                        <li>
+                            <a href="javascript:tarteaucitron.userInterface.openPanel();">Gestion des cookies</a>
+                        </li>
+                        <li>
+                            <button onclick="openDropdown('#langageDropdown')" class="nav-link"><img src="../assets/images/<?= $lang ?>.png" /></button>
                         </li>
                     </ul>
                     <ul class="side-nav" id="mobile-demo">
@@ -60,14 +83,21 @@ include_once path::getControllersPath() . 'header.php';
                         <li class="logged" style="<?= ($isLogged) ? '' : 'display:none;' ?>">
                             <a href="logout.html"><?= defined('LOGOUT') ? LOGOUT : 'logout' ?></a>
                         </li>
-                        <li class="languageSelector mobile">
-                            <a href="#"><img src="../assets/images/<?= $lang ?>.png" /></a>
-                            <div>
-                                <a href="/en/<?= substr($_SERVER['REQUEST_URI'], 4) ?>"><img src="../assets/images/en.png" />english</a>
-                                <a href="/fr/<?= substr($_SERVER['REQUEST_URI'], 4) ?>"><img src="../assets/images/fr.png" />français</a>
-                            </div>
+                        <li>
+                            <a href="javascript:tarteaucitron.userInterface.openPanel();">Gestion des cookies</a>
+                        </li>
+                        <li>
+                            <button onclick="openDropdown('#langageDropdown')"><img src="../assets/images/<?= $lang ?>.png" /></button>
                         </li>
                     </ul>
                 </div>
             </nav>
+        </div>
+        <div id="langageDropdown" class="dropdown">
+            <div class="top"></div>
+            <div class="content">
+                <a href="../en/<?= $urlEnd ?>">english<img src="../assets/images/en.png" /></a>
+                <a href="../fr/<?= $urlEnd ?>">français<img src="../assets/images/fr.png" /></a>
+            </div>
+            <div class="bottom"></div>
         </div>

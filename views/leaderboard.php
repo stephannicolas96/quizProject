@@ -7,7 +7,7 @@ $pageTitle = '';
 include path::getLayoutPath() . 'header.php';
 include path::getLayoutPath() . 'modeSelector.php'
 ?>
-<div>
+<div class="big-container">
     <?php foreach ($leaderboardTop as $user) { ?>
         <div class="score-row">
             <img src="" title="medal" alt="medal" />
@@ -17,10 +17,10 @@ include path::getLayoutPath() . 'modeSelector.php'
         </div>
     <?php } ?>
 </div>
-<div>
-    <?php foreach ($leaderboardTop as $user) { ?>
+<div class="md-container">
+    <?php foreach ($leaderboardAroungPlayer as $user) { ?>
         <div class="score-row">
-            <img src="" title="medal" alt="medal" />
+            <p><?= $user->rank ?></p>
             <img src="../assets/images/userImages/<?= helpers::getUserImageName($user->id) ?>" style="background-color: <?= '#' . $user->color ?>" title="user image" alt="user image" />
             <p><?= $user->username ?></p>
             <p><?= $user->points ?></p>

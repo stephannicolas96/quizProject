@@ -37,30 +37,13 @@ $(function () {
             },
             error: function () {
                 console.log('error');
+            },
+            beforeSend: function(){
+               $('#registrationForm .loader').show();
+            },
+            complete: function(){            
+                $('#registrationForm .loader').hide();
             }
         });
-    });
-
-    $('#registrationPasswordVisibility').click(function () {
-        var registrationPasswordInput = $('#registrationPassword');
-        if (registrationPasswordInput.is(':password')) {
-            registrationPasswordInput.attr('type', 'text');
-            $(this).html('<i class="fas fa-eye-slash"></i>');
-        } else {
-            registrationPasswordInput.attr('type', 'password');
-            $(this).html('<i class="fas fa-eye"></i>');
-        }
-    });
-
-    $(document).ajaxStart(function (e) {
-        if (e.target.activeElement.id == 'registrationSubmit') {
-            $('#registrationForm .loader').show();
-        }
-    });
-
-    $(document).ajaxStop(function (e) {
-        if (e.target.activeElement.id == 'registrationSubmit') {
-            $('#registrationForm .loader').hide();
-        }
     });
 });

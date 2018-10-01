@@ -9,7 +9,7 @@ class database {
 
     const PREFIX = 'T7rDZC_';
     const SERVER_NAME = 'localhost';
-    const DATABASE_NAME = 'quizProject';
+    const DATABASE_NAME = 'battlely';
     const USER_NAME = 'test';
     const PASSWORD = 'test';
     const CHARSET = 'utf8';

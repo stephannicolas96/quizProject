@@ -7,4 +7,13 @@ RewriteRule ^([\w]+)/leaderboard.html$ views/leaderboard.php?lang=$1
 RewriteRule ^([\w]+)/profile-([\d]+).html$ views/profile.php?id=$2&lang=$1
 RewriteRule ^([\w]+)/profile.html$ views/profile.php?lang=$1
 RewriteRule ^([\w]+)/logout.html controllers/logout.php?lang=$1
+RewriteRule ^accueil.html$ index.php?lang=en
+RewriteRule ^createBattle.html$ views/creation.php?lang=en
+RewriteRule ^battle.html$ views/duel.php?lang=en
+RewriteRule ^leaderboard.html$ views/leaderboard.php?lang=en
+RewriteRule ^profile-([\d]+).html$ views/profile.php?id=$1&lang=en
+RewriteRule ^profile.html$ views/profile.php?lang=en
+RewriteRule ^logout.html controllers/logout.php?lang=en
+ErrorDocument 403 /views/error403.php
+ErrorDocument 404 /views/error404.php
 </ifModule>

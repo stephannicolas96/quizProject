@@ -1,4 +1,4 @@
-const scriptingLanguages = [{
+const scriptingModes = [{
         mode: 'php',
         aceMode: 'php',
         value: '<?php\n' +

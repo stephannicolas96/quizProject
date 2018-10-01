@@ -1,7 +1,6 @@
 #questionEditor,  #codeEditor, #inputEditor{ 
     position: relative;
-    width: 100%;
-    height: 500px;
+    width: inherit;
 }
 .container {
     max-width: 100%;
@@ -10,12 +9,12 @@
         padding: 0;
     }
 }
-#passwordDifficultyProgressBar{
+.difficultyProgressBar{
     width: 150px;
     height: 10px;
     border-radius: 5px;
     background-color: darkgrey;
-    & #passwordDifficultyProgressBarForeground{
+    & .difficultyProgressBarForeground{
         height: 100%;
         width: 0;
         background-color: red;
@@ -25,30 +24,7 @@
 #inputEditorContainer{
     position: relative;
 }
-#inputExample{
-    position: absolute;
-    z-index: 50;
-    background-color: white;
-    border: solid grey 2px;
-    height: 0px;
-    bottom: 0.2em;
-    left: 0.3em;
-    right: 0.3em;
-    overflow: scroll;
-    opacity: 0;
-    transition: opacity 250ms,
-        height 250ms;
 
-    &.opened{
-        height: 150px;
-        opacity: 1;
-    }
-    & .content{
-        margin: 0 .25em;
-        width: calc(100% - .5em);
-        white-space: nowrap;
-    }
-}
 #duelCreation{
     & .modal-content{
         display: grid;
@@ -60,10 +36,6 @@
 }
 
 //------------------------------------ NAVBAR ------------------------------------//
-.score-row{
-    display: grid;
-    grid-template-columns: 100px 64px 1fr 1fr;
-}
 .navbar{
     background-image: url(../images/navbar.png);
     background-color: transparent;
@@ -72,6 +44,7 @@
     background-repeat: no-repeat;
 }
 .navbar-fixed {
+    z-index: 1000;
     height: 110px;
 }
 a.brand-logo{
@@ -91,42 +64,6 @@ li > a{
     &.left, &.right{
         padding-right: 5px;
         padding-left: 5px;
-    }
-}
-.languageSelector{
-    position: relative;
-    & > a > img{
-        vertical-align: middle; 
-    }
-    & > div{
-        z-index: -1;
-        display: none;
-        position: absolute;
-        right: 0;
-        padding: 2.5em 0 .5em 0;
-        grid-template-rows: 2em 2em;
-        background-color: black;
-        border-radius: 0 0 0 8%;
-        & a{
-            display: grid;
-            grid-template-columns: 1fr 30px;
-            grid-gap: .5em;
-            place-items: center;
-            line-height: 100%;
-        }
-    }
-
-    &:active > div{
-        display: grid;
-    }
-
-    &.mobile > div{
-        right: 25%;
-        left: 32px;
-        border-radius: 0 0 10px 10px;
-        & a{
-            grid-template-columns: 30px 1fr;
-        }
     }
 }
 //------------------------------------ MODE SELECTOR ------------------------------------//
@@ -165,6 +102,163 @@ li > a{
     }
 }
 
+//------------------------------------ GOOD CSS ------------------------------------//
+//------------------------------------ BASE ------------------------------------//
+body{
+    background-color: #443127;
+}
+p{
+    text-align: center;
+}
+//------------------------------------ CLASSES ------------------------------------//
+.big-container{
+    width: 80%;
+}
+.md-container{
+    width: 70%;
+}
+.big-container, .md-container{
+    margin: 0 auto;
+}
+.score-row{
+    display: grid;
+    grid-template-columns: 100px 64px 1fr 1fr;
+}
+.dropdown{
+    z-index:998;
+    position: absolute;
+    right: 0;
+    top: 67px;
+    width: 200px;
+    height: 0px;
+    transform-origin: top;
+    transition: height 250ms ease-in-out;
+    &.active{
+        height: 99px;
+    }
+    & .top{
+        background-image: url(../images/dropdownTop.png);
+    }
+    & .bottom{
+        background-image: url(../images/dropdownBottom.png);
+    }
+    & .top, & .bottom{
+        width: inherit;
+        height: 29px;
+        background-size: cover;
+    }
+    &>.content{
+        background-image: url(../images/dropdownMiddle.png);
+        background-size: cover;
+        width: inherit;
+        height: inherit;
+        overflow: hidden;
+    }
+}
+.nav-link{
+    border: none;
+    background-color: transparent;
+}
+.password{
+    display: grid;
+    grid-template-columns: 1fr 50px;
+}
+.btn-password{
+    position: relative;
+    background: none;
+    border: none;
+    border-bottom: 1px solid #9e9e9e;
+    margin: 0 0 20px 0;
+    &:hover, &:focus, &:active{
+        background: none;
+    }  
+    &::after{
+        content: " ";
+        position: absolute;
+        height: 60%;
+        width: 100%;
+        border-left: 1px solid #9e9e9e;
+        top: 20%;
+        left: 0;
+    }
+}
+.passwordStrength{
+    position:absolute;
+    right: 60px;
+    top: 18px;
+    width: 150px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: darkgrey;
+    & .passwordStrengthForeground{
+        height: 100%;
+        border-radius: 5px;
+    }
+}
+.passwordStrengthForeground{
+    &[strength="0"]{
+        background-color: red;
+        width: 0;
+    }
+    &[strength="1"]{
+        background-color: red;
+        width: 20%;
+    }
+    &[strength="2"]{
+        background-color: yellow;
+        width: 40%;
+    }
+    &[strength="3"]{
+        background-color: yellow;
+        width: 60%;
+    }
+    &[strength="4"]{
+        background-color: orange;
+        width: 80%;
+    }
+    &[strength="5"]{
+        background-color: green;
+        width: 100%;
+    }
+}
+.collapsible, .collapsible-body, .collapsible-header{
+    border: none;
+}
+.collapsible-header{
+    background-color: #660107;
+    border-bottom: 1px solid black;
+}
+.editor{
+    height: 500px;
+}
+.relative{
+    position: relative;
+}
+//------------------------------------ IDS ------------------------------------//
+#inputExample{
+    position: absolute;
+    z-index: 50;
+    background-color: white;
+    border: solid grey 2px;
+    height: 0px;
+    bottom: 0.2em;
+    left: 0.3em;
+    right: 0.3em;
+    overflow: scroll;
+    opacity: 0;
+    transition: opacity 250ms,
+        height 250ms;
+    
+    & .content{
+        margin: 0 .25em;
+        width: calc(100% - .5em);
+        white-space: nowrap;
+    }
+}
+.active #inputExample{
+    height: 150px;
+    opacity: 1;
+}
 //------------------------------------ MEDIUM TO MAX SIZE ------------------------------------//
 @media (min-width: 992px) {
     //------------------------------------ NAVBAR ------------------------------------//
@@ -190,3 +284,4 @@ li > a{
         }
     }
 }
+

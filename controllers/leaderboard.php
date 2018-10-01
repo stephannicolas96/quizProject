@@ -7,7 +7,9 @@ include_once path::getClassesPath() . 'score.php';
 $scoreInstance = new score();
 $leaderboardTop = array();
 
-$scoreInstance->languageType = 1;
+$scoreInstance->langageType = 1;
 $leaderboardTop = $scoreInstance->getTopThreeByLanguageTypeOrdered();
-$leaderboardAroungPlayer = $scoreInstance->getUserScoresByLanguageTypeOrdered();
+
+$scoreInstance->userId = 14;
+$leaderboardAroungPlayer = $scoreInstance->getScoresAroundUserByLanguageTypeOrdered();
 session_write_close();

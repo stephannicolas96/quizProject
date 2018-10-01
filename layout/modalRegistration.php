@@ -17,13 +17,9 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="input-field col s12">
-                            <input id="registrationPassword" type="password" name="password" required maxlength="60"/>
-                            <label for="registrationPassword"><?= defined('PASSWORD') ? PASSWORD : 'Password' ?></label>
-                            <button id="registrationPasswordVisibility" type="button"><i class="fas fa-eye"></i></button>
-                            <div id="passwordDifficultyProgressBar">
-                                <div id="passwordDifficultyProgressBarForeground"></div>
-                            </div>
+                        <div class="input-field col s12 password">
+                            <input id="registrationPassword" name="registrationPassword" type="password" maxlength="60" required strength="0"/>
+                            <label for="registrationPassword">Password</label>
                         </div>
                     </div>
                 </div>

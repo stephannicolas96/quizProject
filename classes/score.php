@@ -8,17 +8,14 @@ class score extends database {
     public $points;
     public $userId;
     public $languageType;
-
-    public function getUserScoresByLanguageTypeOrdered() {
-        $query = 'SELECT `score`.`points`, `user`.`id`, `user`.`username`, `user`.`color` '
-                . 'FROM `' . database::PREFIX . 'score` AS `score` '
-                . 'INNER JOIN `' . database::PREFIX . 'user` AS `user` ON `user`.`id`=`score`.`id_' . database::PREFIX . 'user` '
-                . 'WHERE `id_' . database::PREFIX . 'languageType` = :languageType '
-                . 'ORDER BY `points` DESC';
+    
+    public function getScoresAroundUserByLanguageTypeOrdered() {
+        $query = 'CALL getPlayerRowInRank(:userId, :langageType);';
 
         $stmt = database::getInstance()->prepare($query);
         
-        $stmt->bindValue(':languageType', $this->languageType, PDO::PARAM_INT);
+        $stmt->bindValue(':userId', $this->userId, PDO::PARAM_INT);
+        $stmt->bindValue(':langageType', $this->langageType, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             return $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -28,14 +25,14 @@ class score extends database {
     public function getTopThreeByLanguageTypeOrdered() {
         $query = 'SELECT `score`.`points`, `user`.`id`, `user`.`username`, `user`.`color` '
                 . 'FROM `' . database::PREFIX . 'score` AS `score` '
-                . 'INNER JOIN `' . database::PREFIX . 'user` AS `user` ON `user`.`id`=`score`.`id_' . database::PREFIX . 'user` '
-                . 'WHERE `id_' . database::PREFIX . 'languageType` = :languageType '
+                . 'INNER JOIN `' . database::PREFIX . 'user` AS `user` ON `user`.`id`=`score`.`id_user` '
+                . 'WHERE `id_langageType` = :langageType '
                 . 'ORDER BY `points` DESC '
                 . 'LIMIT 3';
 
         $stmt = database::getInstance()->prepare($query);
         
-        $stmt->bindValue(':languageType', $this->languageType, PDO::PARAM_INT);
+        $stmt->bindValue(':langageType', $this->langageType, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             return $stmt->fetchAll(PDO::FETCH_OBJ);

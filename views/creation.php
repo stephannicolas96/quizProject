@@ -7,20 +7,23 @@ $pageTitle = '';
 include path::getLayoutPath() . 'header.php';
 ?>
 
-<div class="container">
-    <?php include path::getLayoutPath() . 'modeSelector.php' ?>
-    <div class="row">
-        <div class="col s3">
-            <div id="questionEditor"></div>
-        </div>
-        <div class="col s7">
-            <div id="codeEditor"></div>
-        </div>
-        <div class="col s2" id="inputEditorContainer">
-            <div id="inputEditor"></div>
+<?php include path::getLayoutPath() . 'modeSelector.php' ?>
+<div class="md-container">
+    <ul class="collapsible">
+        <li>
+            <div class="collapsible-header active">QUESTION</div>
+            <div class="collapsible-body editor" id="questionEditor"></div>
+        </li>
+        <li>
+            <div class="collapsible-header">CODE</div>
+            <div class="collapsible-body editor" id="codeEditor"></div>
+        </li>
+        <li class="relative">
+            <div class="collapsible-header">INPUT</div>
+            <div class="collapsible-body editor" id="inputEditor"></div>
             <div id="inputExample" class="opened"><p class="content"></p></div>
-        </div>
-    </div>
+        </li>
+    </ul>
 </div>
 <div id="error"></div>
 <button id="action">Lancer la requête AJAX</button> 

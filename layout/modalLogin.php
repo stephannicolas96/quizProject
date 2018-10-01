@@ -11,15 +11,17 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="input-field col s12">
-                            <input id="loginPassword" type="password" name="loginPassword" required maxlength="60"/>
+                        <div class="input-field col s12 password">
+                            <input id="loginPassword" name="loginPassword" type="password" maxlength="60" required/>
                             <label for="loginPassword"><?= defined('PASSWORD') ? PASSWORD : 'Password' ?></label>
-                            <button id="loginPasswordVisibility" type="button"><i class="fas fa-eye"></i></button>
                         </div>
                     </div>
                 </div>
                 <div class="row errors">
                     <div class="col s12"></div>
+                </div>
+                <div class="row">
+                    <div class="col s12 g-recaptcha" data-sitekey="sitekey"></div>
                 </div>
             </div>
             <div class="success">
