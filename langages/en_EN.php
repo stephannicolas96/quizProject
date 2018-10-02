@@ -10,7 +10,7 @@ define('PASSWORD', 'Password');
 define('NEW_PASSWORD', 'New password');
 define('CHANGE_PASSWORD', 'Change Password');
 define('SUCCESSFUL_REGISTRATION', 'Successful registration, log in now');
-define('BY_CREATING_AN_ACCOUNT', 'byCreatingAnAccount CHANGE');
+define('BY_CREATING_AN_ACCOUNT', 'By creating an account you agree to our');
 define('TERMS_AND_PRIVACY', 'Privacy Policy');
 define('ALREADY_HAVE_AN_ACCOUNT', 'Already have an account?');
 define('SUBMIT', 'Submit');
@@ -30,6 +30,6 @@ define('NO_ACCOUNT', 'Don\'t have an account?');
 define('CREATE_ONE', 'Create one here.');
 define('FORGOT_PASSWORD', 'Reset Password.');
 define('SUCCESSFUL_LOG_IN', 'successfulLogin CHANGE');
-define('CLICK_HERE_TO_CONNECT', 'Click here to log in.');
+define('CLICK_HERE_TO_CONNECT', 'Click here to log in. ');
 define('OPPONENT_USERNAME', 'Opponent username');
 

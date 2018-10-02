@@ -1,67 +1,80 @@
 $(function () {
-    $('#loginForm .loader').hide(); //MODAL INITIALISATION 
-    $('#loginForm .success').hide();
-    $('#loginForm .errors').hide();
-    $('#loginSubmit').click(function () {
-        $('#loginForm .content').hide();
+    var loginForm = $('#loginForm'),
+            loginSubmit = $('#loginSubmit'),
+            loginModal = $('#loginModal'),
+            loginLoader = $('.loader', loginForm),
+            loginSuccess = $('.success', loginForm),
+            loginErrors = $('.errors', loginForm),
+            loginContent = $('.content', loginForm),
+            login = $('#login'),
+            password = $('#loginPassword'),
+            notLoggedNavbar = $('li.notLogged'),
+            loggedNavbar = $('li.logged');
+            
+    loginSuccess.hide();
+    loginLoader.hide();
+    loginErrors.hide();
+
+    function success(data) {
+        loginErrors.html('');
+        loginErrors.hide();
+        loginSuccess.hide();
+        if (data == 1) { // LOGIN SUCCESS
+            notLoggedNavbar.hide();
+            loggedNavbar.show();
+            loginSuccess.show();
+            login.val('');
+            password.val('');
+            setTimeout(function () {
+                loginModal.modal('close');
+                setTimeout(function () {
+                    loginSuccess.hide();
+                }, 1000);
+            }, 1500);
+        } else { // LOGIN FAILURE
+            loginErrors.show();
+            let errors = data.split('|');
+            $.each(errors, function (id, error)
+            {
+                loginErrors.append('<p>' + error + '</p>');
+            });
+        }
+    }
+
+    function error() {
+        console.log('error');
+    }
+
+    function beforeSend() {
+        loginContent.hide();
+        loginLoader.show();
+    }
+
+    function complete() {
+        loginContent.show();
+        loginLoader.hide();
+    }
+
+    loginSubmit.click(function () {
         $.ajax({
             type: 'POST',
             url: '../ajax/login.php',
             data: {
-                login: $('#login').val(),
-                password: $('#loginPassword').val()
+                login: login.val(),
+                password: password.val()
             },
             success: function (data) {
-                $('#loginForm .errors div').html('');
-                $('#loginForm .success').hide();
-                $('#loginForm .errors').hide();
-                if (data == 1) {
-                    $('li.notLogged').hide();
-                    $('li.logged').show();
-                    $('#loginForm .success').show();
-                    setTimeout(function () {
-                        $('#loginModal').modal('close');
-                        setTimeout(function () {
-                            $('#loginForm .success').hide();
-                            $('#loginForm .container').show();
-                        }, 1000);
-                    }, 1500);
-                } else {
-                    let errors = data.split('|');
-                    $.each(errors, function (id, error)
-                    {
-                        $('#loginForm .errors div').append('<p>' + error + '</p>');
-                    });
-                    $('#loginForm .errors').show();
-                    $('#loginForm .content').show();
-                }
+                success(data);
             },
             error: function () {
-                console.log('error');
+                error();
+            },
+            beforeSend: function () {
+                beforeSend();
+            },
+            complete: function () {
+                complete();
             }
         });
-    });
-
-    $('#loginPasswordVisibility').click(function () {
-        let registrationPasswordInput = $('#loginPassword');
-        if (registrationPasswordInput.is(':password')) {
-            registrationPasswordInput.attr('type', 'text');
-            $(this).html('<i class="fas fa-eye-slash"></i>');
-        } else {
-            registrationPasswordInput.attr('type', 'password');
-            $(this).html('<i class="fas fa-eye"></i>');
-        }
-    });
-
-    $(document).ajaxStart(function (e) {
-        if (e.target.activeElement.id == 'loginSubmit') {
-            $('#loginForm .loader').show();
-        }
-    });
-
-    $(document).ajaxStop(function (e) {
-        if (e.target.activeElement.id == 'loginSubmit') {
-            $('#loginForm .loader').hide();
-        }
     });
 });

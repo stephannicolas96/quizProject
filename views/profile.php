@@ -1,57 +1,45 @@
 <?php
 include_once '../classes/path.php';
-include_once path::getControllersPath() . 'profile.php';
 
 $pageBackground = '';
 $pageTitle = '';
+$controllerToLoad = 'profile.php';
 include path::getLayoutPath() . 'header.php';
-
-if ($canModify) {
-    ?>
-    <!-- MODIFICATION DU PROFILE -->
-    <form action="#" method="POST">
-        <div>
-            <label for="newUserImage"><img src="../assets/images/userImages/<?= $userImage ?>" title="user image" alt="user image" /></label>
-            <input id="newUserImage" type="file" name="newUserImage"/>
-        </div>
-        <div class="input-field">
-            <input type="text" name="username"  value="<?= $userInstance->username ?>" required />
-            <label><?= defined('USERNAME') ? USERNAME : 'Username' ?></label>
-        </div>
-        <div class="input-field">
-            <input type="text" name="mail" value="<?= $userInstance->email ?>" required />
-            <label><?= defined('EMAIL') ? EMAIL : 'Email address' ?></label>
-        </div>
-        <div class="input-field">
-            <input type="password" name="actualPassword" required />
-            <label><?= defined('PASSWORD') ? PASSWORD : 'Password' ?></label>
-        </div>
-        <div class="input-field">
-            <input type="password" name="newPassword" />
-            <label><?= defined('NEW_PASSWORD') ? NEW_PASSWORD : 'New password' ?></label>
-        </div>
-
-        <input type="button" value="<?= defined('CHANGE_PASSWORD') ? CHANGE_PASSWORD : 'Change password' ?>" />
-        <input type="button" id="deleteUser" value="<?= defined('ERASE_ACCOUNT') ? ERASE_ACCOUNT : 'Erase account' ?>" />
-        <input type="submit" name="update" value="<?= defined('SAVE') ? SAVE : 'Save' ?>" />
-    </form>
-    <form action="#" method="POST">
-        <input type="submit" name="stopUpdate" value ="<?= defined('CANCEL') ? CANCEL : 'Cancel' ?>" />
-    </form>
-    <form action="#" method="POST">
-        <input type="submit" name="deleteUserImage" value="<?= defined('ERASE_USER_IMAGE') ? ERASE_USER_IMAGE : 'Erase image' ?>" />
-    </form>
-<?php } else { ?>
-    <!-- VISUALISATION DU PROFILE -->
-
-    <img src="../assets/images/userImages/<?= $userImage ?>" title="user image" alt="user image" />
-
-    <h2><?= defined('USERNAME') ? USERNAME : 'Username' ?></h2>
-    <p><?= $userInstance->username ?></p>
-    <h2><?= defined('EMAIL') ? EMAIL : 'Email address' ?></h2>
-    <p><?= $userInstance->email ?></p>
-    <?php
-}
-
-include path::getLayoutPath() . 'footer.php';
 ?>
+<div class = "big-container splitScreen">
+    <?php if ($canModify) { ?>
+        <div>
+            <form action="#" method="POST">
+                <div>
+                    <input id="newUserImage" type="file" name="newUserImage"/>
+                    <label for="newUserImage"><img src="../assets/images/userImages/<?= $userImage ?>" title="user image" alt="user image" /></label>
+                </div>
+                <?php foreach ($profileInputs as $inputData) { ?>
+                    <div class="<?= $inputData->wrappingDivClasses ?>">
+                        <input <?= $inputData->inputAttr ?> />
+                        <label for="<?= $inputData->labelAttr ?>"><?= $inputData->labelContent ?></label>
+                    </div>
+                <?php } ?>
+                <input type="button" value="<?= CHANGE_PASSWORD ?>" />
+                <input type="button" id="deleteUser" value="<?= ERASE_ACCOUNT ?>" />
+                <input type="submit" name="update" value="<?= SAVE ?>" />
+                <input type="submit" name="deleteUserImage" value="<?= ERASE_USER_IMAGE ?>" />
+            </form>
+        </div>
+    <?php } else { ?>
+        <div>
+            <img src="../assets/images/userImages/<?= $userImage ?>" title="user image" alt="user image" />
+
+            <h2><?= USERNAME ?></h2>
+            <p><?= $userInstance->username ?></p>
+            <h2><?= EMAIL ?></h2>
+            <p><?= $userInstance->email ?></p>
+        </div>
+    <?php } ?>
+    <div>
+        <?php foreach ($details as $data) { ?>
+        <p>langage: <?= $data->type ?>/battle: <?= is_null($data->battle) ? 0 : $data->battle ?>/won: <?= is_null($data->won) ? 0 : $data->won ?>/draw: <?= is_null($data->draw) ? 0 : $data->draw ?>/lost: <?= is_null($data->lost) ? 0 : $data->lost ?></p>
+        <?php } ?>
+    </div>
+</div>
+<?php include path::getLayoutPath() . 'footer.php'; ?>

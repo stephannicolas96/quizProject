@@ -1,9 +1,9 @@
 <?php
 include_once '../classes/path.php';
-include_once path::getControllersPath() . 'leaderboard.php';
 
 $pageBackground = '';
 $pageTitle = '';
+$controllerToLoad = 'leaderboard.php';
 include path::getLayoutPath() . 'header.php';
 include path::getLayoutPath() . 'modeSelector.php'
 ?>

@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+
 $langages = ['fr', 'en'];
 
 if (isset($_GET['lang']) && in_array($_GET['lang'], $langages)) {
@@ -28,4 +29,5 @@ switch ($lang) {
 $isLogged = (isset($_SESSION['logged'])) ? $_SESSION['logged'] : false;
 $url = explode('/', $_SERVER['REQUEST_URI']);
 $urlEnd = end($url);
+
 session_write_close();

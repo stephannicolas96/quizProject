@@ -110,6 +110,8 @@ p {
   transition: height 250ms ease-in-out; }
   .dropdown.active {
     height: 99px; }
+    .dropdown.active > .content {
+      padding-top: 1em; }
   .dropdown .top {
     background-image: url(../images/dropdownTop.png); }
   .dropdown .bottom {
@@ -123,7 +125,16 @@ p {
     background-size: cover;
     width: inherit;
     height: inherit;
-    overflow: hidden; }
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    justify-content: center; }
+    .dropdown > .content > a {
+      height: 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      justify-items: center;
+      line-height: 32px; }
 
 .nav-link {
   border: none;
@@ -193,6 +204,13 @@ p {
 
 .relative {
   position: relative; }
+
+.splitScreen {
+  display: grid;
+  grid-template-columns: 1fr 1fr; }
+  .splitScreen > *:first-child {
+    padding: 2em;
+    border-right: 1px solid black; }
 
 #inputExample {
   position: absolute;

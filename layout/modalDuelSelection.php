@@ -4,7 +4,7 @@
             <!-- OPPONENT SELECTION -->
             <div class="input-field">
                 <input id="opponentUsername" name="opponentUsername" type="text"/>
-                <label for="opponentUsername"><?= defined('OPPONENT_USERNAME') ? OPPONENT_USERNAME : 'Opponent usename' ?></label>
+                <label for="opponentUsername"><?= OPPONENT_USERNAME ?></label>
             </div>
             <input type="submit" name="randomOpponent" value="RANDOM OPPONENT"/>
             <input type="submit" name="chosenOpponent" value="CHOSEN OPPONENT" />

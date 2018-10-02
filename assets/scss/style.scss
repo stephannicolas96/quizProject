@@ -135,6 +135,9 @@ p{
     transition: height 250ms ease-in-out;
     &.active{
         height: 99px;
+        &>.content{
+            padding-top: 1em;
+        }
     }
     & .top{
         background-image: url(../images/dropdownTop.png);
@@ -153,6 +156,16 @@ p{
         width: inherit;
         height: inherit;
         overflow: hidden;
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        justify-content: center;
+        &>a{
+            height: 32px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;        
+            justify-items: center;
+            line-height: 32px;
+        }
     }
 }
 .nav-link{
@@ -234,6 +247,14 @@ p{
 .relative{
     position: relative;
 }
+.splitScreen{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    & > *:first-child {
+        padding: 2em;
+        border-right: 1px solid black;
+    }
+}
 //------------------------------------ IDS ------------------------------------//
 #inputExample{
     position: absolute;
@@ -248,7 +269,7 @@ p{
     opacity: 0;
     transition: opacity 250ms,
         height 250ms;
-    
+
     & .content{
         margin: 0 .25em;
         width: calc(100% - .5em);
