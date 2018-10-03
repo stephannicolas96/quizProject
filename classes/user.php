@@ -86,7 +86,7 @@ class user extends database {
      */
     public function getUserByEmail() {
         $returnValue = null;
-        $query = 'SELECT `id`, `email`, `password`, `username`, `color` '
+        $query = 'SELECT `id`, `email`, `password`, `username`, `color`, CONCAT(`id`,".png") AS `image` '
                 . 'FROM `' . database::PREFIX . 'user` '
                 . 'WHERE `email` = :email';
 
@@ -106,7 +106,7 @@ class user extends database {
      */
     public function getUserByUsername() {
         $returnValue = null;
-        $query = 'SELECT `id`, `email`, `password`, `username`, `color` '
+        $query = 'SELECT `id`, `email`, `password`, `username`, `color`, CONCAT(`id`,".png") AS `image` '
                 . 'FROM `' . database::PREFIX . 'user` '
                 . 'WHERE `username` = :username';
 
@@ -126,7 +126,7 @@ class user extends database {
      */
     public function getUserByID() {
         $returnValue = null;
-        $query = 'SELECT `id`, `email`, `password`, `username`, `color` '
+        $query = 'SELECT `id`, `email`, `password`, `username`, `color`, CONCAT(`id`,".png") AS `image` '
                 . 'FROM `' . database::PREFIX . 'user` '
                 . 'WHERE `id` = :id';
 

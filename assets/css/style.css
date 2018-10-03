@@ -180,13 +180,13 @@ p {
   background-color: red;
   width: 20%; }
 .passwordStrengthForeground[strength="2"] {
-  background-color: yellow;
+  background-color: orange;
   width: 40%; }
 .passwordStrengthForeground[strength="3"] {
   background-color: yellow;
   width: 60%; }
 .passwordStrengthForeground[strength="4"] {
-  background-color: orange;
+  background-color: yellow;
   width: 80%; }
 .passwordStrengthForeground[strength="5"] {
   background-color: green;
@@ -211,6 +211,17 @@ p {
   .splitScreen > *:first-child {
     padding: 2em;
     border-right: 1px solid black; }
+
+.hidden {
+  display: none; }
+
+.userImg {
+  height: 128px;
+  width: 128px;
+  border-radius: 50%; }
+
+.clickable {
+  cursor: pointer; }
 
 #inputExample {
   position: absolute;

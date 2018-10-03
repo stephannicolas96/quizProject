@@ -31,7 +31,7 @@ if (isset($_GET['id']) && preg_match(regex::getIdRegex(), $_GET['id'])) {
 if ($canModify) {   //TODO ADD IMAGE TO FILE WITH FILE INPUT (check if png or jpg, resize, rename to (id).png ex: 1.png 2.png ect...)
     $userInstance->id = $detailsInstance->userId = $sessionId;
 } else { // If the user look another player profile
-    $userInstance->id =  $detailsInstance->userId = $urlId;
+    $userInstance->id = $detailsInstance->userId = $urlId;
 }
 $user = $userInstance->getUserByID();
 if (is_object($user)) {
@@ -76,8 +76,10 @@ $profileInputs = [
     ]
 ];
 
-$userImage = helpers::getUserImageName($userInstance->id);
-if ($userImage != 'user-image.png') {
+if (file_exists(path::getUserImagesPath() . $user->image)) {
+    $userImage = $user->image;
     $userImageExist = true;
+} else {
+    $userImage = 'user-image.png';
 }
 session_write_close();

@@ -1,6 +1,42 @@
 <?php
-//TODO : JUST DO IT !!!!!!!!!!
+
+include_once '../classes/path.php';
+
 session_start();
+
+$result = array();
+
+if (isset($_FILES['userImage']['type'])) {
+    $id = isset($_POST['id']) ? $_POST['id'] : -1;
+    $validextensions = array('png');
+    $temporary = explode('.', $_FILES['userImage']['name']);
+    $file_extension = end($temporary);
+    $filename = $id . '.' . $file_extension;
+    $targetPath = path::getUserImagesPath() . $filename;
+    $sourcePath = $_FILES['userImage']['tmp_name'];
+
+    if ($_FILES['userImage']['type'] == 'image/png' && $_FILES['userImage']['size'] < 500000 && in_array($file_extension, $validextensions)) { //500ko max image size
+        if ($_FILES['userImage']['error'] > 0) {
+            $result['success'] = false;
+            $result['message'] = 'Return Code: ' . $_FILES['userImage']['error'];
+        } else {
+            if (file_exists($targetPath)) {
+                unlink($targetPath);
+            }
+            move_uploaded_file($sourcePath, $targetPath);
+            $result['success'] = true;
+            $result['message'] = $filename;
+        }
+    } else {
+        $result['success'] = false;
+        $result['message'] = 'Invalid file Size or Type';
+    }
+}
+
+echo json_encode($result);
+
+session_write_close();
+/*
 $errors = array();
 
 if (isset($_POST['stopUpdate'])) { //STOP UPDATE
@@ -67,3 +103,4 @@ if (isset($_POST['stopUpdate'])) { //STOP UPDATE
     session_unset();
     header('Location: accueil.html');
 }
+ */

@@ -21,6 +21,9 @@
 if ($_SERVER['SCRIPT_NAME'] == '/views/leaderboard.php') {
     ?>
     <script src="../assets/js/leaderboard.js"></script>
+<?php } if ($_SERVER['SCRIPT_NAME'] == '/views/profile.php') {
+    ?>
+    <script src="../assets/js/profile.js"></script>
 <?php } ?>
 </body> 
 </html>

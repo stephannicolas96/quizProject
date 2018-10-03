@@ -23,7 +23,7 @@ class score extends database {
     }
     
     public function getTopThreeByLanguageTypeOrdered() {
-        $query = 'SELECT `score`.`points`, `user`.`id`, `user`.`username`, `user`.`color` '
+        $query = 'SELECT `score`.`points`, `user`.`id`, `user`.`username`, `user`.`color`, CONCAT(`user`.`id`, ".png") AS `image` '
                 . 'FROM `' . database::PREFIX . 'score` AS `score` '
                 . 'INNER JOIN `' . database::PREFIX . 'user` AS `user` ON `user`.`id`=`score`.`id_user` '
                 . 'WHERE `id_langageType` = :langageType '

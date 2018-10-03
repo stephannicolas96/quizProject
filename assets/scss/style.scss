@@ -218,7 +218,7 @@ p{
         width: 20%;
     }
     &[strength="2"]{
-        background-color: yellow;
+        background-color: orange;
         width: 40%;
     }
     &[strength="3"]{
@@ -226,7 +226,7 @@ p{
         width: 60%;
     }
     &[strength="4"]{
-        background-color: orange;
+        background-color: yellow;
         width: 80%;
     }
     &[strength="5"]{
@@ -254,6 +254,17 @@ p{
         padding: 2em;
         border-right: 1px solid black;
     }
+}
+.hidden{
+    display: none;
+}
+.userImg{
+    height: 128px;
+    width: 128px;
+    border-radius: 50%;
+}
+.clickable{
+    cursor: pointer; 
 }
 //------------------------------------ IDS ------------------------------------//
 #inputExample{
