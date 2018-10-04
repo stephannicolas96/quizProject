@@ -15,7 +15,7 @@ $sessionId = (isset($_SESSION['id'])) ? $_SESSION['id'] : -1;
 $userImageExist = false;
 
 if (isset($_GET['id']) && preg_match(regex::getIdRegex(), $_GET['id'])) {
-    $urlId = $_GET['id'];
+    $urlId = htmlspecialchars($_GET['id']);
     if ($urlId == $sessionId) {
         $canModify = true;
     }

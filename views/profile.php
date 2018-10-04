@@ -14,7 +14,7 @@ include path::getLayoutPath() . 'header.php';
                     <input id="userImage" class="hidden" type="file" name="userImage" accept="image/png" />
                     <label for="userImage"><img class="userImg clickable" src="../assets/images/userImages/<?= $userImage ?>" title="user image" alt="user image" /></label>
                 </div>
-                <input name="id" class="hidden" value="<?= $userInstance->id ?>"/>
+                <input name="id" type="hidden" value="<?= $userInstance->id ?>"/>
             </form>
 
             <form>

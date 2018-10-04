@@ -13,7 +13,6 @@ function generateInput($array) {
     $randomBetweenTwoNumberMultipleTimes = '/^[\d]+->[\d]+[xX][\d]+$/';
     $randomBetweenTwoNumberMultipleTimesSplitRegex = '/(->|[xX])/';
     $output = null;
-
     foreach ($array as $lineNumber => $line) {
         $addToOutput = null;
         if (preg_match($randomBetweenTwoNumber, $line)) {
@@ -30,26 +29,5 @@ function generateInput($array) {
         }
         $output = $output . trim($addToOutput) . '|';
     }
-
     return $output;
 }
-
-$input = $_POST['input'];
-$numberOfInputToGenerate = $_POST['numberOfInput'];
-
-
-$input = explode(';', $input);
-$input = array_map('trim', $input);
-$input = array_filter($input, function($element) {
-    return strlen($element) != 0;
-});
-
-if ($numberOfInputToGenerate == 1) {
-    echo generateInput($input);
-} else {
-    for ($i = 0; $i < $numberOfInputToGenerate; $i++) {
-    }
-}
-
-
-

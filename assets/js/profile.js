@@ -41,6 +41,7 @@ $("#uploadImage").on('submit', function (e) {
         processData: false, // To send DOMDocument or non processed data file it is set to false
         success: function (data)   // A function to be called if request succeeds
         {
+            //TODO : ADD AN UPLOADING PROGRESS BAR
             data = $.parseJSON(data);
             if (data['success']) {
             }

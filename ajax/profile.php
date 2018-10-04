@@ -7,7 +7,7 @@ session_start();
 $result = array();
 
 if (isset($_FILES['userImage']['type'])) {
-    $id = isset($_POST['id']) ? $_POST['id'] : -1;
+    $id = isset($_POST['id']) ? htmlspecialchars($_POST['id']) : -1;
     $validextensions = array('png');
     $temporary = explode('.', $_FILES['userImage']['name']);
     $file_extension = end($temporary);

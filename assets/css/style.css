@@ -223,6 +223,16 @@ p {
 .clickable {
   cursor: pointer; }
 
+.material-icons {
+  margin: auto 0; }
+
+.loader {
+  height: 100%; }
+  .loader > img {
+    margin: auto;
+    display: block;
+    height: inherit; }
+
 #inputExample {
   position: absolute;
   z-index: 50;

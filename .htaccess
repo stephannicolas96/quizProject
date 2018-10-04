@@ -3,14 +3,14 @@ RewriteEngine on
 RewriteRule ^([\w]+)/accueil.html$ index.php?lang=$1
 RewriteRule ^([\w]+)/createBattle.html$ views/creation.php?lang=$1
 RewriteRule ^([\w]+)/battle.html$ views/duel.php?lang=$1
-RewriteRule ^([\w]+)/leaderboard.html$ views/leaderboard.php?lang=$1
+RewriteRule ^([\w]+)/leaderboard-([\d]+).html$ views/leaderboard.php?lang=$1&type=$2
 RewriteRule ^([\w]+)/profile-([\d]+).html$ views/profile.php?id=$2&lang=$1
 RewriteRule ^([\w]+)/profile.html$ views/profile.php?lang=$1
 RewriteRule ^([\w]+)/logout.html controllers/logout.php?lang=$1
 RewriteRule ^accueil.html$ index.php?lang=en
 RewriteRule ^createBattle.html$ views/creation.php?lang=en
 RewriteRule ^battle.html$ views/duel.php?lang=en
-RewriteRule ^leaderboard.html$ views/leaderboard.php?lang=en
+RewriteRule ^leaderboard-([\d]+).html$ views/leaderboard.php?lang=en&type=$1
 RewriteRule ^profile-([\d]+).html$ views/profile.php?id=$1&lang=en
 RewriteRule ^profile.html$ views/profile.php?lang=en
 RewriteRule ^logout.html controllers/logout.php?lang=en

@@ -11,17 +11,32 @@ include path::getLayoutPath() . 'header.php';
 <div class="md-container">
     <ul class="collapsible">
         <li>
-            <div class="collapsible-header active">QUESTION</div>
+            <div class="collapsible-header active">
+                <p>QUESTION</p>
+                <i class="material-icons hidden">warning</i>
+                <i class="material-icons">info</i>
+            </div>
             <div class="collapsible-body editor" id="questionEditor"></div>
         </li>
         <li>
-            <div class="collapsible-header">CODE</div>
+            <div class="collapsible-header">
+                <p>CODE</p>
+                <i class="material-icons hidden">warning</i>
+                <i class="material-icons">info</i>
+            </div>
             <div class="collapsible-body editor" id="codeEditor"></div>
         </li>
         <li class="relative">
-            <div class="collapsible-header">INPUT</div>
+            <div class="collapsible-header">
+                <p>INPUT</p>
+                <i class="material-icons hidden">warning</i>
+                <i class="material-icons">info</i>
+            </div>
             <div class="collapsible-body editor" id="inputEditor"></div>
-            <div id="inputExample" class="opened"><p class="content"></p></div>
+            <div id="inputExample" class="opened">
+                <p class="content"></p>
+                <div class="loader hidden"><img src="../assets/images/loading.gif"/></div>
+            </div>
         </li>
     </ul>
 </div>

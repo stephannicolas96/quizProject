@@ -54,7 +54,7 @@ if (!empty($controllerToLoad)) {
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
                         <li><a class="modal-trigger" href="#duelCreation"><?= DUEL ?></a></li> 
                         <li><a href="createBattle.html"><?= CREATE ?></a></li>
-                        <li><a href="leaderboard.html"><?= LEADERBOARD ?></a></li>
+                        <li><a href="leaderboard-1.html"><?= LEADERBOARD ?></a></li>
                         <li class="notLogged" style="<?= (!$isLogged) ? '' : 'display:none;' ?>">
                             <a class="modal-trigger left" href="#registrationModal"><?= SIGN_UP ?></a>
                             /

@@ -266,6 +266,17 @@ p{
 .clickable{
     cursor: pointer; 
 }
+.material-icons{
+    margin: auto 0;
+}
+.loader{
+    height: 100%;
+    >img{
+        margin: auto;
+        display: block;
+        height: inherit;
+    }
+}
 //------------------------------------ IDS ------------------------------------//
 #inputExample{
     position: absolute;
