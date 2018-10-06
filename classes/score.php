@@ -9,8 +9,8 @@ class score extends database {
     public $userId;
     public $languageType;
     
-    public function getScoresAroundUserByLanguageTypeOrdered() {
-        $query = 'CALL getPlayerRowInRank(:userId, :langageType);';
+    public function getLeaderboardAroundPlayer() {
+        $query = 'CALL getLeaderboardAroundPlayer(:userId, :langageType);';
 
         $stmt = database::getInstance()->prepare($query);
         
@@ -22,13 +22,20 @@ class score extends database {
         }
     }
     
-    public function getTopThreeByLanguageTypeOrdered() {
-        $query = 'SELECT `score`.`points`, `user`.`id`, `user`.`username`, `user`.`color`, CONCAT(`user`.`id`, ".png") AS `image` '
-                . 'FROM `' . database::PREFIX . 'score` AS `score` '
-                . 'INNER JOIN `' . database::PREFIX . 'user` AS `user` ON `user`.`id`=`score`.`id_user` '
-                . 'WHERE `id_langageType` = :langageType '
-                . 'ORDER BY `points` DESC '
-                . 'LIMIT 3';
+    public function getTopThree() {
+        $query = 'CALL getTopThree(:langageType)';
+
+        $stmt = database::getInstance()->prepare($query);
+        
+        $stmt->bindValue(':langageType', $this->langageType, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
+        }
+    }
+    
+    public function getTopTwentyOffsetThree() {
+        $query = 'CALL getTopTwentyOffsetThree(:langageType)';
 
         $stmt = database::getInstance()->prepare($query);
         

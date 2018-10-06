@@ -9,22 +9,22 @@ include path::getLayoutPath() . 'modeSelector.php'
 ?>
 <div class="big-container">
     <?php foreach ($leaderboardTop as $user) { ?>
-        <div class="score-row">
+        <a class="score-row" href="profile-<?= $user->id ?>.html">
             <img src="" title="medal" alt="medal" />
             <img class="userImg" src="../assets/images/userImages/<?= $user->image ?>" style="background-color: <?= '#' . $user->color ?>" title="user image" alt="user image" />
             <p><?= $user->username ?></p>
             <p><?= $user->points ?></p>
-        </div>
+        </a>
     <?php } ?>
 </div>
 <div class="md-container">
-    <?php foreach ($leaderboardAroundPlayer as $user) { ?>
-        <div class="score-row">
+    <?php foreach ($leaderboardTwentyPlayers as $user) { ?>
+        <a class="score-row" href="profile-<?= $user->id ?>.html">
             <p><?= $user->rank ?></p>
             <img class="userImg" src="../assets/images/userImages/<?= $user->image ?>" style="background-color: <?= '#' . $user->color ?>" title="user image" alt="user image" />
             <p><?= $user->username ?></p>
             <p><?= $user->points ?></p>
-        </div>
+        </a>
     <?php } ?>
 </div>
 <?php include path::getLayoutPath() . 'footer.php'; ?>

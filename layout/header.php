@@ -10,35 +10,12 @@ if (!empty($controllerToLoad)) {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="Stephan Nicolas" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pizza/0.2.1/css/pizza.min.css" />
         <link rel="stylesheet" href="../assets/css/style.css" />
         <title><?= $pageTitle ?> - BATTLELY</title>
-        <script src="../assets/js/import/tarteaucitron/tarteaucitron.js"></script>
-        <script>
-            tarteaucitron.init({
-                "privacyUrl": "", /* Privacy policy url */
-
-                "hashtag": "#tarteaucitron", /* Open the panel with this hashtag */
-                "cookieName": "tartaucitron", /* Cookie name */
-
-                "orientation": "top", /* Banner position (top - bottom) */
-                "showAlertSmall": false, /* Show the small banner on bottom right */
-                "cookieslist": true, /* Show the cookie list */
-
-                "adblocker": false, /* Show a Warning if an adblocker is detected */
-                "AcceptAllCta": true, /* Show the accept all button when highPrivacy on */
-                "highPrivacy": false, /* Disable auto consent */
-                "handleBrowserDNTRequest": false, /* If Do Not Track == 1, accept all */
-
-                "removeCredit": false, /* Remove credit link */
-                "moreInfoLink": true, /* Show more info link */
-
-                //"cookieDomain": ".my-multisite-domaine.fr" /* Shared cookie for subdomain */
-            });
-            (tarteaucitron.job = tarteaucitron.job || []).push('recaptcha');
-        </script>
     </head>
     <body id="<?= $pageBackground ?>">
         <?php

@@ -43,7 +43,6 @@ $(function () {
                 data = $.parseJSON(data);
                 if (data['success'] && data['message']) {
                     $('#inputExample .content').html('');
-                    data['message'] = data['message'].slice(0, -1);
                     data['message'] = data['message'].split('|');
                     $.each(data['message'], function (id, element) {
                         $('#inputExample .content').append(element + '<br/>');

@@ -41,9 +41,19 @@ include path::getLayoutPath() . 'header.php';
         </div>
     <?php } ?>
     <div>
-        <?php foreach ($details as $data) { ?>
-            <p>langage: <?= $data->type ?>/battle: <?= is_null($data->battle) ? 0 : $data->battle ?>/won: <?= is_null($data->won) ? 0 : $data->won ?>/draw: <?= is_null($data->draw) ? 0 : $data->draw ?>/lost: <?= is_null($data->lost) ? 0 : $data->lost ?></p>
-        <?php } ?>
-    </div>
-</div>
-<?php include path::getLayoutPath() . 'footer.php'; ?>
+        <?php foreach ($details as $data) {
+            if ($data->battle != 0) {
+                ?>
+                <h1><?= $data->type ?></h1>
+                <ul data-pie-id="<?= $data->type ?>">
+                    <li data-value="<?= $data->won ?>">Won</li>
+                    <li data-value="<?= $data->draw ?>">Draw</li>
+                    <li data-value="<?= $data->lost ?>">Lost</li>
+                </ul>
+                <div id="<?= $data->type ?>"></div>
+                <?php }
+                }
+                ?>
+            </div>
+        </div>
+        <?php include path::getLayoutPath() . 'footer.php'; ?>

@@ -123,6 +123,9 @@ p{
 .score-row{
     display: grid;
     grid-template-columns: 100px 64px 1fr 1fr;
+    & p{
+        margin: auto;
+    }
 }
 .dropdown{
     z-index:998;
@@ -332,3 +335,24 @@ p{
     }
 }
 
+//------------------------------------ PIE CHART ------------------------------------//
+[data-pie-id] li:nth-child(0) {
+  color: blue;
+}
+[data-pie-id] li:nth-child(1) {
+  color: #4d00ff;
+}
+[data-pie-id] li:nth-child(2) {
+  color: #9900ff;
+}
+ul[data-pie-id] {
+  list-style: none;
+  padding: 10px;
+}
+ul[data-pie-id] + div {
+  width:300px;
+}
+/* Color graph only */
+/*#my-cool-chart g[data-id="g1"] path {
+  fill:yellow;
+}*/

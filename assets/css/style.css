@@ -98,6 +98,8 @@ p {
 .score-row {
   display: grid;
   grid-template-columns: 100px 64px 1fr 1fr; }
+  .score-row p {
+    margin: auto; }
 
 .dropdown {
   z-index: 998;
@@ -277,5 +279,25 @@ p {
       -webkit-box-shadow: 0px 0px 10px 10px rgba(227, 163, 0, 0.69);
       -moz-box-shadow: 0px 0px 10px 10px rgba(227, 163, 0, 0.69);
       box-shadow: 0px 0px 10px 10px rgba(227, 163, 0, 0.69); } }
+[data-pie-id] li:nth-child(0) {
+  color: blue; }
+
+[data-pie-id] li:nth-child(1) {
+  color: #4d00ff; }
+
+[data-pie-id] li:nth-child(2) {
+  color: #9900ff; }
+
+ul[data-pie-id] {
+  list-style: none;
+  padding: 10px; }
+
+ul[data-pie-id] + div {
+  width: 300px; }
+
+/* Color graph only */
+/*#my-cool-chart g[data-id="g1"] path {
+  fill:yellow;
+}*/
 
 /*# sourceMappingURL=style.css.map */
