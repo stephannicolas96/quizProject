@@ -3,15 +3,15 @@
 include_once path::getClassesPath() . 'database.php';
 
 class duel extends database {
-    
+
     public $id;
-    public $questionId;
-    public $playerOneId;
-    public $playerTwoId;
+    public $id_question;
+    public $id_playerOne;
+    public $id_playerTwo;
     public $playerOneEndTime;
     public $playerTwoEndTime;
     public $startTime;
-    
+
     /**
      * delete all that are older than 7 day
      * (false = duel weren't deleted, true = duel deteled)
@@ -19,41 +19,46 @@ class duel extends database {
      */
     public function deleteExpiredDuel() {
         $returnValue = false;
-        if (preg_match(regex::getPrefixRegex(), $this->prefix)) {
-            $request = 'DELETE'
-                    . 'FROM `' . database::PREFIX . 'duel`'
-                    . 'WHERE `startTime` < NOW() - INTERVAL 7 DAY';
-            
-            $deleteExpiredDuel = database::getInstance()->prepare($request);
-            
-            if ($deleteExpiredDuel->execute()) {
-                $returnValue = true;
-            }
+        $request = 'DELETE'
+                . 'FROM `' . database::PREFIX . 'duel`'
+                . 'WHERE `startTime` < NOW() - INTERVAL 7 DAY';
+
+        $stmt = database::getInstance()->prepare($request);
+
+        if ($stmt->execute()) {
+            $returnValue = true;
         }
         return $returnValue;
     }
 
+    /**
+     * 
+     * @return boolean
+     */
     public function createDuel() {
         $returnValue = false;
-        if (preg_match(regex::getPrefixRegex(), $this->prefix)) {
-            $currentTime = new DateTime();
-            $query = 'INSERT INTO `' . database::PREFIX . 'duel` (`id_' . database::PREFIX . 'question`, `id_' . database::PREFIX . 'user`, `id_' . database::PREFIX . 'user_playerOneId`, `startTime`)'
-                    . 'VALUES('
-                    . ' :questionId,'
-                    . ' :playerTwoId,'
-                    . ' :playerOneId,'
-                    . ' FROM_UNIXTIME(:startTime)'
-                    . ')';
+        $currentTime = new DateTime();
+        $this->startTime = $currentTime->getTimestamp();
+        $query = 'INSERT INTO `' . database::PREFIX . 'duel` (`id_question`, `id_playerOne`, `id_playerTwo`, `playerOneEndTime`, `playerTwoEndTime`, `startTime`)'
+                . 'VALUES('
+                . ':id_question, '
+                . ':id_playerOne, '
+                . ':id_playerTwo, '
+                . ':playerOneEndTime, '
+                . ':playerTwoEndTime, '
+                . 'FROM_UNIXTIME(:startTime)'
+                . ')';
 
-            $createDuel = database::getInstance()->prepare($query);
-            $createDuel->bindValue(':questionId', $this->mail, PDO::PARAM_INT);
-            $createDuel->bindValue(':playerOneId', $this->username, PDO::PARAM_INT);
-            $createDuel->bindValue(':playerTwoId', $this->hashedPassword, PDO::PARAM_INT);
-            $createDuel->bindValue(':startTime', $currentTime->getTimestamp(), PDO::PARAM_STR);
+        $stmt = database::getInstance()->prepare($query);
+        $stmt->bindValue(':id_question', $this->id_question, PDO::PARAM_INT);
+        $stmt->bindValue(':id_playerOne', $this->id_playerOne, PDO::PARAM_INT);
+        $stmt->bindValue(':id_playerTwo', $this->id_playerTwo, PDO::PARAM_INT);
+        $stmt->bindValue(':playerOneEndTime', $this->playerOneEndTime, PDO::PARAM_INT);
+        $stmt->bindValue(':playerTwoEndTime', $this->playerTwoEndTime, PDO::PARAM_INT);
+        $stmt->bindValue(':startTime', $this->startTime, PDO::PARAM_STR);
 
-            if ($createDuel->execute()) {
-                $returnValue = true;
-            }
+        if ($stmt->execute()) {
+            $returnValue = true;
         }
         return $returnValue;
     }

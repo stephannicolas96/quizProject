@@ -2,16 +2,18 @@
 
 /**
  * 
- * @param type $testCases
+ * @param type $generatedInput
  * @param type $langage
  * @param type $userCode
+ * @return type
  */
-function compile($testCases, $langage, $userCode) {
+function compile($generatedInput, $langage, $userCode) {
 
     $output = array();
 
     //Prepare input parameter
-    $inputs = explode('|', $testCase['input']);
+    $inputs = explode('|', $generatedInput);
+    array_pop ($inputs);
     $parameterFile = tmpfile();
     $parameter = '<?php ';
     foreach ($inputs as $input) {
@@ -28,16 +30,18 @@ function compile($testCases, $langage, $userCode) {
             fclose($tempFile);
             break;
         case 'cpp':
-            $output = executeUsingGCC('cpp', 'g++', $userCode);
+            $output = executeUsingGCC('cpp', 'g++', $userCode, $parameterFile);
             break;
         case 'c' :
-            $output = executeUsingGCC('c', 'gcc', $userCode);
+            $output = executeUsingGCC('c', 'gcc', $userCode, $parameterFile);
             break;
         default:
             break;
     }
 
     fclose($parameterFile);
+    
+    return $output;
 }
 
 /**
@@ -55,7 +59,7 @@ function getFileName($extension) {
  * @param type $langage
  * @param type $compiler
  */
-function executeUsingGCC($langage, $compiler, $userCode) {
+function executeUsingGCC($langage, $compiler, $userCode, $parameterFile) {
     $output = array();
 
     $tempFile = fopen('../temp/' . getFileName($langage), 'w');

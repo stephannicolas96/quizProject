@@ -27,13 +27,13 @@ class user extends database {
                 . ':color '
                 . ')';
 
-        $addUserToDB = database::getInstance()->prepare($query);
-        $addUserToDB->bindValue(':email', $this->email, PDO::PARAM_STR);
-        $addUserToDB->bindValue(':password', $this->password, PDO::PARAM_STR);
-        $addUserToDB->bindValue(':username', $this->username, PDO::PARAM_STR);
-        $addUserToDB->bindValue(':color', $this->colorsForUserCreation[rand(0, count($this->colorsForUserCreation) - 1)], PDO::PARAM_STR);
+        $stmt = database::getInstance()->prepare($query);
+        $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
+        $stmt->bindValue(':password', $this->password, PDO::PARAM_STR);
+        $stmt->bindValue(':username', $this->username, PDO::PARAM_STR);
+        $stmt->bindValue(':color', $this->colorsForUserCreation[rand(0, count($this->colorsForUserCreation) - 1)], PDO::PARAM_STR);
 
-        if ($addUserToDB->execute()) {
+        if ($stmt->execute()) {
             $returnValue = true;
         }
         return $returnValue;
@@ -50,11 +50,11 @@ class user extends database {
                 . 'FROM `' . database::PREFIX . 'user` '
                 . 'WHERE `email` = :email';
 
-        $checkEmail = database::getInstance()->prepare($query);
-        $checkEmail->bindValue(':email', $this->email, PDO::PARAM_STR);
+        $stmt = database::getInstance()->prepare($query);
+        $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
 
-        if ($checkEmail->execute()) {
-            $returnValue = $checkEmail->fetchColumn() != false;
+        if ($stmt->execute()) {
+            $returnValue = $stmt->fetchColumn() != false;
         }
         return $returnValue;
     }
@@ -70,11 +70,11 @@ class user extends database {
                 . 'FROM `' . database::PREFIX . 'user` '
                 . 'WHERE `username` = :username';
 
-        $checkUsername = database::getInstance()->prepare($query);
-        $checkUsername->bindValue(':username', $this->username, PDO::PARAM_STR);
+        $stmt = database::getInstance()->prepare($query);
+        $stmt->bindValue(':username', $this->username, PDO::PARAM_STR);
 
-        if ($checkUsername->execute()) {
-            $returnValue = $checkUsername->fetchColumn() != false;
+        if ($stmt->execute()) {
+            $returnValue = $stmt->fetchColumn() != false;
         }
         return $returnValue;
     }
@@ -90,11 +90,11 @@ class user extends database {
                 . 'FROM `' . database::PREFIX . 'user` '
                 . 'WHERE `email` = :email';
 
-        $getUser = database::getInstance()->prepare($query);
-        $getUser->bindValue(':email', $this->email, PDO::PARAM_STR);
+        $stmt = database::getInstance()->prepare($query);
+        $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
 
-        if ($getUser->execute()) {
-            $returnValue = $getUser->fetch(PDO::FETCH_OBJ);
+        if ($stmt->execute()) {
+            $returnValue = $stmt->fetch(PDO::FETCH_OBJ);
         }
         return $returnValue;
     }
@@ -110,11 +110,11 @@ class user extends database {
                 . 'FROM `' . database::PREFIX . 'user` '
                 . 'WHERE `username` = :username';
 
-        $getUser = database::getInstance()->prepare($query);
-        $getUser->bindValue(':username', $this->username, PDO::PARAM_STR);
+        $stmt = database::getInstance()->prepare($query);
+        $stmt->bindValue(':username', $this->username, PDO::PARAM_STR);
 
-        if ($getUser->execute()) {
-            $returnValue = $getUser->fetch(PDO::FETCH_OBJ);
+        if ($stmt->execute()) {
+            $returnValue = $stmt->fetch(PDO::FETCH_OBJ);
         }
         return $returnValue;
     }
@@ -130,11 +130,11 @@ class user extends database {
                 . 'FROM `' . database::PREFIX . 'user` '
                 . 'WHERE `id` = :id';
 
-        $getUser = database::getInstance()->prepare($query);
-        $getUser->bindValue(':id', $this->id, PDO::PARAM_INT);
+        $stmt = database::getInstance()->prepare($query);
+        $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
 
-        if ($getUser->execute()) {
-             $returnValue = $getUser->fetch(PDO::FETCH_OBJ);
+        if ($stmt->execute()) {
+             $returnValue = $stmt->fetch(PDO::FETCH_OBJ);
         }
         return $returnValue;
     }
@@ -152,12 +152,12 @@ class user extends database {
                 . '`username` = CONCAT(UCASE(LEFT(:username, 1)), SUBSTRING(:username, 2)) '
                 . 'WHERE `id` = :id';
 
-        $updateUser = database::getInstance()->prepare();
-        $updateUser->bindValue(':id', $this->id, PDO::PARAM_INT);
-        $updateUser->bindValue(':email', $this->email, PDO::PARAM_STR);
-        $updateUser->bindValue(':username', $this->username, PDO::PARAM_STR);
+        $stmt = database::getInstance()->prepare();
+        $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+        $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
+        $stmt->bindValue(':username', $this->username, PDO::PARAM_STR);
 
-        if ($updateUser->execute()) {
+        if ($stmt->execute()) {
             $returnValue = true;
         }
         return $returnValue;
@@ -177,13 +177,13 @@ class user extends database {
                 . ' `username` = CONCAT(UCASE(LEFT(:username, 1)), SUBSTRING(:username, 2)) '
                 . 'WHERE `id` = :id';
 
-        $updateUser = database::getInstance()->prepare($query);
-        $updateUser->bindValue(':id', $this->id, PDO::PARAM_INT);
-        $updateUser->bindValue(':email', $this->email, PDO::PARAM_STR);
-        $updateUser->bindValue(':password', $this->hashedPassword, PDO::PARAM_STR);
-        $updateUser->bindValue(':username', $this->username, PDO::PARAM_STR);
+        $stmt = database::getInstance()->prepare($query);
+        $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+        $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
+        $stmt->bindValue(':password', $this->hashedPassword, PDO::PARAM_STR);
+        $stmt->bindValue(':username', $this->username, PDO::PARAM_STR);
 
-        if ($updateUser->execute()) {
+        if ($stmt->execute()) {
             $returnValue = true;
         }
         return $returnValue;
@@ -200,10 +200,10 @@ class user extends database {
                 . 'FROM `' . database::PREFIX . 'user` AS `user` '
                 . 'WHERE `user`.`id` = :id';
 
-        $deleteUser = database::getInstance()->prepare();
-        $deleteUser->bindValue(':id', $this->id, PDO::PARAM_INT);
+        $stmt = database::getInstance()->prepare();
+        $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
 
-        if ($deleteUser->execute()) {
+        if ($stmt->execute()) {
             $returnValue = true;
         }
         return $returnValue;

@@ -15,6 +15,7 @@ $(function () {
 
     //--- set value ---//
     codeEditor.session.setValue(scriptingModes[0].value);
+    questionEditor.setValue(questionValue);
 
     //--- allow modes selection ---//
     $.each(scriptingModes, function (id, element) {
@@ -39,9 +40,8 @@ $(function () {
             },
             timeout: 3000,
             success: function (data) {
-                console.log(data);
                 data = $.parseJSON(data);
-                if (data['success']) {
+                if (data['success'] && data['message']) {
                     $('#inputExample .content').html('');
                     data['message'] = data['message'].slice(0, -1);
                     data['message'] = data['message'].split('|');
@@ -71,10 +71,11 @@ $(function () {
                 question: questionEditor.getValue(),
                 inputFormat: inputEditor.getValue(),
                 numberOfInputToGenerate: 20,
-                code: codeEditor.getValue(),
-                mode: scriptingModes[selectedMode].mode
+                userCode: codeEditor.getValue(),
+                langage: scriptingModes[selectedMode].mode
             },
             success: function (data) {
+                console.log(data);
             },
             beforeSend: function () {
                 $('#inputExample .content').hide();

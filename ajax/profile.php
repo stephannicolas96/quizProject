@@ -6,6 +6,7 @@ session_start();
 
 $result = array();
 
+
 if (isset($_FILES['userImage']['type'])) {
     $id = isset($_POST['id']) ? htmlspecialchars($_POST['id']) : -1;
     $validextensions = array('png');
@@ -14,8 +15,8 @@ if (isset($_FILES['userImage']['type'])) {
     $filename = $id . '.' . $file_extension;
     $targetPath = path::getUserImagesPath() . $filename;
     $sourcePath = $_FILES['userImage']['tmp_name'];
-
-    if ($_FILES['userImage']['type'] == 'image/png' && $_FILES['userImage']['size'] < 500000 && in_array($file_extension, $validextensions)) { //500ko max image size
+    
+    if ($_FILES['userImage']['type'] == 'image/png' && $_FILES['userImage']['size'] < 500000 && in_array($file_extension, $validextensions) && getimagesize($_FILES['userImage']['tmp_name']) != false) { //500ko max image size
         if ($_FILES['userImage']['error'] > 0) {
             $result['success'] = false;
             $result['message'] = 'Return Code: ' . $_FILES['userImage']['error'];

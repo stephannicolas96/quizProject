@@ -30,7 +30,7 @@ if (isset($_GET['id']) && preg_match(regex::getIdRegex(), $_GET['id'])) {
 // If the user is looking at is own profile
 if ($canModify) {   //TODO ADD IMAGE TO FILE WITH FILE INPUT (check if png or jpg, resize, rename to (id).png ex: 1.png 2.png ect...)
     $userInstance->id = $detailsInstance->userId = $sessionId;
-} else { // If the user look another player profile
+} else if (isset($urlId)) { // If the user look another player profile
     $userInstance->id = $detailsInstance->userId = $urlId;
 }
 $user = $userInstance->getUserByID();

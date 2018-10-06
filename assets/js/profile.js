@@ -19,15 +19,6 @@ $('#userImage').on('change', function () {
      }
      });*/
     $("#uploadImage").submit();
-    var file = this.files[0];
-    var imagefile = file.type;
-    var match = 'image/png';
-    if (imagefile == match)
-    {
-        var reader = new FileReader();
-        reader.onload = imageIsLoaded;
-        reader.readAsDataURL(this.files[0]);
-    }
 });
 
 $("#uploadImage").on('submit', function (e) {
@@ -44,6 +35,15 @@ $("#uploadImage").on('submit', function (e) {
             //TODO : ADD AN UPLOADING PROGRESS BAR
             data = $.parseJSON(data);
             if (data['success']) {
+                var file = $('#userImage')[0].files[0];
+                var imagefile = file.type;
+                var match = 'image/png';
+                if (imagefile == match)
+                {
+                    var reader = new FileReader();
+                    reader.onload = imageIsLoaded;
+                    reader.readAsDataURL($('#userImage')[0].files[0]);
+                }
             }
         }
     });

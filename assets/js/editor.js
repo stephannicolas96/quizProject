@@ -6,7 +6,7 @@ const scriptingModes = [{
                 '$f = stream_get_line(STDIN, 10000, PHP_EOL);\n\t' +
                 'if($f!==false){\n\t\t' +
                 '$input[] = $f;\n\t\t' +
-                'echo $f;\n\t' +
+                'echo $f . PHP_EOL;\n\t' +
                 '}\n' +
                 '}while($f!==false);\n'
     }, {
@@ -19,25 +19,39 @@ const scriptingModes = [{
                 'std::string line;\n\t' +
                 'while (std::getline(std::cin, line))\n\t' +
                 '{\n\t\t' +
-                'std::cout << line;\n\t' +
+                'std::cout << line << std::endl;\n\t' +
                 '}\n' +
                 '}'
     }, {
-        mode: 'c',
+        mode: 'c', //printf
         aceMode: 'c_cpp',
         value: '#include <stdlib.h>\n' +
                 '#include <stdio.h>\n\n' +
                 'int main() {\n\t' +
                 'char s[1024];\n\t' +
-                'while (scanf("%s", &s) != EOF) {\n\n\t' +
+                'while (fgets(s, sizeof(s), stdin);) {\n\t\t' +
+                'printf("%s", s);\n\t' +
                 '}\n\t' +
                 'return 0;\n' +
                 '}'
     }, {
         mode: 'csharp',
         aceMode: 'csharp',
-        value: 'arezaeaze'
+        value: 'using System;\n' +
+                'using System.Collections.Generic;\n' +
+                'using System.Linq;\n' +
+                'using System.Text;\n\n' +
+                'static void Main(string[] args)\n' +
+                '{\n\t' +
+                'string line;\n\t' +
+                'while ((line = Console.ReadLine()) != null) {\n\n\t' +
+                '}\n' +
+                '}'
     }];
+
+const questionValue = 'Enunciated\n\n\n\n' +
+        'Input\n\n\n\n' +
+        'Output\n\n\n';
 
 function addCommandToEditor(editor) {
     editor.commands.addCommand({
@@ -63,5 +77,5 @@ function fontSizeIncDec(editor, value) {
     if (newValue > 100 || newValue < 10) {
         return;
     }
-    editor.setOptions({ fontSize: newValue });
+    editor.setOptions({fontSize: newValue});
 }

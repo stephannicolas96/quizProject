@@ -73,7 +73,7 @@ if (!empty($controllerToLoad)) {
                         </li>
                     </ul>
                     <ul class="side-nav" id="mobile-demo">
-                        <li><a href="leaderboard.html"><?= LEADERBOARD ?></a></li>
+                        <li><a href="leaderboard-1.html"><?= LEADERBOARD ?></a></li>
                         <li class="notLogged" style="<?= (!$isLogged) ? '' : 'display:none;' ?>">
                             <a class="modal-trigger" href="#registrationModal"><?= SIGN_UP ?></a>
                         </li>
