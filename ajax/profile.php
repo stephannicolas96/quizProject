@@ -101,7 +101,7 @@ if (isset($_POST['submitType'])) {
             database::getInstance()->rollback();
             $errors[] = 'An error occured!'; //TODO TRADUCTION
             echo json_encode(array('errors' => $errors, 'success' => $success));
-            die($ex);
+            exit();
         }
     }
 } else {

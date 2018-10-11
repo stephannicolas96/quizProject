@@ -3,9 +3,13 @@
 session_start();
 include_once '../classes/path.php';
 include_once path::getClassesPath() . 'user.php';
+include_once path::getClassesPath() . 'score.php';
+include_once path::getClassesPath() . 'details.php';
 include_once path::getLangagePath() . $_SESSION['lang'];
 
 $userInstance = new user();
+$scoreInstance = new score();
+$detailsInstance = new details();
 $errors = array();
 $success = false;
 $usernameAlreadyExist = null;
@@ -54,10 +58,20 @@ if (!empty($_POST['password'])) {
 
 if (count($errors) == 0) {
     if (!$mailAlreadyExist && !$usernameAlreadyExist) {
-        if ($userInstance->addUser()) {
+        try {
+            database::getInstance()->beginTransaction();
+
+            $userInstance->addUser();
+            $scoreInstance->addBaseScoreByUserId();
+            $detailsInstance->addBaseDetailsByUserId();
+            
+            database::getInstance()->commit();
             $success = true;
-        } else {
-            $errors[] = REGISTRATION_FAILED;
+        } catch (Exception $ex) {
+            database::getInstance()->rollback();
+            $errors[] = REGISTRATION_FAILED; //TODO TRADUCTION
+            echo json_encode(array('errors' => $errors, 'success' => $success));
+            exit();
         }
     }
 }
