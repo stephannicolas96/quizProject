@@ -1,107 +1,113 @@
 <?php
 
-include_once '../classes/path.php';
-
 session_start();
 
-$result = array();
+include_once '../classes/path.php';
+include_once path::getClassesPath() . 'details.php';
+include_once path::getClassesPath() . 'score.php';
+include_once path::getClassesPath() . 'duel.php';
+include_once path::getClassesPath() . 'user.php';
 
-
-if (isset($_FILES['userImage']['type'])) {
-    $id = isset($_POST['id']) ? htmlspecialchars($_POST['id']) : -1;
-    $validextensions = array('png');
-    $temporary = explode('.', $_FILES['userImage']['name']);
-    $file_extension = end($temporary);
-    $filename = $id . '.' . $file_extension;
-    $targetPath = path::getUserImagesPath() . $filename;
-    $sourcePath = $_FILES['userImage']['tmp_name'];
-    
-    if ($_FILES['userImage']['type'] == 'image/png' && $_FILES['userImage']['size'] < 500000 && in_array($file_extension, $validextensions) && getimagesize($_FILES['userImage']['tmp_name']) != false) { //500ko max image size
-        if ($_FILES['userImage']['error'] > 0) {
-            $result['success'] = false;
-            $result['message'] = 'Return Code: ' . $_FILES['userImage']['error'];
-        } else {
-            if (file_exists($targetPath)) {
-                unlink($targetPath);
-            }
-            move_uploaded_file($sourcePath, $targetPath);
-            $result['success'] = true;
-            $result['message'] = $filename;
-        }
-    } else {
-        $result['success'] = false;
-        $result['message'] = 'Invalid file Size or Type';
-    }
-}
-
-echo json_encode($result);
-
-session_write_close();
-/*
+$userInstance = new user();
+$duelInstance = new duel();
+$scoreInstance = new score();
+$detailsInstance = new details();
+$success = false;
 $errors = array();
 
-if (isset($_POST['stopUpdate'])) { //STOP UPDATE
-} else if (isset($_POST['update'])) { //UPDATE USER DATA
-    if (!empty($_POST['username'])) {
-        if (preg_match(regex::getUsernameRegex(), $_POST['username'])) {
-            $profileUserInstance->username = $_POST['username'];
-            $savedUsername = htmlspecialchars($profileUserInstance->username);
-        } else {
-            $errors['username'] = defined('usernameRegexFail') ? usernameRegexFail : 'Username incorrect';
-        }
-    } else {
-        $errors['username'] = defined('usernameEmpty') ? usernameEmpty : 'Username can\'t be empty';
+if (isset($_SESSION['id']) && is_numeric($_SESSION['id'])) {
+    $detailsInstance->id_user = $scoreInstance->id_user = $duelInstance->id_playerOne = $duelInstance->id_playerTwo = $userInstance->id = htmlspecialchars($_SESSION['id']);
+    $user = $userInstance->getUserByID();
+    if (is_object($user)) {
+        $userInstance->password = $user->password;
+        $userInstance->email = $user->email;
+        $userInstance->username = $user->username;
     }
-
-    if (!empty($_POST['mail'])) {
-        if (preg_match(regex::getMailRegex(), $_POST['mail'])) {
-            $profileUserInstance->mail = $_POST['mail'];
-            $savedMail = htmlspecialchars($profileUserInstance->mail);
-        } else {
-            $errors['mail'] = defined('mailRegexFail') ? mailRegexFail : 'Mail incorrect';
-        }
-    } else {
-        $errors['mail'] = defined('mailEmpty') ? mailEmpty : 'Mail can\'t be empty';
-    }
-
-    if (!empty($_POST['actualPassword'])) {
-        if (preg_match(regex::getPasswordRegex(), $_POST['actualPassword'])) {
-            $profileUserInstance->password = $_POST['actualPassword'];
-        } else {
-            $errors['actualPassword'] = defined('passwordRegexFail') ? passwordRegexFail : 'Password incorrect';
-        }
-    } else {
-        $errors['actualPassword'] = defined('passwordEmpty') ? passwordEmpty : 'Password can\'t be empty';
-    }
-
-    if (!empty($_POST['newPassword'])) {
-        if (preg_match(regex::getPasswordRegex(), $_POST['newPassword'])) {
-            $profileUserInstance->newPassword = $_POST['newPassword'];
-            $profileUserInstance->hashedPassword = password_hash($profileUserInstance->newPassword, PASSWORD_BCRYPT);
-            $passwordChanged = true;
-        } else {
-            $errors['newPassword'] = defined('passwordRegexFail') ? passwordRegexFail : 'Password incorrect';
-        }
-    }
-
-    if (count($errors) == 0 && password_verify($profileUserInstance->password, $profileUserInstance->databaseHashedPassword)) {
-        if ($passwordChanged) {
-            $profileUserInstance->updateUserWithPasswordById();
-        } else {
-            $profileUserInstance->updateUserWithoutPasswordById();
-        }
-    } else {
-        $errors['password'] = 'wrongPassword';
-        $modifying = true;
-    }
-} else if (isset($_POST['deleteUserImage'])) { //DELETE USER IMAGE
-    $modifying = true;
-    if ($userImageExist) {
-        unlink($savedUserImagePath);
-    }
-} else if (isset($_POST['deleteUser'])) { // DELETE USER
-    $profileUserInstance->deleteUserById();
-    session_unset();
-    header('Location: accueil.html');
+} else {
+    $errors[] = 'An error occured!'; //TODO TRADUCTION
+    echo json_encode(array('errors' => $errors, 'success' => $success));
+    exit();
 }
- */
+if (isset($_POST['submitType'])) {
+    $submit = htmlspecialchars($_POST['submitType']);
+    if ($submit == 0) { //UPDATE USER DATA
+        if (!empty($_POST['username'])) {
+            $username = htmlspecialchars($_POST['username']);
+            if (strlen($userInstance->username) <= 60 && $userInstance->username != $username) {
+                $userInstance->username = $username;
+                $usernameAlreadyExist = $userInstance->checkIfUsernameAlreadyExist();
+                if ($usernameAlreadyExist) {
+                    $errors['username'] = USERNAME_ALREADY_USED;
+                }
+            }
+        } else {
+            $errors['username'] = USERNAME_EMPTY;
+        }
+
+        if (!empty($_POST['email'])) {
+            if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+                $email = htmlspecialchars($_POST['email']);
+                if (strlen($userInstance->email) <= 60 && $userInstance->email != $email) {
+                    $userInstance->email = $email;
+                    $mailAlreadyExist = $userInstance->checkIfEmailAlreadyExist();
+                    if ($mailAlreadyExist) {
+                        $errors['email'] = EMAIL_ALREADY_USED;
+                    }
+                }
+            } else {
+                $errors['email'] = EMAIL_INCORRECT;
+            }
+        } else {
+            $errors['email'] = EMAIL_EMPTY;
+        }
+
+        if (!empty($_POST['actualPassword'])) { //TODO COMPARE WITH ACTUAL PASSWORD
+            $password = htmlspecialchars($_POST['actualPassword']);
+            if (!password_verify($password, $userInstance->password)) {
+                $errors[] = 'wrong password'; //TODO TRADUCTION
+            }
+        } else {
+            $errors[] = EMPTY_PASSWORD;
+        }
+
+        if (!empty($_POST['newPassword'])) {
+            $newPassword = password_hash(htmlspecialchars($_POST['newPassword']), PASSWORD_BCRYPT);
+        }
+
+        if (count($errors) == 0) {
+            if (isset($newPassword)) {
+                $userInstance->password = $newPassword;
+                $userInstance->updateUserWithPasswordById();
+            } else {
+                $userInstance->updateUserWithoutPasswordById();
+            }
+            $success = true;
+        }
+    } else if ($submit == 1) { // DELETE USER
+        try {
+            database::getInstance()->beginTransaction();
+
+            $scoreInstance->deleteScoreByUserId();
+            $detailsInstance->deleteDetailsByUserId();
+            $duelInstance->deleteDuelByUserId();
+            $userInstance->deleteUserById();
+
+            database::getInstance()->commit();
+            session_unset();
+            session_destroy();
+            header('Location: home.html');
+            $success = true;
+        } catch (Exception $ex) {
+            database::getInstance()->rollback();
+            $errors[] = 'An error occured!'; //TODO TRADUCTION
+            echo json_encode(array('errors' => $errors, 'success' => $success));
+            die($ex);
+        }
+    }
+} else {
+    $errors[] = 'An error occured!'; //TODO TRADUCTION
+}
+
+echo json_encode(array('errors' => $errors, 'success' => $success));
+
+session_write_close();

@@ -18,17 +18,13 @@ class duel extends database {
      * @return boolean
      */
     public function deleteExpiredDuel() {
-        $returnValue = false;
-        $request = 'DELETE'
-                . 'FROM `' . database::PREFIX . 'duel`'
+        $request = 'DELETE '
+                . 'FROM `' . database::PREFIX . 'duel` '
                 . 'WHERE `startTime` < NOW() - INTERVAL 7 DAY';
 
         $stmt = database::getInstance()->prepare($request);
 
-        if ($stmt->execute()) {
-            $returnValue = true;
-        }
-        return $returnValue;
+        return $stmt->execute();
     }
 
     /**
@@ -36,7 +32,6 @@ class duel extends database {
      * @return boolean
      */
     public function createDuel() {
-        $returnValue = false;
         $currentTime = new DateTime();
         $this->startTime = $currentTime->getTimestamp();
         $query = 'INSERT INTO `' . database::PREFIX . 'duel` (`id_question`, `id_playerOne`, `id_playerTwo`, `playerOneEndTime`, `playerTwoEndTime`, `startTime`)'
@@ -57,10 +52,23 @@ class duel extends database {
         $stmt->bindValue(':playerTwoEndTime', $this->playerTwoEndTime, PDO::PARAM_INT);
         $stmt->bindValue(':startTime', $this->startTime, PDO::PARAM_STR);
 
-        if ($stmt->execute()) {
-            $returnValue = true;
-        }
-        return $returnValue;
+        return $stmt->execute();
+    }
+    
+    /**
+     * 
+     * @return type
+     */
+    public function deleteDuelByUserId() {
+        $request = 'DELETE '
+                . 'FROM `' . database::PREFIX . 'duel` '
+                . 'WHERE `id_playerOne` = :id_playerOne OR `id_playerTwo` = :id_playerTwo';
+
+        $stmt = database::getInstance()->prepare($request);
+        $stmt->bindValue(':id_playerOne', $this->id_playerOne, PDO::PARAM_INT);
+        $stmt->bindValue(':id_playerTwo', $this->id_playerTwo, PDO::PARAM_INT);
+
+        return $stmt->execute();
     }
 
 }

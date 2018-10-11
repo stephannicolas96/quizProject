@@ -8,6 +8,9 @@
 <script src="../assets/js/langageDropdown.js"></script>
 <?php if ($_SERVER['SCRIPT_NAME'] == '/views/creation.php' || $_SERVER['SCRIPT_NAME'] == '/views/duel.php') { ?>
     <script src="../assets/js/import/ace/ace.js"></script>
+    <?php }
+    if ($_SERVER['SCRIPT_NAME'] == '/views/creation.php' || $_SERVER['SCRIPT_NAME'] == '/views/duel.php' || $_SERVER['SCRIPT_NAME'] == '/views/leaderboard.php') {
+    ?>
     <script src="../assets/js/editor.js"></script>
     <?php if ($_SERVER['SCRIPT_NAME'] == '/views/creation.php') { ?>
         <script src="../assets/js/creation.js"></script>

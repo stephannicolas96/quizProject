@@ -23,30 +23,26 @@ if (isset($_GET['id']) && preg_match(regex::getIdRegex(), $_GET['id'])) {
     if ($isLogged) {
         $canModify = true;
     } else {
-        header('Location: accueil.html');
+        header('Location: home.html');
     }
 }
 
 // If the user is looking at is own profile
 if ($canModify) {   //TODO ADD IMAGE TO FILE WITH FILE INPUT (check if png or jpg, resize, rename to (id).png ex: 1.png 2.png ect...)
-    $userInstance->id = $detailsInstance->userId = $sessionId;
+    $userInstance->id = $detailsInstance->id_user = $sessionId;
 } else if (isset($urlId)) { // If the user look another player profile
-    $userInstance->id = $detailsInstance->userId = $urlId;
+    $userInstance->id = $detailsInstance->id_user = $urlId;
 }
 $user = $userInstance->getUserByID();
 if (is_object($user)) {
     $userInstance->username = $user->username;
     $userInstance->email = $user->email;
 } else {
-    http_response_code(404);
-    include('error404.php');
-    die();
+    header('Location: home.html');
 }
 $details = $detailsInstance->getPlayerDetails();
 if (!is_array($details)) {
-    http_response_code(404);
-    include('error404.php');
-    die();
+    header('Location: home.html');
 }
 
 $profileInputs = [
@@ -58,7 +54,7 @@ $profileInputs = [
     ],
     (object) [
         'wrappingDivClasses' => 'input-field',
-        'inputAttr' => 'id="email" type="text" name="mail" value="' . $userInstance->email . '" required',
+        'inputAttr' => 'id="email" type="text" name="email" value="' . $userInstance->email . '" required',
         'labelContent' => EMAIL,
         'labelAttr' => 'email'
     ],
@@ -70,7 +66,7 @@ $profileInputs = [
     ],
     (object) [
         'wrappingDivClasses' => 'input-field password',
-        'inputAttr' => 'id="newPassword" type="password" name="newPassword" strength="0" required',
+        'inputAttr' => 'id="newPassword" type="password" name="newPassword" strength="0"',
         'labelContent' => NEW_PASSWORD,
         'labelAttr' => 'newPassword'
     ]

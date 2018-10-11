@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 include_once '../classes/path.php';
 include_once path::getClassesPath() . 'user.php';
@@ -6,6 +7,7 @@ include_once path::getLangagePath() . $_SESSION['lang'];
 
 $userInstance = new user();
 $errors = array();
+$success = false;
 $usernameAlreadyExist = null;
 $mailAlreadyExist = null;
 $hashedPassword = null;
@@ -13,45 +15,53 @@ $hashedPassword = null;
 //USERNAME
 if (!empty($_POST['username'])) {
     $userInstance->username = htmlspecialchars($_POST['username']);
-    $usernameAlreadyExist = $userInstance->checkIfUsernameAlreadyExist();
-    if ($usernameAlreadyExist) {
-        $errors['username'] = defined('usernameAlreadyUsed') ? usernameAlreadyUsed : 'Username already used';
+    if (strlen($userInstance->username) <= 60) {
+        $usernameAlreadyExist = $userInstance->checkIfUsernameAlreadyExist();
+        if ($usernameAlreadyExist) {
+            $errors['username'] = USERNAME_ALREADY_USED;
+        }
     }
 } else {
-    $errors['username'] = defined('usernameEmpty') ? usernameEmpty : 'Username can\'t be empty';
+    $errors['username'] = USERNAME_EMPTY;
 }
 
 //EMAIL
 if (!empty($_POST['email'])) {
     if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
         $userInstance->email = htmlspecialchars($_POST['email']);
-        $mailAlreadyExist = $userInstance->checkIfEmailAlreadyExist();
-        if ($mailAlreadyExist) {
-            $errors['email'] = defined('emailAlreadyUsed') ? emailAlreadyUsed : 'Email already used';
+        if (strlen($userInstance->email) <= 60) {
+            $mailAlreadyExist = $userInstance->checkIfEmailAlreadyExist();
+            if ($mailAlreadyExist) {
+                $errors['email'] = EMAIL_ALREADY_USED;
+            }
         }
     } else {
-        $errors['email'] = defined('emailIncorrect') ? emailIncorrect : 'Email incorrect';
+        $errors['email'] = EMAIL_INCORRECT;
     }
 } else {
-    $errors['email'] = defined('emailEmpty') ? emailEmpty : 'Email can\'t be empty';
+    $errors['email'] = EMAIL_EMPTY;
 }
 
 //PASSWORD
 if (!empty($_POST['password'])) {
-    $userInstance->password = password_hash(htmlspecialchars($_POST['password']), PASSWORD_BCRYPT);
+    $password = htmlspecialchars($_POST['password']);
+    if (strlen($password) <= 60) {
+        $userInstance->password = password_hash($password, PASSWORD_BCRYPT);
+    }
 } else {
-    $errors['password'] = defined('passwordEmpty') ? passwordEmpty : 'Password can\'t be empty';
+    $errors[] = EMPTY_PASSWORD;
 }
 
 if (count($errors) == 0) {
     if (!$mailAlreadyExist && !$usernameAlreadyExist) {
         if ($userInstance->addUser()) {
-            echo 1;
+            $success = true;
         } else {
-            echo defined('registrationFailed') ? registrationFailed : 'Registration failed! Please try again later.';
+            $errors[] = REGISTRATION_FAILED;
         }
     }
-} else {
-    echo implode('|', $errors);
 }
+
+echo json_encode(array('errors' => $errors, 'success' => $success));
+
 session_write_close();

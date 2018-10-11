@@ -26,49 +26,50 @@ if (!empty($controllerToLoad)) {
         <div class="navbar-fixed">
             <nav class="navbar">
                 <div class="nav-wrapper">
-                    <a href="accueil.html" class="brand-logo"><img class="logo" src="../assets/images/logo.png" /></a>
+                    <a href="home.html" class="brand-logo"><img class="logo" src="../assets/images/logo.png"/></a>
                     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        <li><a class="modal-trigger" href="#duelCreation"><?= DUEL ?></a></li> 
+                        <?php if ($isLogged) { ?>
+                            <li><a class="modal-trigger" href="#duelCreation"><?= DUEL ?></a></li> 
+                        <?php } ?>
                         <li><a href="createBattle.html"><?= CREATE ?></a></li>
                         <li><a href="leaderboard-1.html"><?= LEADERBOARD ?></a></li>
-                        <li class="notLogged" style="<?= (!$isLogged) ? '' : 'display:none;' ?>">
-                            <a class="modal-trigger left" href="#registrationModal"><?= SIGN_UP ?></a>
-                            /
-                            <a class="modal-trigger right" href="#loginModal"><?= LOG_IN ?></a>
-                        </li>
-                        <li class="logged" style="<?= ($isLogged) ? '' : 'display:none;' ?>">
-                            <a class="left" href="profile.html"><?= MY_ACCOUNT ?></a>
-                            /
-                            <a class="right" href="logout.html"><?= LOGOUT ?></a>
-                        </li>
-                        <li>
-                            <a href="javascript:tarteaucitron.userInterface.openPanel();">Gestion des cookies</a>
-                        </li>
-                        <li>
-                            <button onclick="openDropdown('#langageDropdown')" class="nav-link"><img src="../assets/images/<?= $lang ?>.png" /></button>
-                        </li>
+                        <?php if (!$isLogged) { ?>
+                            <li>
+                                <a class="modal-trigger left" href="#registrationModal"><?= SIGN_UP ?></a>
+                                /
+                                <a class="modal-trigger right" href="#loginModal"><?= LOG_IN ?></a>
+                            </li>
+                            <?php
+                        }
+                        if ($isLogged) {
+                            ?>
+                            <li>
+                                <a class="left" href="profile.html"><?= MY_ACCOUNT ?></a>
+                                /
+                                <a class="right" href="logout.html"><?= LOGOUT ?></a>
+                            </li>
+                        <?php } ?>
+                        <li><a href="javascript:tarteaucitron.userInterface.openPanel();">Gestion des cookies</a></li>
+                        <li><button class="btn-clear" onclick="openDropdown('#langageDropdown')"><img src="../assets/images/<?= $lang ?>.png" /></button></li>
                     </ul>
                     <ul class="side-nav" id="mobile-demo">
+                        <?php if ($isLogged) { ?>
+                            <li><a class="modal-trigger" href="#duelCreation"><?= DUEL ?></a></li> 
+                        <?php } ?>
+                        <li><a href="createBattle.html"><?= CREATE ?></a></li>
                         <li><a href="leaderboard-1.html"><?= LEADERBOARD ?></a></li>
-                        <li class="notLogged" style="<?= (!$isLogged) ? '' : 'display:none;' ?>">
-                            <a class="modal-trigger" href="#registrationModal"><?= SIGN_UP ?></a>
-                        </li>
-                        <li class="notLogged" style="<?= (!$isLogged) ? '' : 'display:none;' ?>">
-                            <a class="modal-trigger" href="#loginModal"><?= LOG_IN ?></a>
-                        </li>
-                        <li class="logged" style="<?= ($isLogged) ? '' : 'display:none;' ?>">
-                            <a href="profile.html"><?= MY_ACCOUNT ?></a>
-                        </li>
-                        <li class="logged" style="<?= ($isLogged) ? '' : 'display:none;' ?>">
-                            <a href="logout.html"><?= LOGOUT ?></a>
-                        </li>
-                        <li>
-                            <a href="javascript:tarteaucitron.userInterface.openPanel();">Gestion des cookies</a>
-                        </li>
-                        <li>
-                            <button onclick="openDropdown('#langageDropdown')"><img src="../assets/images/<?= $lang ?>.png" /></button>
-                        </li>
+                        <?php if (!$isLogged) { ?>
+                            <li><a class="modal-trigger" href="#registrationModal"><?= SIGN_UP ?></a></li>
+                            <li><a class="modal-trigger" href="#loginModal"><?= LOG_IN ?></a></li>
+                            <?php
+                        }
+                        if ($isLogged) {
+                            ?>
+                            <li><a href="profile.html"><?= MY_ACCOUNT ?></a></li>
+                            <li><a href="logout.html"><?= LOGOUT ?></a></li>
+                        <?php } ?>
+                        <li><button onclick="openDropdown('#langageDropdown')"><img src="../assets/images/<?= $lang ?>.png" /></button></li>
                     </ul>
                 </div>
             </nav>

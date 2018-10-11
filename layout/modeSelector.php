@@ -1,18 +1,9 @@
+<?php include_once path::getControllersPath() . 'modeSelector.php'; ?>
 <div id="modeSelector">
+    <?php foreach($allTypes as $id => $type) { ?>
         <div>
-            <input id="php" name="mode" type="radio" checked/>
-            <label for="php"><img src="../assets/images/php.png" /></label>
+            <input id="<?= $type->type ?>" name="mode" type="radio" <?= ($id + 1 == $currentType) ? 'checked' : '' ?>/>
+            <label for="<?= $type->type ?>"><img src="../assets/images/<?= $type->type ?>.png" /></label>
         </div>
-        <div>
-            <input id="cpp" name="mode" type="radio" />
-            <label for="cpp"><img src="../assets/images/cpp.png" /></label>
-        </div>  
-        <div>
-            <input id="c" name="mode" type="radio" />
-            <label for="c"><img src="../assets/images/c.png" /></label>
-        </div>  
-        <div>
-            <input id="csharp" name="mode" type="radio" disabled/>
-            <label for="csharp"><img src="../assets/images/csharp.png" /></label>
-        </div>
+    <?php } ?>
 </div>

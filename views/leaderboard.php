@@ -9,8 +9,7 @@ include path::getLayoutPath() . 'modeSelector.php'
 ?>
 <div class="big-container">
     <?php foreach ($leaderboardTop as $user) { ?>
-        <a class="score-row" href="profile-<?= $user->id ?>.html">
-            <img src="" title="medal" alt="medal" />
+        <a class="score-row leader <?= $colors[$user->rank - 1] ?>" href="profile-<?= $user->id ?>.html">
             <img class="userImg" src="../assets/images/userImages/<?= $user->image ?>" style="background-color: <?= '#' . $user->color ?>" title="user image" alt="user image" />
             <p><?= $user->username ?></p>
             <p><?= $user->points ?></p>
@@ -18,8 +17,8 @@ include path::getLayoutPath() . 'modeSelector.php'
     <?php } ?>
 </div>
 <div class="md-container">
-    <?php foreach ($leaderboardTwentyPlayers as $user) { ?>
-        <a class="score-row" href="profile-<?= $user->id ?>.html">
+    <?php foreach ($leaderboardTwentyPlayers as $row => $user) { ?>
+        <a class="score-row <?= $row%2 ? 'light' : 'normal' ?>" href="profile-<?= $user->id ?>.html">
             <p><?= $user->rank ?></p>
             <img class="userImg" src="../assets/images/userImages/<?= $user->image ?>" style="background-color: <?= '#' . $user->color ?>" title="user image" alt="user image" />
             <p><?= $user->username ?></p>

@@ -9,16 +9,14 @@ class user extends database {
     public $username;
     public $password;
     public $color;
-    //TODO : PUT THIS ELSEWHERE
-    private $colorsForUserCreation = ['F9D400', '4ED37C', '00C7FF', 'DC00FF'];
-
+    private $colorsForUserCreation = ['3F0B1B', '7A1631', 'CF423C', 'FC7D49', 'FFD462'];
+    
     /**
      * Add a user to the database
      * (false = user wasn't added, true = user added)
      * @return boolean 
      */
     public function addUser() {
-        $returnValue = false;
         $query = 'INSERT INTO `' . database::PREFIX . 'user` (`email`, `password`, `username`, `color`) '
                 . 'VALUES ( '
                 . 'LCASE(:email), '
@@ -33,10 +31,7 @@ class user extends database {
         $stmt->bindValue(':username', $this->username, PDO::PARAM_STR);
         $stmt->bindValue(':color', $this->colorsForUserCreation[rand(0, count($this->colorsForUserCreation) - 1)], PDO::PARAM_STR);
 
-        if ($stmt->execute()) {
-            $returnValue = true;
-        }
-        return $returnValue;
+        return $stmt->execute();
     }
 
     /**
@@ -118,6 +113,27 @@ class user extends database {
         }
         return $returnValue;
     }
+    
+    /**
+     * 
+     * @return type
+     */
+     public function getTenUsernameLike() {
+        $returnValue = array();
+        $query = 'SELECT `username`, CONCAT(`id`,".png") AS `image` '
+                . 'FROM `' . database::PREFIX . 'user` '
+                . 'WHERE `username` LIKE :username '
+                . 'ORDER BY `username` DESC '
+                . 'LIMIT 10';
+
+        $stmt = database::getInstance()->prepare($query);
+        $stmt->bindValue(':username', $this->username . '%', PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $returnValue = $stmt->fetchAll(PDO::FETCH_OBJ);
+        }
+        return $returnValue;
+    }
 
     /**
      * Get user information using ID
@@ -145,22 +161,18 @@ class user extends database {
      * @return boolean
      */
     public function updateUserWithoutPasswordById() {
-        $returnValue = false;
         $query = 'UPDATE `' . database::PREFIX . 'user` '
                 . 'SET '
                 . '`email` = LCASE(:email), '
                 . '`username` = CONCAT(UCASE(LEFT(:username, 1)), SUBSTRING(:username, 2)) '
                 . 'WHERE `id` = :id';
 
-        $stmt = database::getInstance()->prepare();
+        $stmt = database::getInstance()->prepare($query);
         $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
         $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
         $stmt->bindValue(':username', $this->username, PDO::PARAM_STR);
 
-        if ($stmt->execute()) {
-            $returnValue = true;
-        }
-        return $returnValue;
+        return $stmt->execute();
     }
 
     /**
@@ -169,7 +181,6 @@ class user extends database {
      * @return boolean
      */
     public function updateUserWithPasswordById() {
-        $returnValue = false;
         $query = 'UPDATE `' . database::PREFIX . 'user` '
                 . 'SET '
                 . ' `email` = LCASE(:email), '
@@ -180,13 +191,10 @@ class user extends database {
         $stmt = database::getInstance()->prepare($query);
         $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
         $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
-        $stmt->bindValue(':password', $this->hashedPassword, PDO::PARAM_STR);
+        $stmt->bindValue(':password', $this->password, PDO::PARAM_STR);
         $stmt->bindValue(':username', $this->username, PDO::PARAM_STR);
 
-        if ($stmt->execute()) {
-            $returnValue = true;
-        }
-        return $returnValue;
+        return $stmt->execute();
     }
 
     /**
@@ -195,17 +203,13 @@ class user extends database {
      * @return boolean
      */
     public function deleteUserById() {
-        $returnValue = false;
         $query = 'DELETE `user` '
                 . 'FROM `' . database::PREFIX . 'user` AS `user` '
                 . 'WHERE `user`.`id` = :id';
 
-        $stmt = database::getInstance()->prepare();
+        $stmt = database::getInstance()->prepare($query);
         $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
 
-        if ($stmt->execute()) {
-            $returnValue = true;
-        }
-        return $returnValue;
+        return $stmt->execute();
     }
 }

@@ -15,7 +15,6 @@ class question extends database {
      * @return boolean
      */
     public function createQuestion() {
-        $returnValue = false;
         $query = 'INSERT INTO `' . database::PREFIX . 'question` (`enunciated`, `input`, `output`, `difficulty`) '
                 . 'VALUES ( '
                 . ':enunciated, '
@@ -30,10 +29,7 @@ class question extends database {
         $stmt->bindValue(':output', $this->output, PDO::PARAM_STR);
         $stmt->bindValue(':difficulty', $this->difficulty, PDO::PARAM_INT);
 
-        if ($stmt->execute()) {
-            $returnValue = true;
-        }
-        return $returnValue;
+        return $stmt->execute();
     }
 
     /**

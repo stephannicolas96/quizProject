@@ -8,76 +8,110 @@ include path::getClassesPath() . 'testCase.php';
 
 $result = array();
 
-$result['success'] = true;
+$result['success'] = 1;
 
 //------------------------------------ QUESTION ------------------------------------//
 
 $regexQuestion = '/(Énoncé|Enunciated)\b.*?\b(Entrée|Input)\b.*?\b(Sortie|Output)/ms';
 $regexSplitQuestion = '/(Énoncé|Enunciated|Entrée|Input|Sortie|Output)/ms';
-if (isset($_POST['question'])) {
+if (!empty($_POST['question'])) {
     $question = htmlspecialchars($_POST['question']);
     if (!preg_match($regexQuestion, $question)) {
-        $result['success'] = false;
+        $result['success'] = -1;
+        $result['message'] = 'Your question doesn\'t contains all the requested words refer to the information';
     } else {
         $questionData = preg_split($regexSplitQuestion, $question);
         array_shift($questionData);
         $questionData = array_map('trim', $questionData);
     }
 } else {
-    $result['success'] = false;
+    $result['success'] = -1;
+    $result['message'] = 'Your question can\'t be empty';
 }
 
 //------------------------------------ INPUT ------------------------------------//
 
-if (isset($_POST['inputFormat'])) { // INPUT FORMAT WRITTEN INSIDE THE INPUT EDITOR
-    $inputFormat = htmlspecialchars($_POST['inputFormat']);
-    $inputFormat = str_replace('&gt;', '>', $inputFormat);
-    $inputFormat = explode(';', $inputFormat);
-    $inputFormat = array_map('trim', $inputFormat);
-    $inputFormat = array_filter($inputFormat, function($element) {
-        return strlen($element) != 0;
-    });
-} else {
-    $result['success'] = false;
-}
-
-if (isset($_POST['numberOfInputToGenerate']) && isset($inputFormat)) { //AMOUNT OF INPUT TO GENERATE
-    $numberOfInputToGenerate = htmlspecialchars($_POST['numberOfInputToGenerate']);
-    $generatedInputs = array();
-    for ($i = 0; $i < $numberOfInputToGenerate; $i++) {
-        $generatedInputs[] = generateInput($inputFormat);
+if ($result['success'] == 1) {
+    if (!empty($_POST['inputFormat'])) { // INPUT FORMAT WRITTEN INSIDE THE INPUT EDITOR
+        $inputFormat = htmlspecialchars($_POST['inputFormat']);
+        $inputFormat = str_replace('&gt;', '>', $inputFormat);
+        $inputFormat = explode(';', $inputFormat);
+        $inputFormat = array_map('trim', $inputFormat);
+        $inputFormat = array_filter($inputFormat, function($element) {
+            return strlen($element) != 0;
+        });
+    } else {
+        $result['success'] = -2;
+        $result['message'] = 'Your input can\'t be empty';
     }
-} else {
-    $result['success'] = false;
+
+    $generatedInputs = array();
+    if (isset($_POST['numberOfInputToGenerate']) && isset($inputFormat)) { //AMOUNT OF INPUT TO GENERATE
+        $numberOfInputToGenerate = htmlspecialchars($_POST['numberOfInputToGenerate']);
+        for ($i = 0; $i < $numberOfInputToGenerate; $i++) {
+            $generatedInputs[] = generateInput($inputFormat);
+        }
+    }
+
+    $regex = '/error.+/'; // TODO ADD TO REGEX CLASSES
+    if (count($generatedInputs) > 0) {
+        foreach ($generatedInputs as $input) {
+            if (preg_match($regex, $input)) {
+                $result['success'] = -2;
+                $result['message'] = 'There was a problem generating inputs';
+            }
+        }
+    } else {
+        $result['success'] = -2;
+        $result['message'] = 'There was a problem generating inputs';
+    }
 }
 
 //------------------------------------ USER CODE ------------------------------------//
 
-if (isset($_POST['langage'])) {
-    $langage = htmlspecialchars($_POST['langage']);
-}
-if (isset($_POST['userCode'])) {
-    $userCode = $_POST['userCode']; // SECURE THIS 
-}
+if ($result['success'] == 1) {
+    if (!empty($_POST['langage'])) {
+        $langage = htmlspecialchars($_POST['langage']);
+    } else {
+        $result['success'] = -3;
+        $result['message'] = 'Try again later...';
+    }
+    if (!empty($_POST['userCode'])) {
+        $userCode = $_POST['userCode']; // TODO SECURE THIS 
+    } else {
+        $result['success'] = -3;
+        $result['message'] = 'Your code can\'t be empty';
+    }
 
-$outputs = array();
-if (isset($generatedInputs)) {
-    foreach ($generatedInputs as $input) {
-        $outputs[] = compile($input, $langage, $userCode);
+    $outputs = array();
+    if (count($generatedInputs) > 0) {
+        foreach ($generatedInputs as $input) {
+            $outputs[] = compile($input, $langage, $userCode);
+        }
+    } else {
+        $result['success'] = -2;
+        $result['message'] = 'There was a problem generating inputs';
+    }
+
+    $regex = '/.+(\/temp|tmp).+/'; // TODO ADD TO REGEX CLASSES
+    if (count($outputs) > 0) {
+        foreach ($outputs as $output) {
+            if (isset($output['executionOutput']) && preg_match($regex, $output['executionOutput'])) {
+                $result['success'] = -3;
+                $result['message'] = 'There was a problem generating outputs';
+            }
+            if (isset($output['compilationOutput']) && preg_match($regex, $output['compilationOutput'])) {
+                $result['success'] = -3;
+                $result['message'] = 'There was a problem generating outputs';
+            }
+        }
+    } else {
+        $result['success'] = -3;
+        $result['message'] = 'There was a problem generating outputs';
     }
 }
 
-$regex = '/.+(\/temp|tmp).+/'; // TODO ADD TO REGEX CLASSES
-foreach ($outputs as $output) {
-    if (isset($output['executionOutput']) && preg_match($regex, $output['executionOutput'])) {
-        $result['success'] = false;
-    }
-    if (isset($output['compilationOutput']) && preg_match($regex, $output['compilationOutput'])) {
-        $result['success'] = false;
-    }
-}
-
-if ($result['success']) {
+if ($result['success'] == 1) {
     try {
         $questionInstance = new question();
         $testCaseInstance = new testCase();
@@ -98,9 +132,11 @@ if ($result['success']) {
         }
 
         database::getInstance()->commit();
+        $result['message'] = 'Question successfully registered!';
     } catch (Exception $ex) {
         database::getInstance()->rollback();
-        $result['success'] = false;
+        $result['success'] = -4;
+        $result['message'] = 'There was a problem registrating your question, try again later...';
     }
 }
 echo json_encode($result);

@@ -3,13 +3,13 @@
 $inputs = [
     (object) [
         'wrappingDivClasses' => 'input-field',
-        'inputAttr' => 'id="username" type="text" name="username" maxlength="30" required',
+        'inputAttr' => 'id="username" type="text" name="username" maxlength="60" required',
         'labelContent' => USERNAME,
         'labelAttr' => 'username'
     ],
     (object) [
         'wrappingDivClasses' => 'input-field',
-        'inputAttr' => 'id="email" type="email" name="email" maxlength="50" required',
+        'inputAttr' => 'id="email" type="email" name="email" maxlength="60" required',
         'labelContent' => EMAIL,
         'labelAttr' => 'email'
     ],

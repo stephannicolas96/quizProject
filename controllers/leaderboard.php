@@ -6,6 +6,7 @@ include_once path::getClassesPath() . 'score.php';
 
 $scoreInstance = new score();
 $leaderboardTop = array();
+$colors = array('gold','silver','bronze');
 
 if (isset($_GET['type'])) {
     $scoreInstance->langageType = htmlspecialchars($_GET['type']);
@@ -21,7 +22,7 @@ foreach ($leaderboardTop as $user) {
 }
 
 if (isset($_SESSION['id'])) {
-    $scoreInstance->userId = $_SESSION['id'];
+    $scoreInstance->id_user = htmlspecialchars($_SESSION['id']);
     $leaderboardTwentyPlayers = $scoreInstance->getLeaderboardAroundPlayer();
 } else {
     $leaderboardTwentyPlayers = $scoreInstance->getTopTwentyOffsetThree();
@@ -33,7 +34,7 @@ foreach ($leaderboardTwentyPlayers as $user) {
 }
 
 if (count($leaderboardTwentyPlayers) == 0 || count($leaderboardTop) == 0) {
-    header('Location: accueil.html');
+    header('Location: home.html');
 }
 
 session_write_close();

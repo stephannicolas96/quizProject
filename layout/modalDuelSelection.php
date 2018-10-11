@@ -1,9 +1,9 @@
-<div id="duelCreation" class="modal">
+<div id="duelCreation" class="modal bottom-sheet">
     <form action="#" method="POST">
         <div class="modal-content">
             <!-- OPPONENT SELECTION -->
             <div class="input-field">
-                <input id="opponentUsername" name="opponentUsername" type="text"/>
+                <input id="opponentUsername" class="autocomplete" name="opponentUsername" type="text" autocomplete="off"/>
                 <label for="opponentUsername"><?= OPPONENT_USERNAME ?></label>
             </div>
             <input type="submit" name="randomOpponent" value="RANDOM OPPONENT"/>

@@ -12,12 +12,12 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/s_nicolas/www/battlely/classes/question.php</file>
-            <file>file:/home/s_nicolas/www/battlely/assets/js/creation.js</file>
-            <file>file:/home/s_nicolas/www/battlely/classes/testCase.php</file>
-            <file>file:/home/s_nicolas/www/battlely/assets/js/editor.js</file>
-            <file>file:/home/s_nicolas/www/battlely/ajax/compiler.php</file>
-            <file>file:/home/s_nicolas/www/battlely/ajax/creation.php</file>
+            <file>file:/home/s_nicolas/www/battlely/classes/user.php</file>
+            <file>file:/home/s_nicolas/www/battlely/ajax/profile.php</file>
+            <file>file:/home/s_nicolas/www/battlely/assets/js/login.js</file>
+            <file>file:/home/s_nicolas/www/battlely/assets/js/profile.js</file>
+            <file>file:/home/s_nicolas/www/battlely/views/profile.php</file>
+            <file>file:/home/s_nicolas/www/battlely/ajax/passwordChecker.php</file>
         </group>
     </open-files>
 </project-private>

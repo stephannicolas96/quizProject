@@ -34,7 +34,6 @@ class testCase extends database {
      * @return boolean
      */
     public function createTestCase() {
-        $returnValue = false;
         $query = 'INSERT INTO `' . database::PREFIX . 'testCase` (`id_question`, `input`, `output`) '
                 . 'VALUES ( '
                 . ':id_question, '
@@ -47,9 +46,6 @@ class testCase extends database {
         $stmt->bindValue(':input', $this->input, PDO::PARAM_STR);
         $stmt->bindValue(':output', $this->output, PDO::PARAM_STR);
 
-        if ($stmt->execute()) {
-            $returnValue = true;
-        }
-        return $returnValue;
+        return $stmt->execute();
     }
 }

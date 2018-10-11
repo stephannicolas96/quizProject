@@ -49,9 +49,9 @@ const scriptingModes = [{
                 '}'
     }];
 
-const questionValue = 'Enunciated\n\n\n\n' +
-        'Input\n\n\n\n' +
-        'Output\n\n\n';
+const questionValue = 'Enunciated\n\n\n' +
+        'Input\n\n\n' +
+        'Output\n\n';
 
 function addCommandToEditor(editor) {
     editor.commands.addCommand({
