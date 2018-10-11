@@ -212,4 +212,15 @@ class user extends database {
 
         return $stmt->execute();
     }
+
+    public function getLastUserId() {
+        $returnValue = null;
+        $query = 'SELECT MAX(`id`) AS `id`'
+                . 'FROM `' . database::PREFIX . 'user`';
+
+        if ($result = database::getInstance()->query($query)) {
+            $returnValue = $result->fetch(PDO::FETCH_OBJ);
+        }
+        return $returnValue;
+    }
 }

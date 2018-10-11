@@ -1,11 +1,11 @@
 <?php
-include_once path::getClassesPath() . 'langageType.php';
+include_once path::getClassesPath() . 'langageName.php';
 
-$langageTypeInstance = new langageType();
+$langageNameInstance = new langageName();
 
-$currentType = 1;
-if (isset($_GET['type'])) {
-    $currentType = htmlspecialchars($_GET['type']);
+$currentLangage = 1;
+if (isset($_GET['langage'])) {
+    $currentLangage = htmlspecialchars($_GET['langage']);
 }
 
-$allTypes = $langageTypeInstance->getAllTypes();
+$allLangages = $langageNameInstance->getAllLangages();

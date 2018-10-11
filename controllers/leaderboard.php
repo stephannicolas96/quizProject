@@ -9,9 +9,9 @@ $leaderboardTop = array();
 $colors = array('gold','silver','bronze');
 
 if (isset($_GET['type'])) {
-    $scoreInstance->langageType = htmlspecialchars($_GET['type']);
+    $scoreInstance->id_langageName = htmlspecialchars($_GET['type']);
 } else {
-    $scoreInstance->langageType = 1;
+    $scoreInstance->id_langageName = 1;
 }
 
 $leaderboardTop = $scoreInstance->getTopThree();

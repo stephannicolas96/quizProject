@@ -375,6 +375,10 @@ i.material-icons.hidden{
     &:focus{
         background-color: transparent;
     }
+    & img{
+        position: relative;
+        z-index: -1;
+    }
 }
 //------------------------------------ IDS ------------------------------------//
 #inputExample{

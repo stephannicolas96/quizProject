@@ -6,31 +6,14 @@ class duel extends database {
 
     public $id;
     public $id_question;
-    public $id_playerOne;
-    public $id_playerTwo;
-    public $playerOneEndTime;
-    public $playerTwoEndTime;
+    public $id_langageName;
     public $startTime;
-
-    /**
-     * delete all that are older than 7 day
-     * (false = duel weren't deleted, true = duel deteled)
-     * @return boolean
-     */
-    public function deleteExpiredDuel() {
-        $request = 'DELETE '
-                . 'FROM `' . database::PREFIX . 'duel` '
-                . 'WHERE `startTime` < NOW() - INTERVAL 7 DAY';
-
-        $stmt = database::getInstance()->prepare($request);
-
-        return $stmt->execute();
-    }
-
+    
     /**
      * 
      * @return boolean
      */
+    /*
     public function createDuel() {
         $currentTime = new DateTime();
         $this->startTime = $currentTime->getTimestamp();
@@ -58,7 +41,8 @@ class duel extends database {
     /**
      * 
      * @return type
-     */
+    */
+    /*
     public function deleteDuelByUserId() {
         $request = 'DELETE '
                 . 'FROM `' . database::PREFIX . 'duel` '
@@ -70,5 +54,5 @@ class duel extends database {
 
         return $stmt->execute();
     }
-
+    */
 }

@@ -2,19 +2,19 @@
 
 include_once path::getClassesPath() . 'database.php';
 
-class langageType extends database {
+class langageName extends database {
 
     public $id;
-    public $type;
+    public $name;
 
     /**
      * 
      * @return type
      */
-    public function getAllTypes() {
+    public function getAllLangages() {
         $returnValue = array();
-        $query = 'SELECT `type` '
-                . 'FROM `' . database::PREFIX . 'langageType` ';
+        $query = 'SELECT `name` '
+                . 'FROM `' . database::PREFIX . 'langageName` ';
 
         if ($result = database::getInstance()->query($query)) {
             $returnValue = $result->fetchAll(PDO::FETCH_OBJ);
