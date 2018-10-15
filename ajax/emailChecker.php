@@ -1,6 +1,6 @@
 <?php
 
-$email = isset($_POST['inputValue']) ? $_POST['inputValue'] : '';
+$email = isset($_POST['inputValue']) ? htmlspecialchars($_POST['inputValue']) : '';
 
 if(filter_var($email, FILTER_VALIDATE_EMAIL)){
     echo '1';

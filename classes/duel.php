@@ -13,28 +13,20 @@ class duel extends database {
      * 
      * @return boolean
      */
-    /*
     public function createDuel() {
         $currentTime = new DateTime();
         $this->startTime = $currentTime->getTimestamp();
-        $query = 'INSERT INTO `' . database::PREFIX . 'duel` (`id_question`, `id_playerOne`, `id_playerTwo`, `playerOneEndTime`, `playerTwoEndTime`, `startTime`)'
+        $query = 'INSERT INTO `' . database::PREFIX . 'duel` (`id_question`, `id_langageName`, `startTime`)'
                 . 'VALUES('
                 . ':id_question, '
-                . ':id_playerOne, '
-                . ':id_playerTwo, '
-                . ':playerOneEndTime, '
-                . ':playerTwoEndTime, '
-                . 'FROM_UNIXTIME(:startTime)'
+                . ':id_langageName, '
+                . ':startTime '
                 . ')';
 
         $stmt = database::getInstance()->prepare($query);
         $stmt->bindValue(':id_question', $this->id_question, PDO::PARAM_INT);
-        $stmt->bindValue(':id_playerOne', $this->id_playerOne, PDO::PARAM_INT);
-        $stmt->bindValue(':id_playerTwo', $this->id_playerTwo, PDO::PARAM_INT);
-        $stmt->bindValue(':playerOneEndTime', $this->playerOneEndTime, PDO::PARAM_INT);
-        $stmt->bindValue(':playerTwoEndTime', $this->playerTwoEndTime, PDO::PARAM_INT);
+        $stmt->bindValue(':id_langageName', $this->id_langageName, PDO::PARAM_INT);
         $stmt->bindValue(':startTime', $this->startTime, PDO::PARAM_STR);
-
         return $stmt->execute();
     }
     

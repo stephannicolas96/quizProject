@@ -10,14 +10,15 @@ if (!empty($controllerToLoad)) {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="Stephan Nicolas" />
+        <link rel="icon" type="image/png" href="../assets/images/logo.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pizza/0.2.1/css/pizza.min.css" />
         <link rel="stylesheet" href="../assets/css/style.css" />
-        <title><?= $pageTitle ?> - BATTLELY</title>
+        <title>Battlely - <?= $pageTitle ?></title>
     </head>
-    <body id="<?= $pageBackground ?>">
+    <body>
         <?php
         include path::getLayoutPath() . 'modalLogin.php';
         include path::getLayoutPath() . 'modalRegistration.php';
@@ -30,7 +31,7 @@ if (!empty($controllerToLoad)) {
                     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
                         <?php if ($isLogged) { ?>
-                            <li><a class="modal-trigger" href="#duelCreation"><?= DUEL ?></a></li> 
+                            <li><a class="modal-trigger" href="#duelCreation"><?= BATTLE ?></a></li> 
                         <?php } ?>
                         <li><a href="createBattle.html"><?= CREATE ?></a></li>
                         <li><a href="leaderboard-1.html"><?= LEADERBOARD ?></a></li>

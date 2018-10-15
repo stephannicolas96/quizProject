@@ -47,9 +47,7 @@ if (!empty($_POST['email'])) {
 //PASSWORD
 if (!empty($_POST['registrationPassword'])) {
     $password = htmlspecialchars($_POST['registrationPassword']);
-    if (strlen($password) <= 60) {
-        $userInstance->password = password_hash($password, PASSWORD_BCRYPT);
-    }
+    $userInstance->password = password_hash($password, PASSWORD_BCRYPT);
 } else {
     $errors[] = EMPTY_PASSWORD;
 }
@@ -60,9 +58,8 @@ if (count($errors) == 0) {
             database::getInstance()->beginTransaction();
 
             $userInstance->addUser();
-            $scoreInstance->id_user = $userInstance->getLastUserId();
-            $scoreInstance->addBaseScoreByUserId();
-            
+            $scoreInstance->addBaseScoreToLastUser();
+
             database::getInstance()->commit();
             $success = true;
         } catch (Exception $ex) {

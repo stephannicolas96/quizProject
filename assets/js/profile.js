@@ -2,8 +2,6 @@
 var imageForm = $('#uploadImage'),
         imageErrors = $('.errors', profileForm);
 
-imageErrors.hide();
-
 $('#userImage').on('change', function () {
     $("#uploadImage").submit();
 });
@@ -13,9 +11,13 @@ $("#uploadImage").on('submit', function (e) {
     let submitType = 0;
     if (e.originalEvent != null) { //erase image button
         submitType = 1;
+        if ($('#userImageDisplayed').attr('src') == '../assets/images/userImages/user-image.png') {
+            return;
+        }
     }
     let formData = new FormData(this);
     formData.append('submitType', submitType);
+
     $.ajax({
         type: "POST",
         url: "../ajax/image.php",
@@ -42,6 +44,7 @@ $("#uploadImage").on('submit', function (e) {
                     }
                 } else {
                     $('#userImageDisplayed').attr('src', '../assets/images/userImages/user-image.png');
+                    $('#userImage').val('');
                 }
             } else { // FAILURE
                 profileErrors.show();
@@ -67,11 +70,6 @@ var profileForm = $('#profileForm'),
         profileLoader = $('.loader', profileForm),
         profileUpdate = $('#update', profileForm),
         profileDeleteUser = $('#deleteUser', profileForm);
-
-
-profileSuccess.hide();
-profileLoader.hide();
-profileErrors.hide();
 
 $("#profileForm").on('submit', function (e) {
     e.preventDefault();

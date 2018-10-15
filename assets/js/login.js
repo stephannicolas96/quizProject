@@ -7,10 +7,6 @@ var loginForm = $('#loginForm'),
         loginContent = $('.content', loginForm),
         password = $('#loginPassword');
 
-loginSuccess.hide();
-loginLoader.hide();
-loginErrors.hide();
-
 loginForm.on('submit', function (e) {
     e.preventDefault();
     $.ajax({

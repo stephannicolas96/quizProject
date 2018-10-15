@@ -3,7 +3,7 @@
 $inputs = [
     (object) [
         'wrappingDivClasses' => 'input-field',
-        'inputAttr' => 'id="login" type="email" name="login" maxlength="50" required',
+        'inputAttr' => 'id="login" type="email" name="login" maxlength="255" required',
         'labelContent' => EMAIL,
         'labelAttr' => 'login'
     ],

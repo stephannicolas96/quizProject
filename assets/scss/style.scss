@@ -2,7 +2,7 @@
     -webkit-user-select: $property; 
     -moz-user-select: $property; 
     -ms-user-select: $property;
-    user-select: $property;           
+    user-select: $property;     
 }
 #questionEditor,  #codeEditor, #inputEditor{ 
     position: relative;
@@ -78,12 +78,12 @@ li > a{
     }
 }
 //------------------------------------ MODE SELECTOR ------------------------------------//
-#modeSelector {
+#modeSelector, #duelModeSelector {
     display: grid;
-    grid-template-columns : repeat(4, 32px);
+    grid-template-columns : repeat(4, 2em);
     grid-gap: .4em;
     justify-content: center;
-    height: 32px;
+    height: 2em;
     & div{
         height: inherit;
     }
@@ -112,26 +112,39 @@ li > a{
         }
     }
 }
-
+#duelModeSelector{
+    grid-template-columns : repeat(5, 2em);
+}
 //------------------------------------ GOOD CSS ------------------------------------//
 //------------------------------------ BASE ------------------------------------//
 body{
     background-color: #443127;
 }
-p{
+p, a{
     @include userSelect(none);  
     text-align: center;
 }
+label[for='userImage']{
+    height: inherit;
+    position: relative;
+    width: 8em;
+}
+button[name='deleteUserImage']{
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background-color: transparent;
+    & img{
+        height: 100%;
+        width: 100%;
+        display: block;
+        border-radius: 50%;
+    }
+}
 //------------------------------------ CLASSES ------------------------------------//
-.big-container{
-    width: 80%;
-}
-.md-container{
-    width: 70%;
-}
-.big-container, .md-container{
-    margin: 0 auto;
-}
 .score-row{
     &.leader{
         grid-template-columns: 160px 1fr 1fr;
@@ -140,7 +153,7 @@ p{
         }
     }
     display: grid;
-    grid-template-columns: 100px 128px 1fr 1fr;
+    grid-template-columns: 100px 8em 1fr 1fr;
     margin: 1em 0;
     padding: .5em 0;
     border: 2px solid black;
@@ -172,7 +185,7 @@ p{
 }
 .dropdown{
     z-index:998;
-    position: absolute;
+    position: fixed;
     right: 0;
     top: 67px;
     width: 200px;
@@ -245,7 +258,7 @@ p{
     position:absolute;
     right: 60px;
     top: 18px;
-    width: 150px;
+    width: 80px;
     height: 10px;
     border-radius: 5px;
     background-color: darkgrey;
@@ -280,6 +293,9 @@ p{
         width: 100%;
     }
 }
+.relative{
+    position: relative;
+}
 .collapsible, .collapsible-body, .collapsible-header{
     border: none;
 }
@@ -293,21 +309,49 @@ p{
 .relative{
     position: relative;
 }
-.splitScreen{
+.split{
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    & > *:first-child {
+    grid-template-rows: auto auto;
+    &.middleBorder> :nth-child(2n+1){
         padding: 2em;
         border-right: 1px solid black;
     }
+}
+.center{
+    display: block;
+    margin: 0 auto;
+}
+.pie-chart{
+    position: relative;
+    &[id]::before{
+        content: attr(id);
+        position: absolute;
+        left: 50%;
+        top: 5%;
+        transform: translateX(-50%);
+    }
+}
+.v-center{
+    margin: 0 auto;
 }
 .hidden{
     display: none;
 }
 .userImg{
-    height: 128px;
-    width: 128px;
+    border: solid black 2px;
     border-radius: 50%;
+}
+.userImg:not([src$='user-image.png']){
+    background-color: transparent !important;
+}
+.imgSize, .userImg{
+    height: 8em;
+    width: 8em;
+
+    &.small{
+        height: 4em;
+        width: 4em;
+    }
 }
 .clickable{
     cursor: pointer; 
@@ -380,6 +424,81 @@ i.material-icons.hidden{
         z-index: -1;
     }
 }
+.modal.bottom-sheet{
+    max-height: 95%;
+}
+.duelList{
+    & li{
+        display: grid;
+        grid-template-columns: 4em 1fr 2em 2em 1fr 4em;
+        align-items: center;
+        & :nth-child(1){
+            grid-row: 1;
+            grid-column: 1 / span 3;
+            height: 100%;
+            border-radius: .5em 0 0 .5em;
+        }
+        & :nth-child(2){
+            grid-row: 1;
+            grid-column: 4 / span 3;
+            height: 100%;
+            border-radius: 0 .5em .5em 0;
+        }
+        & :nth-child(3){
+            margin-left: .5em;
+            grid-row: 1;
+            grid-column: 1;
+        }
+        & :nth-child(4){
+            grid-row: 1;
+            grid-column: 2;
+        }
+        & :nth-child(5){
+            grid-row: 1;
+            grid-column: 3 / span 2;
+        }
+        & :nth-child(6){
+            grid-row: 1;
+            grid-column: 5;
+        }
+        & :nth-child(7){
+            margin-right: .5em;
+            grid-row: 1;
+            grid-column: 6;
+        }
+        & :nth-child(8){
+            grid-row: 1;
+            grid-column: 1 / span 6;
+            height: 100%;
+            line-height: 4em;
+        }
+    }
+    & p, & a{
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
+    & .won{
+        background-color: lightgreen;
+    }
+    & .lost{
+        background-color: lightcoral;
+    }
+    & .draw{
+        background-color: lightyellow;
+    }
+    & .expired{
+        background-color: lightgray;
+    }
+    & .inProgress{
+        display: none;
+    }
+    & .won, & .lost, & .draw, & .expired, & .inProgress{
+        opacity: .5;
+    }
+    margin-bottom: 1em;
+}
+
+
 //------------------------------------ IDS ------------------------------------//
 #inputExample{
     position: absolute;
@@ -416,6 +535,20 @@ i.material-icons.hidden{
         padding-bottom: 0;
     }
 }
+#nav-mobile{
+    & *{
+        font-weight: 400;
+        font-size: 1.5rem;
+        transition: transform 100ms ease-in;
+    }
+    & a:hover{
+        background: none;
+        transform: scale(1.1);
+    }
+    & a.disabled{
+        opacity: .5;
+    }
+}
 //------------------------------------ MEDIUM TO MAX SIZE ------------------------------------//
 @media (min-width: 992px) {
     //------------------------------------ NAVBAR ------------------------------------//
@@ -426,9 +559,9 @@ i.material-icons.hidden{
         height: 120px;
     }
 
-    #modeSelector {
-        grid-template-columns : repeat(4, 64px);
-        height: 64px;
+    #modeSelector, #duelModeSelector {
+        grid-template-columns : repeat(4, 4em);
+        height: 4em;
         grid-gap: .7em;
         & input{
             &:checked+label{
@@ -440,16 +573,38 @@ i.material-icons.hidden{
             }
         }
     }
+    #duelModeSelector{
+        grid-template-columns : repeat(5, 4em);
+    }
+    
+    .split{
+        grid-template-columns: 1fr 1fr;
+    }
+    .big-container{
+        width: 80%;
+    }
+    .md-container{
+        width: 70%;
+    }
+    .big-container, .md-container{
+        margin: 0 auto;
+    }
+    .passwordStrength{
+        width: 150px;
+    }
 }
 
 //------------------------------------ PIE CHART ------------------------------------//
 [data-pie-id] li:nth-child(1) {
-    color: #aec4a8;
-}
-[data-pie-id] li:nth-child(2) {
     color: #62ef3b;
 }
+[data-pie-id] li:nth-child(2) {
+    color: #cf0e0e;
+}
 [data-pie-id] li:nth-child(3) {
+    color: #aec4a8;
+}
+[data-pie-id] li:nth-child(4) {
     color: #4bbf2b;
 }
 ul[data-pie-id] {

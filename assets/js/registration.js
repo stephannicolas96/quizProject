@@ -7,10 +7,6 @@ var registrationForm = $('#registrationForm'),
         registrationContent = $('.content', registrationForm),
         password = $('#registrationPassword');
 
-registrationSuccess.hide();
-registrationLoader.hide();
-registrationErrors.hide();
-
 registrationForm.on('submit', function (e) {
     e.preventDefault();
     $.ajax({

@@ -1,7 +1,4 @@
 <?php
-define('DUEL', 'Défis');
-define('CREATE', 'Créer');
-define('LEADERBOARD', 'Classement');
 define('MY_ACCOUNT', 'Mon compte');
 define('LOGOUT', 'Déconnexion');
 define('USERNAME', 'Nom d\'utilisateur');
@@ -15,10 +12,10 @@ define('BY_CREATING_AN_ACCOUNT', 'byCreatingAnAccount CHANGE');
 define('TERMS_AND_PRIVACY', 'Conditions de Confidentialité');
 define('ALREADY_HAVE_AN_ACCOUNT', 'Vous avez déjà un compte?');
 define('SUBMIT', 'Envoyer');
-define('ERASE_ACCOUNT', 'eraseAccount CHANGE');
+define('ERASE_ACCOUNT', 'Supprimer le compte');
 define('ERASE_USER_IMAGE', 'eraseUserImage CHANGE');
 define('CANCEL', 'cancel CHANGE');
-define('SAVE', 'save CHANGE');
+define('SAVE', 'Enregistrer les modifications');
 define('SIGN_UP', 'S\'inscrire');
 define('USERNAME_EMPTY', 'le nom d\'utilisateur ne peux pas être vide');
 define('EMAIL_INCORRECT', 'mailIncorrect CHANGE');
@@ -34,3 +31,9 @@ define('SUCCESSFUL_LOG_IN', 'Connexion réussi!');
 define('CLICK_HERE_TO_CONNECT', 'Cliquez ici pour vous connecter.');
 define('OPPONENT_USERNAME', 'Nom d\'utilisateur de l\'adversaire');
 define('EMAIL_ADDRESS_OR_PASSWORD_INCORRECT', 'adresse e-mail ou mot de passe incorrecte');
+define('CONTINU', 'continuer');
+
+define('LEADERBOARD', 'Classement');
+define('CREATE', 'Créer');
+define('HOME', 'Accueil');
+define('BATTLE', 'Combat');

@@ -2,8 +2,7 @@
 include_once '../classes/path.php';
 include_once path::getControllersPath() . 'duel.php';
 
-$pageBackground = '';
-$pageTitle = '';
+$pageTitle = 'BATTLE';
 include path::getLayoutPath() . 'header.php';
 ?>
 <div class="container">
@@ -30,4 +29,3 @@ include path::getLayoutPath() . 'header.php';
 </div>
 <button id="action">Lancer la requête AJAX</button> 
 <?php include path::getLayoutPath() . 'footer.php'; ?>
-

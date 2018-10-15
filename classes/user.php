@@ -122,12 +122,13 @@ class user extends database {
         $returnValue = array();
         $query = 'SELECT `username`, CONCAT(`id`,".png") AS `image` '
                 . 'FROM `' . database::PREFIX . 'user` '
-                . 'WHERE `username` LIKE :username '
-                . 'ORDER BY `username` DESC '
+                . 'WHERE `username` LIKE :username AND `id` != :id '
+                . 'ORDER BY `username` ASC '
                 . 'LIMIT 10';
 
         $stmt = database::getInstance()->prepare($query);
-        $stmt->bindValue(':username', $this->username . '%', PDO::PARAM_STR);
+        $stmt->bindValue(':username', '%' . $this->username . '%', PDO::PARAM_STR);
+        $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             $returnValue = $stmt->fetchAll(PDO::FETCH_OBJ);

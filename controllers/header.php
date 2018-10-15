@@ -5,9 +5,9 @@ session_start();
 $langages = ['fr', 'en'];
 
 if (isset($_GET['lang']) && in_array($_GET['lang'], $langages)) {
-    $lang = $_GET['lang'];
+    $lang = htmlspecialchars($_GET['lang']);
 } else if (isset($_COOKIE['lang']) && in_array($_COOKIE['lang'], $langages)) {
-    $lang = $_COOKIE['lang'];
+    $lang = htmlspecialchars($_COOKIE['lang']);
 } else {
     $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 }
@@ -26,7 +26,24 @@ switch ($lang) {
         break;
 }
 
-$isLogged = (isset($_SESSION['logged'])) ? $_SESSION['logged'] : false;
+switch ($pageTitle) {
+    case 'HOME':
+        $pageTitle = HOME;
+        break;
+    case 'BATTLE':
+        $pageTitle = BATTLE;
+        break;
+    case 'CREATE':
+        $pageTitle = CREATE;
+        break;
+    case 'LEADERBOARD':
+        $pageTitle = LEADERBOARD;
+        break;
+    default:
+        break;
+}
+
+$isLogged = (isset($_SESSION['logged'])) ? htmlspecialchars($_SESSION['logged']) : false;
 $url = explode('/', $_SERVER['REQUEST_URI']);
 $urlEnd = end($url);
 

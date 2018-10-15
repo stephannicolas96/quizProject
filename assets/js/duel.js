@@ -1,8 +1,8 @@
 $(function () {
     var editor = ace.edit('editor');
     editor.setTheme('ace/theme/monokai');
-    editor.session.setMode('ace/mode/' + scriptingLanguages[0].aceMode);
-    editor.session.setValue(scriptingLanguages[0].value);
+    editor.session.setMode('ace/mode/' + scriptingModes[0].aceMode);
+    editor.session.setValue(scriptingModes[0].value);
     
     $('#action').click(function () {
         let editorCode = editor.getValue();
@@ -24,7 +24,7 @@ $(function () {
             }
         });
     });
-    $.each(scriptingLanguages, function (id, element) {
+    $.each(scriptingModes, function (id, element) {
         $('#' + element.mode).click(function () {
             editor.session.setMode('ace/mode/' + element.aceMode);
             editor.session.setValue(element.value);

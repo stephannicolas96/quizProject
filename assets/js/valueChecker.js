@@ -1,3 +1,4 @@
+var emailAjax = null;
 $('input[type=email]').change(function (event) {
     var target = $(event.target);
     $.ajax({
@@ -7,6 +8,11 @@ $('input[type=email]').change(function (event) {
             inputValue: $(this).val()
         },
         timeout: 1000,
+        beforeSend: function () {
+            if (emailAjax != null) {
+                emailAjax.abort();
+            }
+        },
         success: function (data) {
             if (data == '1') {
                 target.removeClass('notOk');
@@ -19,6 +25,7 @@ $('input[type=email]').change(function (event) {
     });
 });
 
+var passwordAjax = null;
 $('input[strength]').on('keyup', function () {
     let strength = $('.passwordStrengthForeground', $(this).parent());
     $.ajax({
@@ -28,29 +35,41 @@ $('input[strength]').on('keyup', function () {
             inputValue: $(this).val()
         },
         timeout: 1000,
+        beforeSend: function () {
+            if (passwordAjax != null) {
+                passwordAjax.abort();
+            }
+        },
         success: function (data) {
             strength.attr('strength', data);
         }
     });
 });
 
+var usernameAjax = null;
 $('#opponentUsername').on('input', function () {
-    $.ajax({
+    usernameAjax = $.ajax({
         type: 'POST',
         url: '../ajax/getAllUsername.php',
         data: {
             username: $(this).val()
         },
         timeout: 1000,
+        beforeSend: function () {
+            if (usernameAjax != null) {
+                usernameAjax.abort();
+            }
+        },
         success: function (data) {
             data = JSON.parse(data);
             let users = {};
-            for (var i = 0; i < data.length; i++) {
-                users[data[i].username] = '../assets/images/userImages/' + data[i].image;
+            if (data['success']) {
+                for (var i = 0; i < data['data'].length; i++) {
+                    users[data['data'][i].username] = '../assets/images/userImages/' + data['data'][i].image;
+                }
             }
             $('#opponentUsername').autocomplete({
                 data: users,
-                minLength: 0, // The minimum length of the input for the autocomplete to start. Default: 1.
                 limit: 10,
             });
         }

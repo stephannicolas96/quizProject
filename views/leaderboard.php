@@ -1,8 +1,7 @@
 <?php
 include_once '../classes/path.php';
 
-$pageBackground = '';
-$pageTitle = '';
+$pageTitle = 'LEADERBOARD';
 $controllerToLoad = 'leaderboard.php';
 include path::getLayoutPath() . 'header.php';
 include path::getLayoutPath() . 'modeSelector.php'

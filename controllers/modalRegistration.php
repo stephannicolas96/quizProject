@@ -9,7 +9,7 @@ $inputs = [
     ],
     (object) [
         'wrappingDivClasses' => 'input-field',
-        'inputAttr' => 'id="email" type="email" name="email" maxlength="60" required',
+        'inputAttr' => 'id="email" type="email" name="email" maxlength="255" required',
         'labelContent' => EMAIL,
         'labelAttr' => 'email'
     ],

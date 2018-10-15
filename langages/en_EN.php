@@ -1,7 +1,4 @@
 <?php
-define('DUEL', 'Duel');
-define('CREATE', 'Create');
-define('LEADERBOARD', 'Leaderboard');
 define('MY_ACCOUNT', 'My account');
 define('LOGOUT', 'Log out');
 define('USERNAME', 'Username');
@@ -15,10 +12,10 @@ define('BY_CREATING_AN_ACCOUNT', 'By creating an account you agree to our');
 define('TERMS_AND_PRIVACY', 'Privacy Policy');
 define('ALREADY_HAVE_AN_ACCOUNT', 'Already have an account?');
 define('SUBMIT', 'Submit');
-define('ERASE_ACCOUNT', 'eraseAccount CHANGE');
+define('ERASE_ACCOUNT', 'Delete account');
 define('ERASE_USER_IMAGE', 'eraseUserImage CHANGE');
 define('CANCEL', 'cancel CHANGE');
-define('SAVE', 'save CHANGE');
+define('SAVE', 'Save Changes');
 define('SIGN_UP', 'Sign Up');
 define('USERNAME_EMPTY', 'Username can\'t be empty');
 define('EMAIL_INCORRECT', 'mailIncorrect CHANGE');
@@ -34,4 +31,9 @@ define('SUCCESSFUL_LOG_IN', 'Successful login');
 define('CLICK_HERE_TO_CONNECT', 'Click here to log in. ');
 define('OPPONENT_USERNAME', 'Opponent username');
 define('EMAIL_ADDRESS_OR_PASSWORD_INCORRECT', 'email address or password incorrect');
+define('CONTINU', 'continue');
 
+define('LEADERBOARD', 'Leaderboard');
+define('CREATE', 'Create');
+define('HOME', 'Home');
+define('BATTLE', 'Battle');

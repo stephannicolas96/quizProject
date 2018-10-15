@@ -1,7 +1,6 @@
 <?php
 include_once 'classes/path.php';
-$pageBackground = '';
-$pageTitle = '';
+$pageTitle = 'HOME';
 include path::getLayoutPath() . 'header.php';
 ?>
 <?php include path::getLayoutPath() . 'footer.php'; ?>

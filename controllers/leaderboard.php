@@ -8,8 +8,8 @@ $scoreInstance = new score();
 $leaderboardTop = array();
 $colors = array('gold','silver','bronze');
 
-if (isset($_GET['type'])) {
-    $scoreInstance->id_langageName = htmlspecialchars($_GET['type']);
+if (isset($_GET['langage'])) {
+    $scoreInstance->id_langageName = htmlspecialchars($_GET['langage']);
 } else {
     $scoreInstance->id_langageName = 1;
 }
