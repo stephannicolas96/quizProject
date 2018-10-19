@@ -2,7 +2,7 @@
 
 session_start();
 
-include_once path::getClassesPath() . 'score.php';
+include_once path::getModelsPath() . 'score.php';
 
 $scoreInstance = new score();
 $leaderboardTop = array();
@@ -15,22 +15,12 @@ if (isset($_GET['langage'])) {
 }
 
 $leaderboardTop = $scoreInstance->getTopThree();
-foreach ($leaderboardTop as $user) {
-    if (!file_exists(path::getUserImagesPath() . $user->image)) {
-        $user->image = 'user-image.png';
-    }
-}
 
 if (isset($_SESSION['id'])) {
     $scoreInstance->id_user = htmlspecialchars($_SESSION['id']);
     $leaderboardTwentyPlayers = $scoreInstance->getLeaderboardAroundPlayer();
 } else {
     $leaderboardTwentyPlayers = $scoreInstance->getTopTwentyOffsetThree();
-}
-foreach ($leaderboardTwentyPlayers as $user) {
-    if (!file_exists(path::getUserImagesPath() . $user->image)) {
-        $user->image = 'user-image.png';
-    }
 }
 
 if (count($leaderboardTwentyPlayers) == 0 || count($leaderboardTop) == 0) {

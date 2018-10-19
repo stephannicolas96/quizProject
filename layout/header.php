@@ -32,8 +32,8 @@ if (!empty($controllerToLoad)) {
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
                         <?php if ($isLogged) { ?>
                             <li><a class="modal-trigger" href="#duelCreation"><?= BATTLE ?></a></li> 
+                            <li><a href="createBattle.html"><?= CREATE ?></a></li>
                         <?php } ?>
-                        <li><a href="createBattle.html"><?= CREATE ?></a></li>
                         <li><a href="leaderboard-1.html"><?= LEADERBOARD ?></a></li>
                         <?php if (!$isLogged) { ?>
                             <li>
@@ -56,7 +56,7 @@ if (!empty($controllerToLoad)) {
                     </ul>
                     <ul class="side-nav" id="mobile-demo">
                         <?php if ($isLogged) { ?>
-                            <li><a class="modal-trigger" href="#duelCreation"><?= DUEL ?></a></li> 
+                            <li><a class="modal-trigger" href="#duelCreation"><?= BATTLE ?></a></li> 
                         <?php } ?>
                         <li><a href="createBattle.html"><?= CREATE ?></a></li>
                         <li><a href="leaderboard-1.html"><?= LEADERBOARD ?></a></li>

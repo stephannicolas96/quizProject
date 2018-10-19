@@ -1,6 +1,7 @@
 <?php
 
-include 'inputGenerator.php';
+include_once '../classes/path.php';
+include path::getHelpersPath() . 'inputGenerator.php';
 
 $result = array();
 
@@ -15,7 +16,7 @@ if (isset($_POST['inputFormat'])) {
         return strlen($element) != 0;
     });
 
-    $result['message'] = generateInput($inputFormat);
+    $result['message'] = inputGenerator::generateInput($inputFormat);
     $result['success'] = true;
 }
 

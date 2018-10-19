@@ -14,12 +14,12 @@ class testCase extends database {
      * @return type
      */
     public function getAllTestCases() {
-        $returnValue = null;
+        $returnValue = array();
         $query = 'SELECT `input`, `output` '
-                . 'FROM `' . database::PREFIX . 'testCase` '
+                . 'FROM `' . config::PREFIX . 'testCase` '
                 . 'WHERE `id_question` = :id_question';
 
-        $stmt = database::getInstance()->prepare();
+        $stmt = database::getInstance()->prepare($query);
         $stmt->bindValue(':id_question', $this->id_question, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
@@ -34,7 +34,7 @@ class testCase extends database {
      * @return boolean
      */
     public function createTestCase() {
-        $query = 'INSERT INTO `' . database::PREFIX . 'testCase` (`id_question`, `input`, `output`) '
+        $query = 'INSERT INTO `' . config::PREFIX . 'testCase` (`id_question`, `input`, `output`) '
                 . 'VALUES ( '
                 . ':id_question, '
                 . ':input, '

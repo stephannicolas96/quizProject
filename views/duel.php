@@ -5,27 +5,20 @@ include_once path::getControllersPath() . 'duel.php';
 $pageTitle = 'BATTLE';
 include path::getLayoutPath() . 'header.php';
 ?>
-<div class="container">
-    <?php include path::getLayoutPath() . 'modeSelector.php' ?>
-    <div id="question">
-        <p>Énoncé
-            Vous avez mis en place un site de recommandations de restaurants. A partir des opinons laissées par les visiteurs, vous avez pu construire pour chaque restaurant 3 notes sur 20 :- Qualité de la nourriture<br/>
-            - Qualité de la salle<br/>
-            - Qualité du service<br/>
-            Pour classer les restaurants, vous calculez un score qui correspond à la moyenne de ces 3 notes.<br/>
-            <br/>
-            Format des données<br/>
-            <br/>
-            Entrée<br/>
-            Ligne 1 : un entier N compris entre 5 et 500 représentant le nombre de restaurants dans votre base.<br/>
-            Lignes 2 à N+1 : trois entiers compris entre 0 et 20 et séparés par des espaces représentant respectivement les notes que vous avez calculées à partir des opinions des visiteurs pour la nourriture, la salle et le service pour un restaurant donné.<br/>
-            <br/>
-            Sortie<br/>
-            Un entier représentant le score du meilleur restaurant de votre base arrondi à l\'entier supérieur.</p>
+<div class="big-container">
+    <img id="duelLangageImg" src="../assets/images/langages/<?= $langageId ?>.png" data-langageId="<?= $langageId ?>"/>
+    <div class="duelSplit">
+        <div id="question">
+            <p>Enunciated</p>
+            <p><?= $questionInstance->enunciated ?></p>
+            <p>Inpout</p>
+            <p><?= $questionInstance->input ?></p>
+            <p>Output</p>
+            <p><?= $questionInstance->output ?></p>
+        </div>
+        <div class="editor" id="duelEditor"></div>
     </div>
-
-    <div id="editor"></div>
-    <div id="error"></div>
+    <div class="error"></div>
 </div>
-<button id="action">Lancer la requête AJAX</button> 
+<button id="duelSubmit">Lancer la requête AJAX</button> 
 <?php include path::getLayoutPath() . 'footer.php'; ?>

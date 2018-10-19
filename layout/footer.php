@@ -4,6 +4,7 @@
 <script src="../assets/js/materializeInitializer.js"></script>
 <script src="../assets/js/registration.js"></script>
 <script src="../assets/js/login.js"></script>
+<script src="../assets/js/duelSelection.js"></script>
 <script src="../assets/js/generatePasswordInput.js"></script>
 <script src="../assets/js/langageDropdown.js"></script>
 <?php if ($_SERVER['SCRIPT_NAME'] == '/views/creation.php' || $_SERVER['SCRIPT_NAME'] == '/views/duel.php') { ?>

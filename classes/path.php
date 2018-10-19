@@ -7,16 +7,17 @@ class path {
     const CLASSES = 'classes/';
     const CONTROLLERS = 'controllers/';
     const IMAGES = 'images/';
-    const LANGAGE = 'langages/';
+    const LANGAGE = 'lang/';
     const LAYOUT = 'layout/';
     const USERIMAGES = 'userImages/';
     const VIEWS = 'views/';
+    const MODELS = 'models/';
+    const HELPERS = 'helpers/';
 
     public static function getAbsolutePath() {
         if (is_null(self::$absolutePath)) {
-            self::$absolutePath = substr(realPath(__FILE__), 0, -16);
+            self::$absolutePath = explode('classes', __FILE__)[0];
         }
-        
         return self::$absolutePath;
     }
 
@@ -47,5 +48,16 @@ class path {
      public static function getViewsPath() {
         return self::getAbsolutePath() . self::VIEWS;
     }
-
+    
+    public static function getModelsPath() {
+        return self::getAbsolutePath() . self::MODELS;
+    }
+    
+    public static function getHelpersPath() {
+        return self::getAbsolutePath() . self::HELPERS;
+    }
+    
+    public static function getRootPath(){
+        return self::getAbsolutePath();
+    }
 }

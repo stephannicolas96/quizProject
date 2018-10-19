@@ -1,41 +1,45 @@
 <?php include_once path::getControllersPath() . 'modalDuelSelection.php'; ?>
 <div id="duelCreation" class="modal bottom-sheet">
-    <form action="#" method="POST">
+    <form id="duelSelectionForm" action="#" method="POST">
         <div class="modal-content">
-            <!-- LANGAGE SELECTION -->
-            <div id="duelModeSelector">    
-                <div>
-                    <input id="duelRandom" name="mode" type="radio" value="0" checked/>
-                    <label for="duelRandom"><img src="../assets/images/any.png" /></label>
-                </div>
-                <?php foreach ($allLangages as $id => $langage) { ?>
+            <div class="success hidden"><p><?= SUCCESSFUL_DUEL_CREATION ?></p></div>
+            <div class="content">
+                <!-- LANGAGE SELECTION -->
+                <div id="duelModeSelector">    
                     <div>
-                        <input id="duel<?= $langage->name ?>" name="mode" type="radio" value="<?= $id + 1 ?>" />
-                        <label for="duel<?= $langage->name ?>"><img src="../assets/images/<?= $langage->name ?>.png" /></label>
+                        <input id="duelRandom" name="langage" type="radio" value="0" checked >
+                        <label for="duelRandom"><img src="../assets/images/langages/0.png" /></label>
                     </div>
-                <?php } ?>
+                    <?php foreach ($allLangages as $id => $langage) { ?>
+                        <div>
+                            <input id="duel<?= $langage->name ?>" name="langage" type="radio" value="<?= $id + 1 ?>" />
+                            <label for="duel<?= $langage->name ?>"><img src="../assets/images/langages/<?= $id + 1 ?>.png" /></label>
+                        </div>
+                    <?php } ?>
+                </div>
+                <!-- OPPONENT SELECTION -->
+                <div class="input-field">
+                    <input id="opponentUsername" class="autocomplete" name="opponentUsername" type="text" autocomplete="off" />
+                    <label for="opponentUsername"><?= OPPONENT_USERNAME ?></label>
+                </div>
+                <input type="submit" name="randomOpponent" value="RANDOM OPPONENT"/>
+                <input type="submit" name="chosenOpponent" value="CHOSEN OPPONENT" />
             </div>
-            <!-- OPPONENT SELECTION -->
-            <div class="input-field">
-                <input id="opponentUsername" class="autocomplete" name="opponentUsername" type="text" autocomplete="off"/>
-                <label for="opponentUsername"><?= OPPONENT_USERNAME ?></label>
-            </div>
-            <input type="submit" name="randomOpponent" value="RANDOM OPPONENT"/>
-            <input type="submit" name="chosenOpponent" value="CHOSEN OPPONENT" />
+            <div class="loader small hidden"><img src="../assets/images/loading.gif"/></div>
         </div>
     </form>
     <ul class="duelList big-container">
         <?php foreach ($duels as $duel) { ?>
             <li>
-                <div class="<?= $duel->currentUserState ?>"></div>
-                <div class="<?= $duel->opponentState ?>"></div>
-                <img class="userImg small" src="../assets/images/userImages/<?= $duel->currentUserImage ?>" />
-                <p><?= $duel->currentUser ?></p>
+                <div class="<?= $duel->userOneState ?>"></div>
+                <div class="<?= $duel->userTwoState ?>"></div>
+                <img class="userImg small" src="../assets/images/userImages/<?= $duel->userOneImage ?>" style="background-color: <?= '#' . $duel->userOneColor ?>" alt="user image" onerror="this.src='../assets/images/userImages/user-image.png'"  onabort="this.src='../assets/images/userImages/user-image.png'" />
+                <p><?= $duel->userOne ?></p>
                 <img class="imgSize small" src="../assets/images/vs.png">
-                <p><?= $duel->opponent ?></p>
-                <img class="userImg small" src="../assets/images/userImages/<?= $duel->opponentImage ?>" />
-                <?php if ($duel->currentUserState == 'inProgress' && $duel->opponentState == 'inProgress') { ?>
-                    <a href="battle-<?= $duel->duelId ?>.html" title="Continue Battle"><?= CONTINU ?></a>
+                <p><?= $duel->userTwo ?></p>  
+                <img class="userImg small" src="../assets/images/userImages/<?= $duel->userTwoImage ?>" style="background-color: <?= '#' . $duel->userTwoColor ?>" alt="user image" onerror="this.src='../assets/images/userImages/user-image.png'"  onabort="this.src='../assets/images/userImages/user-image.png'" />
+                <?php if ($duel->userOneState == 'inProgress' && $duel->userTwoState == 'inProgress') { ?>
+                    <a href="battle-<?= $duel->idDuel ?>.html" title="Continue Battle"><?= CONTINU ?></a>
                 <?php } ?>
             </li>
         <?php } ?>

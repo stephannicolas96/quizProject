@@ -1,8 +1,6 @@
 <?php
 include_once '../classes/path.php';
-
 $pageTitle = 'CREATE';
-$controllerToLoad = 'duel.php';
 include path::getLayoutPath() . 'header.php';
 ?>
 

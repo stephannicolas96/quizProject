@@ -1,22 +1,36 @@
-<?php 
+<?php
+
+session_start();
 
 include_once '../classes/path.php';
-include_once path::getClassesPath() . 'testCase.php';
+include_once path::getModelsPath() . 'testCase.php';
+include_once path::getHelpersPath() . 'compiler.php';
 
-$testCaseInstance = new testCase();
-$testCaseInstance->getAllTestCases(2);
+$result = array();
+$result['success'] = false;
 
-$mode = $_POST['mode']; // SECURE THIS
+$testCases = array();
+if (!empty($_SESSION['questionId']) && is_numeric($_SESSION['questionId'])) {
+    $testCaseInstance = new testCase();
+    $testCaseInstance->id_question = intval($_SESSION['questionId']);
+    $testCases = $testCaseInstance->getAllTestCases();
+}
+$langage = $_POST['langage']; // SECURE THIS
 $userCode = $_POST['code']; // SECURE THIS 
 
+$numberOfGoodResult = 0;
 foreach ($testCases as $testCase) {
-
-    if (trim($executionOutput) != $testCase['output']) {
-        echo 'NONNNNNNNNNN';
-        print_r($compilationOutput);
-        print_r($executionOutput);
-        print_r($testCase['output']);
-        exit;
+    
+    $output = compiler::compile($testCase->input, $langage, $userCode);
+    if (trim($output['executionOutput']) == $testCase->output) {
+       $numberOfGoodResult++;
     }
 }
 
+if($numberOfGoodResult == 20){
+    $result['success'] = true;
+}
+
+echo json_encode($result);
+
+session_write_close();

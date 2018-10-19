@@ -1,6 +1,5 @@
 function openDropdown(div) {
     $(div).addClass('active');
-    $(div)
 }
 window.onload = function () {
     let langageDropdown = document.getElementById('langageDropdown');

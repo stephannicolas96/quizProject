@@ -9,15 +9,16 @@ class user extends database {
     public $username;
     public $password;
     public $color;
+    public $image;
     private $colorsForUserCreation = ['3F0B1B', '7A1631', 'CF423C', 'FC7D49', 'FFD462'];
-    
+
     /**
      * Add a user to the database
      * (false = user wasn't added, true = user added)
      * @return boolean 
      */
     public function addUser() {
-        $query = 'INSERT INTO `' . database::PREFIX . 'user` (`email`, `password`, `username`, `color`) '
+        $query = 'INSERT INTO `' . config::PREFIX . 'user` (`email`, `password`, `username`, `color`) '
                 . 'VALUES ( '
                 . 'LCASE(:email), '
                 . ':password, '
@@ -39,17 +40,17 @@ class user extends database {
      * (false = email doesn't exist, true = email already used)
      * @return boolean
      */
-    public function checkIfEmailAlreadyExist() {
+    public static function checkIfEmailAlreadyExist($email) {
         $returnValue = false;
         $query = 'SELECT `id` '
-                . 'FROM `' . database::PREFIX . 'user` '
+                . 'FROM `' . config::PREFIX . 'user` '
                 . 'WHERE `email` = :email';
 
         $stmt = database::getInstance()->prepare($query);
-        $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
-            $returnValue = $stmt->fetchColumn() != false;
+            $returnValue = $stmt->fetch(pdo::FETCH_COLUMN) != false;
         }
         return $returnValue;
     }
@@ -59,17 +60,17 @@ class user extends database {
      *  (false = username doesn't exist, true = username already used)
      * @return boolean
      */
-    public function checkIfUsernameAlreadyExist() {
+    public static function checkIfUsernameAlreadyExist($username) {
         $returnValue = false;
         $query = 'SELECT `username` '
-                . 'FROM `' . database::PREFIX . 'user` '
+                . 'FROM `' . config::PREFIX . 'user` '
                 . 'WHERE `username` = :username';
 
         $stmt = database::getInstance()->prepare($query);
-        $stmt->bindValue(':username', $this->username, PDO::PARAM_STR);
+        $stmt->bindValue(':username', $username, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
-            $returnValue = $stmt->fetchColumn() != false;
+            $returnValue = $stmt->fetch(pdo::FETCH_COLUMN) != false;
         }
         return $returnValue;
     }
@@ -80,16 +81,25 @@ class user extends database {
      * @return obj
      */
     public function getUserByEmail() {
-        $returnValue = null;
+        $returnValue = false;
         $query = 'SELECT `id`, `email`, `password`, `username`, `color`, CONCAT(`id`,".png") AS `image` '
-                . 'FROM `' . database::PREFIX . 'user` '
+                . 'FROM `' . config::PREFIX . 'user` '
                 . 'WHERE `email` = :email';
 
         $stmt = database::getInstance()->prepare($query);
         $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
-            $returnValue = $stmt->fetch(PDO::FETCH_OBJ);
+            $data = $stmt->fetch(PDO::FETCH_OBJ);
+            if (is_object($data)) {
+                $this->id = $data->id;
+                $this->email = $data->email;
+                $this->password = $data->password;
+                $this->username = $data->username;
+                $this->color = $data->color;
+                $this->image = $data->image;
+                $returnValue = true;
+            }
         }
         return $returnValue;
     }
@@ -100,28 +110,57 @@ class user extends database {
      * @return obj
      */
     public function getUserByUsername() {
-        $returnValue = null;
+        $returnValue = false;
         $query = 'SELECT `id`, `email`, `password`, `username`, `color`, CONCAT(`id`,".png") AS `image` '
-                . 'FROM `' . database::PREFIX . 'user` '
+                . 'FROM `' . config::PREFIX . 'user` '
                 . 'WHERE `username` = :username';
 
         $stmt = database::getInstance()->prepare($query);
         $stmt->bindValue(':username', $this->username, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
-            $returnValue = $stmt->fetch(PDO::FETCH_OBJ);
+            $data = $stmt->fetch(PDO::FETCH_OBJ);
+            if (is_object($data)) {
+                $this->id = $data->id;
+                $this->email = $data->email;
+                $this->password = $data->password;
+                $this->username = $data->username;
+                $this->color = $data->color;
+                $this->image = $data->image;
+                $returnValue = true;
+            }
         }
         return $returnValue;
     }
-    
+
+    /**
+     * Get user information using USERNAME
+     * (null = no user found, obj = user data)
+     * @return obj
+     */
+    public function getUserIdByUsername() {
+        $returnValue = -1;
+        $query = 'SELECT `id` '
+                . 'FROM `' . config::PREFIX . 'user` '
+                . 'WHERE `username` = :username';
+
+        $stmt = database::getInstance()->prepare($query);
+        $stmt->bindValue(':username', $this->username, PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $returnValue = $stmt->fetch(pdo::FETCH_COLUMN);
+        }
+        return $returnValue;
+    }
+
     /**
      * 
      * @return type
      */
-     public function getTenUsernameLike() {
+    public function getTenUsernameLike() {
         $returnValue = array();
         $query = 'SELECT `username`, CONCAT(`id`,".png") AS `image` '
-                . 'FROM `' . database::PREFIX . 'user` '
+                . 'FROM `' . config::PREFIX . 'user` '
                 . 'WHERE `username` LIKE :username AND `id` != :id '
                 . 'ORDER BY `username` ASC '
                 . 'LIMIT 10';
@@ -142,16 +181,25 @@ class user extends database {
      * @return obj
      */
     public function getUserByID() {
-        $returnValue = null;
+        $returnValue = false;
         $query = 'SELECT `id`, `email`, `password`, `username`, `color`, CONCAT(`id`,".png") AS `image` '
-                . 'FROM `' . database::PREFIX . 'user` '
+                . 'FROM `' . config::PREFIX . 'user` '
                 . 'WHERE `id` = :id';
 
         $stmt = database::getInstance()->prepare($query);
         $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
-             $returnValue = $stmt->fetch(PDO::FETCH_OBJ);
+            $data = $stmt->fetch(PDO::FETCH_OBJ);
+            if (is_object($data)) {
+                $this->id = $data->id;
+                $this->email = $data->email;
+                $this->password = $data->password;
+                $this->username = $data->username;
+                $this->color = $data->color;
+                $this->image = $data->image;
+                $returnValue = true;
+            }
         }
         return $returnValue;
     }
@@ -162,7 +210,7 @@ class user extends database {
      * @return boolean
      */
     public function updateUserWithoutPasswordById() {
-        $query = 'UPDATE `' . database::PREFIX . 'user` '
+        $query = 'UPDATE `' . config::PREFIX . 'user` '
                 . 'SET '
                 . '`email` = LCASE(:email), '
                 . '`username` = CONCAT(UCASE(LEFT(:username, 1)), SUBSTRING(:username, 2)) '
@@ -182,7 +230,7 @@ class user extends database {
      * @return boolean
      */
     public function updateUserWithPasswordById() {
-        $query = 'UPDATE `' . database::PREFIX . 'user` '
+        $query = 'UPDATE `' . config::PREFIX . 'user` '
                 . 'SET '
                 . ' `email` = LCASE(:email), '
                 . ' `password` = :password, '
@@ -205,7 +253,7 @@ class user extends database {
      */
     public function deleteUserById() {
         $query = 'DELETE `user` '
-                . 'FROM `' . database::PREFIX . 'user` AS `user` '
+                . 'FROM `' . config::PREFIX . 'user` AS `user` '
                 . 'WHERE `user`.`id` = :id';
 
         $stmt = database::getInstance()->prepare($query);
@@ -214,14 +262,48 @@ class user extends database {
         return $stmt->execute();
     }
 
+    /**
+     * 
+     * @return type
+     */
     public function getLastUserId() {
-        $returnValue = null;
+        $returnValue = -1;
         $query = 'SELECT MAX(`id`) AS `id`'
-                . 'FROM `' . database::PREFIX . 'user`';
+                . 'FROM `' . config::PREFIX . 'user`';
 
         if ($result = database::getInstance()->query($query)) {
-            $returnValue = $result->fetch(PDO::FETCH_OBJ);
+            $returnValue = $result->fetch(PDO::FETCH_COLUMN);
         }
         return $returnValue;
     }
+
+    /**
+     * 
+     * @return type
+     */
+    public function getRandomUserId() {
+        $returnValue = -1;
+        $query = 'SELECT `u`.`id`' .
+                'FROM `T7rDZC_user` AS `u` ' .
+                'JOIN (SELECT ' .
+                'ROUND(RAND() * (SELECT ' .
+                'MAX(`id`) ' .
+                'FROM `T7rDZC_user` ' .
+                ')) AS `id` ' .
+                ') AS `x`' .
+                'WHERE `u`.`id` >= `x`.`id` AND `u`.`id` != :id ' .
+                'LIMIT 1';
+
+        $stmt = database::getInstance()->prepare($query);
+        $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $data = $stmt->fetch(PDO::FETCH_OBJ);
+            if ($data != null) {
+                $returnValue = $data->id;
+            }
+        }
+        return $returnValue;
+    }
+
 }

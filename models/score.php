@@ -64,7 +64,7 @@ class score extends database {
      */
     public function deleteScoreByUserId() {
         $request = 'DELETE '
-                . 'FROM `' . database::PREFIX . 'score` '
+                . 'FROM `' . config::PREFIX . 'score` '
                 . 'WHERE `id_user` = :id_user';
 
         $stmt = database::getInstance()->prepare($request);

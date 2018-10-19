@@ -32,6 +32,8 @@ define('CLICK_HERE_TO_CONNECT', 'Click here to log in. ');
 define('OPPONENT_USERNAME', 'Opponent username');
 define('EMAIL_ADDRESS_OR_PASSWORD_INCORRECT', 'email address or password incorrect');
 define('CONTINU', 'continue');
+define('SUCCESSFUL_DUEL_CREATION', 'Battle successfully created');
+define('USERNAME_INCORRECT', 'USERNAME_INCORRECT CHANGE');
 
 define('LEADERBOARD', 'Leaderboard');
 define('CREATE', 'Create');

@@ -1,34 +1,26 @@
 $(function () {
-    var editor = ace.edit('editor');
+    var mode = $('#duelLangageImg').attr('data-langageId') - 1;
+    var editor = ace.edit('duelEditor');
     editor.setTheme('ace/theme/monokai');
-    editor.session.setMode('ace/mode/' + scriptingModes[0].aceMode);
-    editor.session.setValue(scriptingModes[0].value);
+    editor.session.setMode('ace/mode/' + scriptingModes[mode].aceMode);
+    editor.session.setValue(scriptingModes[mode].value);
     
-    $('#action').click(function () {
+    $('#duelSubmit').click(function () {
         let editorCode = editor.getValue();
         let editorMode = editor.getOption('mode');
         editorMode = editorMode.substr(editorMode.lastIndexOf('/') + 1);
         $.ajax({
             type: 'POST',
-            url: '../ajax/compiler.php',
+            url: '../ajax/battle.php',
             data: {
-                mode: editorMode,
+                langage: editorMode,
                 code: editorCode
             },
             timeout: 3000,
+            dataType: 'json',
             success: function (data) {
                 $('#error').html(data);
-            },
-            error: function () {
-                console.log('error');
             }
         });
     });
-    $.each(scriptingModes, function (id, element) {
-        $('#' + element.mode).click(function () {
-            editor.session.setMode('ace/mode/' + element.aceMode);
-            editor.session.setValue(element.value);
-        });
-    });
 });
-//compiler gcc c compiler g++ c++ compiler

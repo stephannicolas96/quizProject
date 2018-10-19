@@ -1,5 +1,4 @@
-var emailAjax = null;
-$('input[type=email]').change(function (event) {
+$('input[type=email]').blur(function (event) {
     var target = $(event.target);
     $.ajax({
         type: 'POST',
@@ -8,25 +7,13 @@ $('input[type=email]').change(function (event) {
             inputValue: $(this).val()
         },
         timeout: 1000,
-        beforeSend: function () {
-            if (emailAjax != null) {
-                emailAjax.abort();
-            }
-        },
         success: function (data) {
-            if (data == '1') {
-                target.removeClass('notOk');
-                target.addClass('ok');
-            } else {
-                target.removeClass('ok');
-                target.addClass('notOk');
-            }
+
         }
     });
 });
 
-var passwordAjax = null;
-$('input[strength]').on('keyup', function () {
+$('input[strength]').blur(function () {
     let strength = $('.passwordStrengthForeground', $(this).parent());
     $.ajax({
         type: 'POST',
@@ -35,33 +22,22 @@ $('input[strength]').on('keyup', function () {
             inputValue: $(this).val()
         },
         timeout: 1000,
-        beforeSend: function () {
-            if (passwordAjax != null) {
-                passwordAjax.abort();
-            }
-        },
         success: function (data) {
             strength.attr('strength', data);
         }
     });
 });
 
-var usernameAjax = null;
 $('#opponentUsername').on('input', function () {
-    usernameAjax = $.ajax({
+    $.ajax({
         type: 'POST',
-        url: '../ajax/getAllUsername.php',
+        url: '../ajax/getTenUsername.php',
         data: {
             username: $(this).val()
         },
         timeout: 1000,
-        beforeSend: function () {
-            if (usernameAjax != null) {
-                usernameAjax.abort();
-            }
-        },
+        dataType: 'json',
         success: function (data) {
-            data = JSON.parse(data);
             let users = {};
             if (data['success']) {
                 for (var i = 0; i < data['data'].length; i++) {

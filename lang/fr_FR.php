@@ -32,6 +32,8 @@ define('CLICK_HERE_TO_CONNECT', 'Cliquez ici pour vous connecter.');
 define('OPPONENT_USERNAME', 'Nom d\'utilisateur de l\'adversaire');
 define('EMAIL_ADDRESS_OR_PASSWORD_INCORRECT', 'adresse e-mail ou mot de passe incorrecte');
 define('CONTINU', 'continuer');
+define('SUCCESSFUL_DUEL_CREATION', 'Le combat a bien été créer!');
+define('USERNAME_INCORRECT', 'USERNAME_INCORRECT CHANGE');
 
 define('LEADERBOARD', 'Classement');
 define('CREATE', 'Créer');

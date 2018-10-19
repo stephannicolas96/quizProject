@@ -1,42 +1,35 @@
 <?php
+
 session_start();
 include_once '../classes/path.php';
-include_once path::getClassesPath() . 'user.php';
+include_once path::getModelsPath() . 'user.php';
 include_once path::getLangagePath() . $_SESSION['lang'];
 
 $userInstance = new user;
 $errors = array();
 $success = false;
-$hashedPassword = null;
 
 //EMAIL
 if (!empty($_POST['login'])) {
     if (filter_var($_POST['login'], FILTER_VALIDATE_EMAIL)) {
         $userInstance->email = htmlspecialchars($_POST['login']);
-        $user = $userInstance->getUserByEmail();
-        if (!is_object($user)) {
-            $errors['login'] = EMAIL_ADDRESS_OR_PASSWORD_INCORRECT; // TODO USE TRAD
-        } else {
-            $hashedPassword = $user->password;
-            $userInstance->username = $user->username;
-            $userInstance->color = $user->color;
-            $userInstance->id = $user->id;
+        if (!$userInstance->getUserByEmail()) {
+            $errors['login'] = EMAIL_ADDRESS_OR_PASSWORD_INCORRECT;
         }
     } else {
-        $errors['login'] = EMAIL_ADDRESS_OR_PASSWORD_INCORRECT; // TODO USE TRAD
+        $errors['login'] = EMAIL_ADDRESS_OR_PASSWORD_INCORRECT;
     }
 } else {
-    $errors['login'] = EMAIL_ADDRESS_OR_PASSWORD_INCORRECT; // TODO USE TRAD
+    $errors['login'] = EMAIL_ADDRESS_OR_PASSWORD_INCORRECT;
 }
 
 //PASSWORD
 if (!empty($_POST['loginPassword'])) {
-    $userInstance->password = htmlspecialchars($_POST['loginPassword']);
-    if (!password_verify($userInstance->password, $hashedPassword)) {
-        $errors['login'] = EMAIL_ADDRESS_OR_PASSWORD_INCORRECT; // TODO USE TRAD
+    if (!password_verify($_POST['loginPassword'], $userInstance->password)) {
+        $errors['login'] = EMAIL_ADDRESS_OR_PASSWORD_INCORRECT;
     }
 } else {
-    $errors['login'] = EMAIL_ADDRESS_OR_PASSWORD_INCORRECT; // TODO USE TRAD
+    $errors['login'] = EMAIL_ADDRESS_OR_PASSWORD_INCORRECT;
 }
 
 if (count($errors) == 0) {

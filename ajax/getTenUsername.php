@@ -1,7 +1,7 @@
 <?php
 
 include_once '../classes/path.php';
-include_once path::getClassesPath() . 'user.php';
+include_once path::getModelsPath() . 'user.php';
 
 session_start();
 
@@ -20,11 +20,6 @@ if (!empty($_POST['username'])) {
 
 $result['data'] = $userInstance->getTenUsernameLike();
 if (count($result['data']) != 0) {
-    foreach ($result['data'] as $user) {
-        if (!file_exists(path::getUserImagesPath() . $user->image)) {
-            $user->image = 'user-image.png';
-        }
-    }
     $result['success'] = true;
 }
 

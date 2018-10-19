@@ -25,6 +25,7 @@ $("#uploadImage").on('submit', function (e) {
         contentType: false, // The content type used when sending data to the server.
         cache: false, // To unable request pages to be cached
         processData: false, // To send DOMDocument or non processed data file it is set to false
+        dataType: 'json',
         success: function (data)   // A function to be called if request succeeds
         {
             //TODO : ADD AN UPLOADING PROGRESS BAR
@@ -83,39 +84,37 @@ $("#profileForm").on('submit', function (e) {
         let formData = new FormData(this);
         formData.append('submitType', submitType);
         $.ajax({
-            type: "POST",
-            url: "../ajax/profile.php",
+            type: 'POST',
+            url: '../ajax/profile.php',
             data: formData,
             contentType: false, // The content type used when sending data to the server.
             cache: false, // To unable request pages to be cached
             processData: false, // To send DOMDocument or non processed data file it is set to false
+            dataType: 'json',
             success: function (data)   // A function to be called if request succeeds
             {
-                data = JSON.parse(data);
-                setTimeout(function () {
-                    profileLoader.hide();
-                    profileErrors.html('');
-                    profileErrors.hide();
-                    profileSuccess.hide();
-                    if (submitType = 0) {
+                profileLoader.hide();
+                profileErrors.html('');
+                profileErrors.hide();
+                profileSuccess.hide();
+                if (submitType = 0) {
+                    profilePassword.val('');
+                    profileNewPassword.val('');
+                }
+                if (data['success']) { // SUCCESS
+                    profileSuccess.show();
+                } else { // FAILURE
+                    if (submitType = 1) {
                         profilePassword.val('');
-                        profileNewPassword.val('');
                     }
-                    if (data['success']) { // SUCCESS
-                        profileSuccess.show();
-                    } else { // FAILURE
-                        if (submitType = 1) {
-                            profilePassword.val('');
-                        }
-                        profileErrors.show();
-                        $.each(data['errors'], function (id, error)
-                        {
-                            profileErrors.append('<p>' + error + '</p>');
-                        });
-                    }
-                    profileDeleteUser.show();
-                    profileUpdate.show();
-                });
+                    profileErrors.show();
+                    $.each(data['errors'], function (id, error)
+                    {
+                        profileErrors.append('<p>' + error + '</p>');
+                    });
+                }
+                profileDeleteUser.show();
+                profileUpdate.show();
             },
             beforeSend: function () {
                 profileDeleteUser.hide();

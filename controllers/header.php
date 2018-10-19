@@ -1,7 +1,6 @@
 <?php
 
 session_start();
-
 $langages = ['fr', 'en'];
 
 if (isset($_GET['lang']) && in_array($_GET['lang'], $langages)) {
@@ -12,7 +11,7 @@ if (isset($_GET['lang']) && in_array($_GET['lang'], $langages)) {
     $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 }
 
-setcookie("lang", $lang, time() + 365 * 24 * 3600);
+setcookie('lang', $lang, time() + 365 * 24 * 3600, '/');
 
 switch ($lang) {
     case 'fr':

@@ -3,7 +3,7 @@
 $inputs = [
     (object) [
         'wrappingDivClasses' => 'input-field',
-        'inputAttr' => 'id="username" type="text" name="username" maxlength="60" required',
+        'inputAttr' => 'id="username" type="text" name="username" maxlength="255" required',
         'labelContent' => USERNAME,
         'labelAttr' => 'username'
     ],
@@ -15,7 +15,7 @@ $inputs = [
     ],
     (object) [
         'wrappingDivClasses' => 'input-field password',
-        'inputAttr' => 'id="registrationPassword" type="password" name="registrationPassword"  maxlength="60" strength="0" required',
+        'inputAttr' => 'id="registrationPassword" type="password" name="registrationPassword"  maxlength="255" strength="0" required',
         'labelContent' => PASSWORD,
         'labelAttr' => 'registrationPassword'
     ]

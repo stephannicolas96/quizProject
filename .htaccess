@@ -1,19 +1,19 @@
 <ifModule mod_rewrite.c>
 RewriteEngine on
 RewriteRule ^([\w]+)/home.html$ index.php?lang=$1
+RewriteRule ^home.html$ index.php
 RewriteRule ^([\w]+)/createBattle.html$ views/creation.php?lang=$1
+RewriteRule ^createBattle.html$ views/creation.php
 RewriteRule ^([\w]+)/battle-([\d]+).html$ views/duel.php?lang=$1&duelId=$2
+RewriteRule ^battle-([\d]+).html$ views/duel.php?duelId=$1
 RewriteRule ^([\w]+)/leaderboard-([\d]+).html$ views/leaderboard.php?lang=$1&langage=$2
+RewriteRule ^leaderboard-([\d]+).html$ views/leaderboard.php?langage=$1
 RewriteRule ^([\w]+)/profile-([\d]+).html$ views/profile.php?id=$2&lang=$1
+RewriteRule ^profile-([\d]+).html$ views/profile.php?id=$1
 RewriteRule ^([\w]+)/profile.html$ views/profile.php?lang=$1
-RewriteRule ^([\w]+)/logout.html views/logout.php?lang=$1
-RewriteRule ^home.html$ index.php?lang=en
-RewriteRule ^createBattle.html$ views/creation.php?lang=en
-RewriteRule ^battle-([\d]+).html$ views/duel.php?lang=en&$duelId=$1
-RewriteRule ^leaderboard-([\d]+).html$ views/leaderboard.php?lang=en&langage=$1
-RewriteRule ^profile-([\d]+).html$ views/profile.php?id=$1&lang=en
-RewriteRule ^profile.html$ views/profile.php?lang=en
-RewriteRule ^logout.html views/logout.php?lang=en
+RewriteRule ^profile.html$ views/profile.php
+RewriteRule ^([\w]+)/logout.html$ views/logout.php?lang=$1
+RewriteRule ^logout.html views/logout.php
 ErrorDocument 403 /views/error403.php
 ErrorDocument 404 /views/error404.php
 </ifModule>

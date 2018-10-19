@@ -13,7 +13,7 @@ include path::getLayoutPath() . 'header.php';
                 <div class="relative">
                     <input id="userImage" class="hidden" type="file" name="userImage" accept="image/png" />
                     <label for="userImage" class="center">
-                        <img id="userImageDisplayed" class="userImg clickable" src="../assets/images/userImages/<?= $userImage ?>" title="user image" alt="user image" style="background-color: <?= '#' . $userInstance->color ?>" />
+                        <img id="userImageDisplayed" class="userImg clickable" src="../assets/images/userImages/<?= $userInstance->image ?>" title="user image" alt="user image" style="background-color: <?= '#' . $userInstance->color ?>" onerror="this.src='../assets/images/userImages/user-image.png'"  onabort="this.src='../assets/images/userImages/user-image.png'" />
                         <button type="submit" name="deleteUserImage" value="X"><img src="../assets/images/close.png" /></button>
                     </label>
                 </div>
@@ -35,7 +35,7 @@ include path::getLayoutPath() . 'header.php';
         </div>
     <?php } else { ?>
         <div>
-            <img class="userImg center" src="../assets/images/userImages/<?= $userImage ?>" title="user image" alt="user image" style="background-color: <?= '#' . $userInstance->color ?>" />
+            <img class="userImg center" src="../assets/images/userImages/<?= $userInstance->image ?>" title="user image" alt="user image" style="background-color: <?= '#' . $userInstance->color ?>" onerror="this.src='../assets/images/userImages/user-image.png'"  onabort="this.src='../assets/images/userImages/user-image.png'" />
             <p><?= USERNAME ?></p>
             <p><?= $userInstance->username ?></p>
             <p><?= EMAIL ?></p>
@@ -47,7 +47,7 @@ include path::getLayoutPath() . 'header.php';
             <div>
                 <ul data-pie-id="<?= $langage ?>" class="hidden">
                     <?php foreach ($states as $stateName => $amount) { ?>
-                        <li data-value="<?= $amount ?>"><?= $stateName ?></li>
+                        <li data-value="<?= $amount ?>" class="<?= $stateName ?>"><?= $stateName ?></li>
                     <?php } ?>
                 </ul>
                 <div id="<?= $langage ?>" class="v-center pie-chart"></div>

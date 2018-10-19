@@ -9,7 +9,7 @@ $inputs = [
     ],
     (object) [
         'wrappingDivClasses' => 'input-field password',
-        'inputAttr' => 'id="loginPassword" type="password" name="loginPassword" maxlength="60" required',
+        'inputAttr' => 'id="loginPassword" type="password" name="loginPassword" maxlength="255" required',
         'labelContent' => PASSWORD,
         'labelAttr' => 'loginPassword'
     ]

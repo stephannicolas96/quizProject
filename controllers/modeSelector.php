@@ -1,5 +1,5 @@
 <?php
-include_once path::getClassesPath() . 'langageName.php';
+include_once path::getModelsPath() . 'langageName.php';
 
 $langageNameInstance = new langageName();
 

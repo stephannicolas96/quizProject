@@ -10,7 +10,7 @@ class duelState extends database {
     public function getAllStates() {
         $returnValue = array();
         $query = 'SELECT `name` '
-                . 'FROM `' . database::PREFIX . 'duelState`';
+                . 'FROM `' . config::PREFIX . 'duelState`';
         
         if ($result = database::getInstance()->query($query)) {
             $returnValue = $result->fetchAll(PDO::FETCH_OBJ);

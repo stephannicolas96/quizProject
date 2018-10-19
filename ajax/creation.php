@@ -1,10 +1,10 @@
 <?php
 
 include_once '../classes/path.php';
-include 'compiler.php';
-include 'inputGenerator.php';
-include path::getClassesPath() . 'question.php';
-include path::getClassesPath() . 'testCase.php';
+include_once path::getHelpersPath() . 'compiler.php';
+include_once path::getHelpersPath() . 'inputGenerator.php';
+include_once path::getModelsPath() . 'question.php';
+include_once path::getModelsPath() . 'testCase.php';
 
 $result = array();
 
@@ -49,7 +49,7 @@ if ($result['success'] == 1) {
     if (isset($_POST['numberOfInputToGenerate']) && isset($inputFormat)) { //AMOUNT OF INPUT TO GENERATE
         $numberOfInputToGenerate = htmlspecialchars($_POST['numberOfInputToGenerate']);
         for ($i = 0; $i < $numberOfInputToGenerate; $i++) {
-            $generatedInputs[] = generateInput($inputFormat);
+            $generatedInputs[] = inputGenerator::generateInput($inputFormat);
         }
     }
 
@@ -86,7 +86,7 @@ if ($result['success'] == 1) {
     $outputs = array();
     if (count($generatedInputs) > 0) {
         foreach ($generatedInputs as $input) {
-            $outputs[] = compile($input, $langage, $userCode);
+            $outputs[] = compiler::compile($input, $langage, $userCode);
         }
     } else {
         $result['success'] = -2;
@@ -123,7 +123,7 @@ if ($result['success'] == 1) {
         $questionInstance->output = $questionData[2];
         $questionInstance->difficulty = 0;
         $questionInstance->createQuestion();
-        $testCaseInstance->id_question = $questionInstance->getLastQuestionId()->id;
+        $testCaseInstance->id_question = $questionInstance->getLastInsertedId();
 
         for ($i = 0; $i < $numberOfInputToGenerate; $i++) {
             $testCaseInstance->input = $generatedInputs[$i];

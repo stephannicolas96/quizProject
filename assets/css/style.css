@@ -2,34 +2,17 @@
   position: relative;
   width: inherit; }
 
-.container {
-  max-width: 100%;
-  width: 95%; }
-  .container .row .col {
-    padding: 0; }
-
-.difficultyProgressBar {
-  width: 150px;
-  height: 10px;
-  border-radius: 5px;
-  background-color: darkgrey; }
-  .difficultyProgressBar .difficultyProgressBarForeground {
-    height: 100%;
-    width: 0;
-    background-color: red;
-    border-radius: 5px; }
-
 #inputEditorContainer {
   position: relative; }
 
-#duelCreation .modal-content {
+#duelCreation .content {
   display: grid;
   grid-template-columns: 1fr 1fr; }
-  #duelCreation .modal-content > div {
+  #duelCreation .content > div {
     grid-column: span 2; }
 
 .modal-content > .content > p {
-  margin-bottom: .5em; }
+  margin-bottom: 0.5em; }
 
 .navbar {
   -webkit-user-select: none;
@@ -73,7 +56,7 @@ li > a.left, li > a.right {
     display: none; }
     #modeSelector input + label, #duelModeSelector input + label {
       height: inherit;
-      opacity: 0.25;
+      opacity: .25;
       padding-left: 0; }
       #modeSelector input + label > img, #duelModeSelector input + label > img {
         height: inherit;
@@ -114,20 +97,27 @@ button[name='deleteUserImage'] {
   border-radius: 50%;
   background-color: transparent; }
   button[name='deleteUserImage'] img {
-    height: 100%;
-    width: 100%;
+    height: inherit;
+    width: inherit;
     display: block;
     border-radius: 50%; }
 
+#duelLangageImg {
+  height: 4em;
+  border-radius: 50%;
+  -webkit-box-shadow: 0px 0px 5px 5px rgba(227, 163, 0, 0.69);
+  -moz-box-shadow: 0px 0px 5px 5px rgba(227, 163, 0, 0.69);
+  box-shadow: 0px 0px 5px 5px rgba(227, 163, 0, 0.69); }
+
 .score-row {
   display: grid;
-  grid-template-columns: 100px 8em 1fr 1fr;
+  grid-template-columns: 7em 8em 1fr 1fr;
   margin: 1em 0;
-  padding: .5em 0;
+  padding: 0.5em 0;
   border: 2px solid black;
   border-radius: 5px; }
   .score-row.leader {
-    grid-template-columns: 160px 1fr 1fr; }
+    grid-template-columns: 10em 1fr 1fr; }
     .score-row.leader img {
       margin: auto; }
   .score-row p {
@@ -155,22 +145,22 @@ button[name='deleteUserImage'] {
   z-index: 998;
   position: fixed;
   right: 0;
-  top: 67px;
-  width: 200px;
+  top: 4.2em;
+  width: 13em;
   height: 0px;
   transform-origin: top;
   transition: height 250ms ease-in-out; }
   .dropdown > .content > a {
-    margin-top: 0.8em; }
+    margin-top: .8em; }
   .dropdown.active {
-    height: 99px; }
+    height: 6em; }
   .dropdown .top {
     background-image: url(../images/dropdownTop.png); }
   .dropdown .bottom {
     background-image: url(../images/dropdownBottom.png); }
   .dropdown .top, .dropdown .bottom {
     width: inherit;
-    height: 29px;
+    height: 2em;
     background-size: cover; }
   .dropdown > .content {
     background-image: url(../images/dropdownMiddle.png);
@@ -182,11 +172,11 @@ button[name='deleteUserImage'] {
     grid-template-rows: 1fr 1fr;
     justify-content: center; }
     .dropdown > .content > a {
-      height: 32px;
+      height: 2em;
       display: grid;
       grid-template-columns: 1fr 1fr;
       justify-items: center;
-      line-height: 32px; }
+      line-height: 2em; }
 
 .nav-link {
   border: none;
@@ -194,7 +184,7 @@ button[name='deleteUserImage'] {
 
 .password {
   display: grid;
-  grid-template-columns: 1fr 50px; }
+  grid-template-columns: 1fr 3em; }
 
 .btn-password {
   position: relative;
@@ -215,9 +205,9 @@ button[name='deleteUserImage'] {
 
 .passwordStrength {
   position: absolute;
-  right: 60px;
-  top: 18px;
-  width: 80px;
+  right: 4em;
+  top: 1em;
+  width: 5em;
   height: 10px;
   border-radius: 5px;
   background-color: darkgrey; }
@@ -255,7 +245,7 @@ button[name='deleteUserImage'] {
   border-bottom: 1px solid black; }
 
 .editor {
-  height: 500px; }
+  height: 30em; }
 
 .relative {
   position: relative; }
@@ -290,9 +280,6 @@ button[name='deleteUserImage'] {
   border: solid black 2px;
   border-radius: 50%; }
 
-.userImg:not([src$='user-image.png']) {
-  background-color: transparent !important; }
-
 .imgSize, .userImg {
   height: 8em;
   width: 8em; }
@@ -323,7 +310,7 @@ button[name='deleteUserImage'] {
 
 .collapsible-header {
   display: grid;
-  grid-template-columns: 120px 1fr 30px; }
+  grid-template-columns: 8em 1fr 2em; }
   .collapsible-header:nth-child(1) p {
     text-align: left; }
 
@@ -369,56 +356,63 @@ i.material-icons.hidden {
 .duelList {
   margin-bottom: 1em; }
   .duelList li {
+    justify-items: center;
+    margin-top: .25em;
     display: grid;
-    grid-template-columns: 4em 1fr 2em 2em 1fr 4em;
+    grid-template-columns: 5em 1fr 2em 2em 1fr 5em;
     align-items: center; }
-    .duelList li :nth-child(1) {
+    .duelList li > :nth-child(1) {
       grid-row: 1;
       grid-column: 1 / span 3;
       height: 100%;
-      border-radius: .5em 0 0 .5em; }
-    .duelList li :nth-child(2) {
+      width: 100%;
+      border-radius: 0.5em 0 0 0.5em; }
+    .duelList li > :nth-child(2) {
       grid-row: 1;
       grid-column: 4 / span 3;
       height: 100%;
-      border-radius: 0 .5em .5em 0; }
-    .duelList li :nth-child(3) {
-      margin-left: .5em;
+      width: 100%;
+      border-radius: 0 0.5em 0.5em 0; }
+    .duelList li > :nth-child(3) {
       grid-row: 1;
       grid-column: 1; }
-    .duelList li :nth-child(4) {
+    .duelList li > :nth-child(4) {
       grid-row: 1;
       grid-column: 2; }
-    .duelList li :nth-child(5) {
+    .duelList li > :nth-child(5) {
       grid-row: 1;
       grid-column: 3 / span 2; }
-    .duelList li :nth-child(6) {
+    .duelList li > :nth-child(6) {
       grid-row: 1;
       grid-column: 5; }
-    .duelList li :nth-child(7) {
-      margin-right: .5em;
+    .duelList li > :nth-child(7) {
       grid-row: 1;
       grid-column: 6; }
-    .duelList li :nth-child(8) {
+    .duelList li > :nth-child(8) {
       grid-row: 1;
       grid-column: 1 / span 6;
       height: 100%;
-      line-height: 4em; }
+      line-height: 4em;
+      width: 100%; }
   .duelList p, .duelList a {
     font-weight: bold;
     font-size: 1.5rem; }
   .duelList .won {
-    background-color: lightgreen; }
+    background-color: green; }
   .duelList .lost {
-    background-color: lightcoral; }
+    background-color: red; }
   .duelList .draw {
-    background-color: lightyellow; }
+    background-color: yellow; }
   .duelList .expired {
-    background-color: lightgray; }
+    background-color: grey; }
   .duelList .inProgress {
     display: none; }
   .duelList .won, .duelList .lost, .duelList .draw, .duelList .expired, .duelList .inProgress {
-    opacity: .5; }
+    opacity: 1; }
+
+.duelSplit {
+  display: grid;
+  grid-template-columns: 20% 80%; }
 
 #inputExample {
   position: absolute;
@@ -426,9 +420,9 @@ i.material-icons.hidden {
   background-color: white;
   border: solid grey 2px;
   height: 0px;
-  bottom: 0.2em;
-  left: 0.3em;
-  right: 0.3em;
+  bottom: .2em;
+  left: .3em;
+  right: .3em;
   overflow: scroll;
   opacity: 0;
   transition: opacity 250ms, height 250ms; }
@@ -438,13 +432,13 @@ i.material-icons.hidden {
     white-space: nowrap; }
 
 .active #inputExample {
-  height: 150px;
+  height: 9em;
   opacity: 1; }
 
 #register {
   margin: 0 auto;
   display: block;
-  margin-bottom: 50px; }
+  margin-bottom: 3.5em; }
 
 #loginModal, #registrationModal {
   min-height: auto; }
@@ -461,12 +455,15 @@ i.material-icons.hidden {
 #nav-mobile a.disabled {
   opacity: .5; }
 
+#duelCreation {
+  background-color: #443127; }
+
 @media (min-width: 992px) {
   a.brand-logo:hover {
     transform: scale(1.1); }
 
   .navbar-fixed {
-    height: 120px; }
+    height: 8em; }
 
   #modeSelector, #duelModeSelector {
     grid-template-columns: repeat(4, 4em);
@@ -493,7 +490,7 @@ i.material-icons.hidden {
     margin: 0 auto; }
 
   .passwordStrength {
-    width: 150px; } }
+    width: 9em; } }
 [data-pie-id] li:nth-child(1) {
   color: #62ef3b; }
 
@@ -508,9 +505,9 @@ i.material-icons.hidden {
 
 ul[data-pie-id] {
   list-style: none;
-  padding: 10px; }
+  padding: 1em; }
 
 ul[data-pie-id] + div {
-  width: 300px; }
+  width: 20em; }
 
 /*# sourceMappingURL=style.css.map */
