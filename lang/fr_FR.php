@@ -34,8 +34,16 @@ define('EMAIL_ADDRESS_OR_PASSWORD_INCORRECT', 'adresse e-mail ou mot de passe in
 define('CONTINU', 'continuer');
 define('SUCCESSFUL_DUEL_CREATION', 'Le combat a bien été créer!');
 define('USERNAME_INCORRECT', 'USERNAME_INCORRECT CHANGE');
+define('QUESTION_REGISTERED', 'Question successfully registered!');
 
 define('LEADERBOARD', 'Classement');
 define('CREATE', 'Créer');
 define('HOME', 'Accueil');
 define('BATTLE', 'Combat');
+
+define('QUESTION_INFO', 'Your question must contains theses words (Enunciated/Input/Output) to be registered');
+define('INPUT_INFO', '');
+define('CODE_INFO', '');
+define('QUESTION', 'Question');
+define('INPUT', 'Entrée');
+define('CODE', 'Code');

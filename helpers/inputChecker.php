@@ -3,7 +3,7 @@
 class inputChecker {
 
     /**
-     * 
+     * used to check forms input value
      * @param type $valueToCheck
      * @param type $outputValue
      * @param callable $checkIfValueIsCorrect

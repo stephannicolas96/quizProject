@@ -23,7 +23,7 @@ const scriptingModes = [{
                 '}\n' +
                 '}'
     }, {
-        mode: 'c', //printf
+        mode: 'c',
         aceMode: 'c_cpp',
         value: '#include <stdlib.h>\n' +
                 '#include <stdio.h>\n\n' +

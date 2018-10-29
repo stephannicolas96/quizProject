@@ -1,5 +1,5 @@
 $(function () {
     $('.modal').modal();
     $('.button-collapse').sideNav();
-    $('.tooltipped').tooltip();
+    $('.tooltipped').tooltip({html: true});
 });

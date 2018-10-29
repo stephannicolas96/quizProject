@@ -14,8 +14,7 @@ class user extends database {
 
     /**
      * Add a user to the database
-     * (false = user wasn't added, true = user added)
-     * @return boolean 
+     * @return bool
      */
     public function addUser() {
         $query = 'INSERT INTO `' . config::PREFIX . 'user` (`email`, `password`, `username`, `color`) '
@@ -37,8 +36,7 @@ class user extends database {
 
     /**
      * Check if the email already exist in the database
-     * (false = email doesn't exist, true = email already used)
-     * @return boolean
+     * @return bool
      */
     public static function checkIfEmailAlreadyExist($email) {
         $returnValue = false;
@@ -57,8 +55,7 @@ class user extends database {
 
     /**
      *  Check if the username already exist in the database
-     *  (false = username doesn't exist, true = username already used)
-     * @return boolean
+     * @return bool
      */
     public static function checkIfUsernameAlreadyExist($username) {
         $returnValue = false;
@@ -77,8 +74,7 @@ class user extends database {
 
     /**
      * Get user information using EMAIL
-     * (null = no user found, obj = user data)
-     * @return obj
+     * @return bool
      */
     public function getUserByEmail() {
         $returnValue = false;
@@ -106,8 +102,7 @@ class user extends database {
 
     /**
      * Get user information using USERNAME
-     * (null = no user found, obj = user data)
-     * @return obj
+     * @return bool
      */
     public function getUserByUsername() {
         $returnValue = false;
@@ -135,8 +130,7 @@ class user extends database {
 
     /**
      * Get user information using USERNAME
-     * (null = no user found, obj = user data)
-     * @return obj
+     * @return int
      */
     public function getUserIdByUsername() {
         $returnValue = -1;
@@ -154,8 +148,8 @@ class user extends database {
     }
 
     /**
-     * 
-     * @return type
+     * get 10 username where the username if like the current username
+     * @return array()
      */
     public function getTenUsernameLike() {
         $returnValue = array();
@@ -177,8 +171,7 @@ class user extends database {
 
     /**
      * Get user information using ID
-     * (null = no user found, obj = user data)
-     * @return obj
+     * @return bool
      */
     public function getUserByID() {
         $returnValue = false;
@@ -206,8 +199,7 @@ class user extends database {
 
     /**
      * Update user informations using ID (the password isn't changed)
-     *  (false = user wasn't updated, true = user updated)
-     * @return boolean
+     * @return bool
      */
     public function updateUserWithoutPasswordById() {
         $query = 'UPDATE `' . config::PREFIX . 'user` '
@@ -226,8 +218,7 @@ class user extends database {
 
     /**
      * Update user informations using ID (the password isn't changed)
-     *  (false = user wasn't updated, true = user updated)
-     * @return boolean
+     * @return bool
      */
     public function updateUserWithPasswordById() {
         $query = 'UPDATE `' . config::PREFIX . 'user` '
@@ -248,7 +239,6 @@ class user extends database {
 
     /**
      * Delete user using ID
-     * (false = user wasn't deleted, true = user deleted)
      * @return boolean
      */
     public function deleteUserById() {
@@ -263,8 +253,8 @@ class user extends database {
     }
 
     /**
-     * 
-     * @return type
+     * get the last user id
+     * @return int
      */
     public function getLastUserId() {
         $returnValue = -1;
@@ -278,8 +268,8 @@ class user extends database {
     }
 
     /**
-     * 
-     * @return type
+     * get a random user id
+     * @return int
      */
     public function getRandomUserId() {
         $returnValue = -1;

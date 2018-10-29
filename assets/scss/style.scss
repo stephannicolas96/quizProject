@@ -134,6 +134,12 @@ button[name='deleteUserImage']{
         border-radius: 50%;
     }
 }
+button{
+    &:hover, &:focus, &:active{
+        background-color: white;
+    }  
+    background-color: white;
+}
 //------------------------------------ CLASSES ------------------------------------//
 #duelLangageImg{
     height: $smallImgSize;
@@ -144,20 +150,20 @@ button[name='deleteUserImage']{
 }
 .score-row{
     &.leader{
-        grid-template-columns: $normalImgSize + 2em 1fr 1fr;
+        grid-template-columns: $smallImgSize + 1em 1fr 1fr;
         & img {
             margin: auto;
         }
     }
     display: grid;
-    grid-template-columns: 7em $normalImgSize 1fr 1fr;
-    margin: 1em 0;
+    grid-template-columns: 5em $smallImgSize 1fr 1fr;
+    margin: .5em 0;
     padding: $smallSpace 0;
     border: 2px solid black;
     border-radius: 5px;
     & p{
         margin: auto;
-        font-size: 2em;
+        font-size: 1em;
         font-weight: bold;
         color: black;
     }
@@ -339,12 +345,12 @@ button[name='deleteUserImage']{
     border-radius: 50%;
 }
 .imgSize, .userImg{
-    height: $normalImgSize;
-    width: $normalImgSize;
+    height: $smallImgSize;
+    width: $smallImgSize;
 
     &.small{
-        height: $smallImgSize;
-        width: $smallImgSize;
+        height: $smallImgSize / 2;
+        width: $smallImgSize / 2;
     }
 }
 .clickable{
@@ -410,7 +416,7 @@ i.material-icons.hidden{
     & *{
         vertical-align: middle;
     }
-    &:focus{
+    &:hover, &:focus, &:active{
         background-color: transparent;
     }
     & img{
@@ -554,6 +560,15 @@ i.material-icons.hidden{
 }
 //------------------------------------ MEDIUM TO MAX SIZE ------------------------------------//
 @media (min-width: 992px) {
+    .imgSize, .userImg{
+        height: $normalImgSize;
+        width: $normalImgSize;
+
+        &.small{
+            height: $smallImgSize;
+            width: $smallImgSize;
+        }
+    }
     //------------------------------------ NAVBAR ------------------------------------//
     a.brand-logo:hover{
         transform: scale(1.1);
@@ -594,6 +609,27 @@ i.material-icons.hidden{
     }
     .passwordStrength{
         width: 9em;
+    }
+
+    .score-row{
+        &.leader{
+            grid-template-columns: $normalImgSize + 2em 1fr 1fr;
+            & img {
+                margin: auto;
+            }
+        }
+        display: grid;
+        grid-template-columns: 7em $normalImgSize 1fr 1fr;
+        margin: 1em 0;
+        padding: $smallSpace 0;
+        border: 2px solid black;
+        border-radius: 5px;
+        & p{
+            margin: auto;
+            font-size: 2em;
+            font-weight: bold;
+            color: black;
+        }
     }
 }
 

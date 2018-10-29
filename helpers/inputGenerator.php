@@ -1,37 +1,40 @@
 <?php
 
+include_once '../classes/path.php';
+include_once path::getClassesPath() . 'regex.php';
+
 class inputGenerator {
 
     /**
      * Transform each line of the input into a real input following some rules:
      * (int)->(int); => random in the range of the two numbers
-     * (int)->(int)x(int); => random in the range of the two number repeated x times
+     * (int)->(int)*(int); => random in the range of the two number repeated x times separated by a space
+     * (char)->(char); => random letter in the range (Case Sensitive)
+     * (char)->(char)*(int); => random letter in the range (Case Sensistive) repeated x times to form a string
+     * ()->()/()->()*()/()->() => a single row can contain multiple pattern to allow input diversity
+     * ()->()/()->()*()~(int)->(int) => use the last part of the pattern ~()->() to repeat the row x times
      * @param string $array
      * @return string
      */
     public static function generateInput($array) {
-        $regexForLine = '/^((([A-z]->[A-z]|[\d]+->[\d]+)([\*][\d]+){0,1})\/{0,1})+(~[\d]+->[\d]+){0,1}(?<=[A-z]|[\d])$/';
-        $regexSplitLineByGroup = '/\//';
-        $regexSplitRepeatLine = '/~/';
-        $regexSplitGroup = '/->|\*/';
-
+        
         $output = array();
         foreach ($array as $lineNumber => $line) {
-            if (preg_match($regexForLine, $line)) { //$line is a line inside the input editor
-                $repeatLine = preg_split($regexSplitRepeatLine, $line);
+            if (preg_match(regex::getInputGenerationLineRegex(), $line)) { //$line is a line inside the input editor
+                $repeatLine = preg_split(regex::getInputGenerationRepeatLineSplitRegex(), $line);
                 $repeatTimes = 1;
                 if (count($repeatLine) > 1) {
-                    $data = preg_split($regexSplitGroup, $repeatLine[1]);
+                    $data = preg_split(regex::getInputGenerationPatternPartSplitRegex(), $repeatLine[1]);
                     $repeatTimes = rand($data[0], $data[1]);
-                    $groups = preg_split($regexSplitLineByGroup, $repeatLine[0]);
+                    $groups = preg_split(regex::getInputGenerationPatternSplitRegex(), $repeatLine[0]);
                 } else {
-                    $groups = preg_split($regexSplitLineByGroup, $line);
+                    $groups = preg_split(regex::getInputGenerationPatternSplitRegex(), $line);
                 }
                 for ($j = 0; $j < $repeatTimes; $j++) {
                     $lineOutput = array();
                     foreach ($groups as $group) { //$groups are separated by '/' inside the input editor
                         $groupOutput = array();
-                        $data = preg_split($regexSplitGroup, $group);
+                        $data = preg_split(regex::getInputGenerationPatternPartSplitRegex(), $group);
 
                         if (is_numeric($data[0])) {
                             $multiplier = (isset($data[2])) ? $data[2] : 1;

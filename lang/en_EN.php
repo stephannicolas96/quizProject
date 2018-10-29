@@ -34,8 +34,22 @@ define('EMAIL_ADDRESS_OR_PASSWORD_INCORRECT', 'email address or password incorre
 define('CONTINU', 'continue');
 define('SUCCESSFUL_DUEL_CREATION', 'Battle successfully created');
 define('USERNAME_INCORRECT', 'USERNAME_INCORRECT CHANGE');
+define('QUESTION_REGISTERED', 'Question successfully registered!');
 
 define('LEADERBOARD', 'Leaderboard');
 define('CREATE', 'Create');
 define('HOME', 'Home');
 define('BATTLE', 'Battle');
+
+
+define('QUESTION_INFO', 'Your question must contains theses words (Enunciated/Input/Output) to be registered');
+define('INPUT_INFO', '(int)->(int); => random in the range of the two numbers</br>' . 
+     '(int)->(int)*(int); => random in the range of the two number repeated x times separated by a space</br>' .
+     '(char)->(char); => random letter in the range (Case Sensitive)</br>' .
+     '(char)->(char)*(int); => random letter in the range (Case Sensistive) repeated x times to form a string</br>' .
+     '()->()/()->()*()/()->() => a single row can contain multiple pattern to allow input diversity</br>' .
+     '()->()/()->()*()~(int)->(int) => use the last part of the pattern ~()->() to repeat the row x times');
+define('CODE_INFO', '');
+define('QUESTION', 'Question');
+define('INPUT', 'Input');
+define('CODE', 'Code');

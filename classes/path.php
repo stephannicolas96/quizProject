@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * class that helps getting path to each folders of the project
+ */
 class path {
 
     private static $absolutePath = null;
@@ -16,7 +19,7 @@ class path {
 
     public static function getAbsolutePath() {
         if (is_null(self::$absolutePath)) {
-            self::$absolutePath = explode('classes', __FILE__)[0];
+            self::$absolutePath = explode(self::CLASSES, __FILE__)[0];
         }
         return self::$absolutePath;
     }

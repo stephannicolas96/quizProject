@@ -11,8 +11,8 @@ class userDuel extends database {
     public $id_user;
     
     /**
-     * 
-     * @return boolean
+     * create a user duel
+     * @return bool
      */
     public function createUserDuel() {
         $query = 'INSERT INTO `' . config::PREFIX . 'userDuel` (`id_duel`, `id_duelState`, `id_user`)'
@@ -29,6 +29,10 @@ class userDuel extends database {
         return $stmt->execute();
     }
 
+    /**
+     * get the current user id data such as the number of duel won or lost in each langage
+     * @return array()
+     */
     public function getPlayerData() {
         $returnValue = array();
         $query = 'CALL getPlayerData(:id_user)';
@@ -42,6 +46,10 @@ class userDuel extends database {
         return $returnValue;
     }
     
+    /**
+     * get 20 duel from the current user id
+     * @return array()
+     */
     public function getTwentyDuelByUserId() {
         $returnValue = array();
         $query = 'CALL getTwentyDuelByUserId(:id_user)';

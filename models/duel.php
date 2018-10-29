@@ -10,7 +10,7 @@ class duel extends database {
     public $startTime;
 
     /**
-     * 
+     * create a duel with the current time as starting time
      * @return boolean
      */
     public function createDuel() {
@@ -28,7 +28,12 @@ class duel extends database {
         $stmt->bindValue(':startTime', $currentTime->format('Y-m-d H:i:s'), PDO::PARAM_STR);
         return $stmt->execute();
     }
-
+    
+    /**
+     * check if the current logged user is participating in the duel
+     * @param type $userId
+     * @return type
+     */
     public function checkIfUserParticipateInTheDuel($userId) {
         $returnValue = false;
         $query = 'SELECT `d`.`id` '
@@ -44,7 +49,11 @@ class duel extends database {
         }
         return $returnValue;
     }
-
+    
+    /**
+     * get the duel langageName and question Id
+     * @return boolean
+     */
     public function getDuelData() {
         $returnValue = false;
         $query = 'SELECT `id_langageName`, `id_question`'

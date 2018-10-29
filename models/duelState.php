@@ -6,7 +6,11 @@ class duelState extends database {
 
     public $id;
     public $name;
-
+    
+    /**
+     * get all duel states
+     * @return array()
+     */
     public function getAllStates() {
         $returnValue = array();
         $query = 'SELECT `name` '

@@ -8,8 +8,8 @@ class langageName extends database {
     public $name;
 
     /**
-     * 
-     * @return type
+     * get all langages name
+     * @return array()
      */
     public function getAllLangages() {
         $returnValue = array();
@@ -22,6 +22,10 @@ class langageName extends database {
         return $returnValue;
     }
 
+    /**
+     * get a random langage id
+     * @return int
+     */
     public function getRandomLangage() {
         $returnValue = -1;
         $query = 'SELECT `ln`.`id`' .

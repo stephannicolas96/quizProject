@@ -8,6 +8,7 @@ include_once path::getHelpersPath() . 'compiler.php';
 
 $result = array();
 $result['success'] = false;
+$result['output'] = array();
 
 $testCases = array();
 if (!empty($_SESSION['questionId']) && is_numeric($_SESSION['questionId'])) {
@@ -22,12 +23,13 @@ $numberOfGoodResult = 0;
 foreach ($testCases as $testCase) {
     
     $output = compiler::compile($testCase->input, $langage, $userCode);
-    if (trim($output['executionOutput']) == $testCase->output) {
+    $result['output'][] = $output;
+    if (isset($output['executionOutput']) && trim($output['executionOutput']) == $testCase->output) {
        $numberOfGoodResult++;
     }
 }
 
-if($numberOfGoodResult == 20){
+if($numberOfGoodResult == count($testCases)){
     $result['success'] = true;
 }
 

@@ -10,8 +10,8 @@ class testCase extends database {
     public $output;
     
     /**
-     * 
-     * @return type
+     * get all test cases for the current question
+     * @return array()
      */
     public function getAllTestCases() {
         $returnValue = array();
@@ -30,7 +30,7 @@ class testCase extends database {
     }
     
     /**
-     * 
+     * create a test case for the current question
      * @return boolean
      */
     public function createTestCase() {

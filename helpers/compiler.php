@@ -1,9 +1,12 @@
 <?php
 
 class compiler {
+    //2>&1 means that we redirect the standard error in the standard output
+    //this way we can use them to display some errors to the user
 
     /**
-     * 
+     * execute the code when the langage doesn't need a compilation
+     * compile and then execute the code when the langage needs a compilation
      * @param type $generatedInput
      * @param type $langage
      * @param type $userCode
@@ -15,7 +18,6 @@ class compiler {
 
         //Prepare input parameter
         $inputs = explode('|', $generatedInput);
-        array_pop($inputs);
         $parameterFile = tmpfile();
         $parameter = '<?php ';
         foreach ($inputs as $input) {
@@ -32,10 +34,13 @@ class compiler {
                 fclose($tempFile);
                 break;
             case 'cpp':
-                $output = self::executeUsingGCC('cpp', 'g++', $userCode, $parameterFile);
+                $output = self::executeUserCode('cpp', 'g++', $userCode, $parameterFile);
                 break;
             case 'c' :
-                $output = self::executeUsingGCC('c', 'gcc', $userCode, $parameterFile);
+                $output = self::executeUserCode('c', 'gcc', $userCode, $parameterFile);
+                break;
+            case 'csharp' :
+                $output = self::executeUserCode('cs', 'mono', $userCode, $parameterFile);
                 break;
             default:
                 break;
@@ -57,17 +62,17 @@ class compiler {
     }
 
     /**
-     * 
+     * compile and execute the user code
      * @param type $langage
      * @param type $compiler
      */
-    public static function executeUsingGCC($langage, $compiler, $userCode, $parameterFile) {
+    public static function executeUserCode($langage, $compiler, $userCode, $parameterFile) {
         $output = array();
 
         $tempFile = fopen('../temp/' . self::getFileName($langage), 'w');
         fwrite($tempFile, $userCode);
         $filePath = stream_get_meta_data($tempFile)['uri'];
-        $output['compilationOutput'] = shell_exec($compiler . ' ' . $filePath . ' -O3 -o ' . $filePath . '.exe 2>&1'); //Compilation & 2 standard error 1 standard output >& redirection
+        $output['compilationOutput'] = shell_exec($compiler . ' ' . $filePath . ' -O3 -o ' . $filePath . '.exe 2>&1'); //Compilation
         $output['executionOutput'] = shell_exec('php  ' . stream_get_meta_data($parameterFile)['uri'] . ' | ' . $filePath . '.exe 2>&1'); // Execution
         fclose($tempFile);
 

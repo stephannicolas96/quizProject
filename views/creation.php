@@ -9,17 +9,17 @@ include path::getLayoutPath() . 'header.php';
     <ul class="collapsible">
         <li>
             <div class="collapsible-header active">
-                <p>QUESTION</p>
+                <p><?= QUESTION ?></p>
                 <i class="warning material-icons hidden" data-position="right" data-tooltip="">warning</i>
-                <i class="material-icons tooltipped" data-position="left" data-tooltip="Your question must contains theses words (Enunciated/Input/Output) to be registered">info</i>
+                <i class="material-icons tooltipped" data-position="left" data-tooltip="<?= QUESTION_INFO ?>">info</i>
             </div>
             <div class="collapsible-body editor" id="questionEditor"></div>
         </li>
         <li class="relative">
             <div class="collapsible-header">
-                <p>INPUT</p>
+                <p><?= INPUT ?></p>
                 <i class="warning material-icons hidden" data-position="right" data-tooltip="">warning</i>
-                <i class="material-icons tooltipped" data-position="left" data-tooltip="">info</i>
+                <i class="material-icons tooltipped" data-position="left" data-tooltip="<?= INPUT_INFO ?>">info</i>
             </div>
             <div class="collapsible-body editor" id="inputEditor"></div>
             <div id="inputExample" class="opened">
@@ -29,15 +29,16 @@ include path::getLayoutPath() . 'header.php';
         </li>
         <li>
             <div class="collapsible-header">
-                <p>CODE</p>
+                <p><?= CODE ?></p>
                 <i class="warning material-icons hidden" data-position="right" data-tooltip="">warning</i>
-                <i class="material-icons tooltipped" data-position="left" data-tooltip="a">info</i>
+                <i class="material-icons tooltipped" data-position="left" data-tooltip="<?= CODE_INFO ?>">info</i>
             </div>
             <div class="collapsible-body editor" id="codeEditor"></div>
         </li>
     </ul>
 </div>
-<div id="message"></div>
+<div id="questionErrors" class="errors hidden"></div>
+<div id="questionSuccess" class="success hidden"><p><?= QUESTION_REGISTERED ?></p></div>
 <button id="register">Register question</button> 
 <?php include path::getLayoutPath() . 'footer.php'; ?>
 

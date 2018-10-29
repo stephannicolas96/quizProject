@@ -48,8 +48,6 @@ $(function () {
                     $.each(data['message'], function (id, element) {
                         $('#inputExample .content').append(element + '<br/>');
                     });
-                } else {
-
                 }
             },
             beforeSend: function () {
@@ -94,9 +92,10 @@ $(function () {
                     w.attr('data-tooltip', data['message']);
                     w.tooltip();
                 } else if(data['success'] == -4){
-                    $('#message').html(data['message']);
+                    $('#questionErrors').html(data['message']);
+                    $('#questionErrors').append(data['outputs']);
                 } else if(data['success'] == 1){
-                    $('#message').html(data['message']);
+                    $('#questionSuccess').html(data['message']);
                 }
             },
             beforeSend: function () {

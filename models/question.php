@@ -9,18 +9,20 @@ class question extends database {
     public $input = '';
     public $output = '';
     public $difficulty = '';
+    public $id_user = 0;
     
     /**
-     * 
-     * @return boolean
+     * insert a question in the database
+     * @return bool
      */
     public function createQuestion() {
-        $query = 'INSERT INTO `' . config::PREFIX . 'question` (`enunciated`, `input`, `output`, `difficulty`) '
+        $query = 'INSERT INTO `' . config::PREFIX . 'question` (`enunciated`, `input`, `output`, `difficulty`, `id_user`) '
                 . 'VALUES ( '
                 . ':enunciated, '
                 . ':input, '
                 . ':output, '
-                . ':difficulty '
+                . ':difficulty, '
+                . ':id_user '
                 . ')';
 
         $stmt = database::getInstance()->prepare($query);
@@ -28,13 +30,14 @@ class question extends database {
         $stmt->bindValue(':input', $this->input, PDO::PARAM_STR);
         $stmt->bindValue(':output', $this->output, PDO::PARAM_STR);
         $stmt->bindValue(':difficulty', $this->difficulty, PDO::PARAM_INT);
+        $stmt->bindValue(':id_user', $this->id_user, PDO::PARAM_INT);
 
         return $stmt->execute();
     }
     
      /**
-     * 
-     * @return type
+     * get a random question id which wasn't created by one of the two players
+     * @return int
      */
     public function getRandomQuestionNotCreatedByThePlayers($playerOneId, $playerTwoId) {
         $returnValue = -1;
@@ -61,7 +64,7 @@ class question extends database {
     
     /**
      * Get question data
-     * @return boolean
+     * @return bool
      */
     public function getQuestion(){
         $returnValue = false;

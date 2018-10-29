@@ -10,10 +10,11 @@ class score extends database {
     public $id_langageName;
     
     /**
-     * 
-     * @return type
+     * get leaderboard made from 10 players before and after the targeted player
+     * @return array()
      */
     public function getLeaderboardAroundPlayer() {
+        $returnValue = array();
         $query = 'CALL getLeaderboardAroundPlayer(:id_user, :id_langageName);';
 
         $stmt = database::getInstance()->prepare($query);
@@ -22,15 +23,18 @@ class score extends database {
         $stmt->bindValue(':id_langageName', $this->id_langageName, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
-            return $stmt->fetchAll(PDO::FETCH_OBJ);
+            $returnValue = $stmt->fetchAll(PDO::FETCH_OBJ);
         }
+        
+        return $returnValue;
     }
     
     /**
-     * 
-     * @return type
+     * get the top 3
+     * @return array()
      */
     public function getTopThree() {
+        $returnValue = array();
         $query = 'CALL getTopThree(:id_langageName)';
 
         $stmt = database::getInstance()->prepare($query);
@@ -38,15 +42,18 @@ class score extends database {
         $stmt->bindValue(':id_langageName', $this->id_langageName, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
-            return $stmt->fetchAll(PDO::FETCH_OBJ);
+            $returnValue = $stmt->fetchAll(PDO::FETCH_OBJ);
         }
+        
+        return $returnValue;
     }
     
     /**
-     * 
-     * @return type
+     * get the top 3 to 23
+     * @return array()
      */
     public function getTopTwentyOffsetThree() {
+        $returnValue = array();
         $query = 'CALL getTopTwentyOffsetThree(:id_langageName)';
 
         $stmt = database::getInstance()->prepare($query);
@@ -54,13 +61,15 @@ class score extends database {
         $stmt->bindValue(':id_langageName', $this->id_langageName, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
-            return $stmt->fetchAll(PDO::FETCH_OBJ);
+            $returnValue = $stmt->fetchAll(PDO::FETCH_OBJ);
         }
+        
+        return $returnValue;
     }
     
     /**
-     * 
-     * @return type
+     * delete the score of a user by id
+     * @return bool
      */
     public function deleteScoreByUserId() {
         $request = 'DELETE '
@@ -74,8 +83,8 @@ class score extends database {
     }
     
     /**
-     * 
-     * @return type
+     * add base score to all users without score
+     * @return bool
      */
     public function addBaseScoreToLastUser(){
         $query = 'CALL addBaseScoreToLastUser()';

@@ -102,6 +102,11 @@ button[name='deleteUserImage'] {
     display: block;
     border-radius: 50%; }
 
+button {
+  background-color: white; }
+  button:hover, button:focus, button:active {
+    background-color: white; }
+
 #duelLangageImg {
   height: 4em;
   border-radius: 50%;
@@ -111,18 +116,18 @@ button[name='deleteUserImage'] {
 
 .score-row {
   display: grid;
-  grid-template-columns: 7em 8em 1fr 1fr;
-  margin: 1em 0;
+  grid-template-columns: 5em 4em 1fr 1fr;
+  margin: .5em 0;
   padding: 0.5em 0;
   border: 2px solid black;
   border-radius: 5px; }
   .score-row.leader {
-    grid-template-columns: 10em 1fr 1fr; }
+    grid-template-columns: 5em 1fr 1fr; }
     .score-row.leader img {
       margin: auto; }
   .score-row p {
     margin: auto;
-    font-size: 2em;
+    font-size: 1em;
     font-weight: bold;
     color: black; }
 
@@ -281,11 +286,11 @@ button[name='deleteUserImage'] {
   border-radius: 50%; }
 
 .imgSize, .userImg {
-  height: 8em;
-  width: 8em; }
+  height: 4em;
+  width: 4em; }
   .imgSize.small, .userImg.small {
-    height: 4em;
-    width: 4em; }
+    height: 2em;
+    width: 2em; }
 
 .clickable {
   cursor: pointer; }
@@ -344,7 +349,7 @@ i.material-icons.hidden {
   background-color: transparent; }
   .btn-clear * {
     vertical-align: middle; }
-  .btn-clear:focus {
+  .btn-clear:hover, .btn-clear:focus, .btn-clear:active {
     background-color: transparent; }
   .btn-clear img {
     position: relative;
@@ -459,6 +464,13 @@ i.material-icons.hidden {
   background-color: #443127; }
 
 @media (min-width: 992px) {
+  .imgSize, .userImg {
+    height: 8em;
+    width: 8em; }
+    .imgSize.small, .userImg.small {
+      height: 4em;
+      width: 4em; }
+
   a.brand-logo:hover {
     transform: scale(1.1); }
 
@@ -490,7 +502,24 @@ i.material-icons.hidden {
     margin: 0 auto; }
 
   .passwordStrength {
-    width: 9em; } }
+    width: 9em; }
+
+  .score-row {
+    display: grid;
+    grid-template-columns: 7em 8em 1fr 1fr;
+    margin: 1em 0;
+    padding: 0.5em 0;
+    border: 2px solid black;
+    border-radius: 5px; }
+    .score-row.leader {
+      grid-template-columns: 10em 1fr 1fr; }
+      .score-row.leader img {
+        margin: auto; }
+    .score-row p {
+      margin: auto;
+      font-size: 2em;
+      font-weight: bold;
+      color: black; } }
 [data-pie-id] li:nth-child(1) {
   color: #62ef3b; }
 

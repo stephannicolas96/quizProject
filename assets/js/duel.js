@@ -13,13 +13,13 @@ $(function () {
             type: 'POST',
             url: '../ajax/battle.php',
             data: {
-                langage: editorMode,
+                langage: scriptingModes[mode].mode,
                 code: editorCode
             },
             timeout: 3000,
             dataType: 'json',
             success: function (data) {
-                $('#error').html(data);
+                console.log(data);
             }
         });
     });
