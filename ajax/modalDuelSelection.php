@@ -8,10 +8,11 @@ include_once path::getModelsPath() . 'langageName.php';
 include_once path::getModelsPath() . 'duel.php';
 include_once path::getModelsPath() . 'userDuel.php';
 include_once path::getModelsPath() . 'question.php';
+include_once path::getLangagePath() . $_SESSION['lang'];
 
 $result = array();
 $result['success'] = false;
-$result['errors'] = array();
+$result['error'] = '';
 
 if (isset($_POST['submitType']) && is_numeric($_POST['submitType'])) {
     $submit = htmlspecialchars($_POST['submitType']);
@@ -22,11 +23,11 @@ if (isset($_POST['submitType']) && is_numeric($_POST['submitType'])) {
         if ($langageId == 0) {
             $langageId = $langageNameInstance->getRandomLangage();
         }
-        if (is_null($langageId)) {
-            // ERROR
+        if ($langageId == -1) {
+            $result['error'] = 'An error occured try again later!';
         }
     } else {
-        // ERROR
+        $result['error'] = 'An error occured try again later!';
     }
 
     $userId = -1;
@@ -34,7 +35,7 @@ if (isset($_POST['submitType']) && is_numeric($_POST['submitType'])) {
     if (isset($_SESSION['id']) && is_numeric($_SESSION['id'])) {
         $userInstance->id = htmlspecialchars($_SESSION['id']);
     } else {
-        //ERROR 
+        $result['error'] = 'An error occured try again later!';
     }
     if ($submit == 1) { //SELECT RANDOM OPPONENT
         $userId = $userInstance->getRandomUserId();
@@ -43,23 +44,23 @@ if (isset($_POST['submitType']) && is_numeric($_POST['submitType'])) {
             $userInstance->username = htmlspecialchars($_POST['opponentUsername']);
             $userId = $userInstance->getUserIdByUsername();
         } else {
-            // ERROR
+            $result['error'] = 'Enter a valid username';
         }
     } else {
-        // ERROR
+        $result['error'] = 'An error occured try again later!';
     }
 
     if (is_null($userId) || $userId == -1) {
-        //ERROR 
+        $result['error'] = 'An error occured try again later!';
     }
 
     $questionInstance = new question();
     $questionId = $questionInstance->getRandomQuestionNotCreatedByThePlayers($userInstance->id, $userId);
 } else {
-    // ERROR
+    $result['error'] = 'An error occured try again later!';
 }
 
-if (count($result['errors']) == 0) {
+if ($result['error'] == '') {
     try {
         database::getInstance()->beginTransaction();
 
@@ -70,7 +71,7 @@ if (count($result['errors']) == 0) {
         $duelId = $duelInstance->getLastInsertedId();
 
         $userDuelInstance = new userDuel();
-        $userDuelInstance->id_duelState = 5;
+        $userDuelInstance->id_duelState = 1;
         $userDuelInstance->id_duel = $duelId;
         $userDuelInstance->id_user = $userInstance->id;
         $userDuelInstance->createUserDuel();
@@ -81,7 +82,7 @@ if (count($result['errors']) == 0) {
         $result['success'] = true;
     } catch (Exception $ex) {
         database::getInstance()->rollback();
-        $result['errors'][] = 'An error occured!'; //TODO TRADUCTION
+        $result['errors'][] = 'An error occured try again later!';
         echo json_encode($result);
         exit();
     }

@@ -28,10 +28,8 @@ $("#uploadImage").on('submit', function (e) {
         dataType: 'json',
         success: function (data)   // A function to be called if request succeeds
         {
-            //TODO : ADD AN UPLOADING PROGRESS BAR
-            profileErrors.html('');
-            profileErrors.hide();
-            data = $.parseJSON(data);
+            imageErrors.html('');
+            imageErrors.hide();
             if (data['success']) {
                 if (submitType == 0) {
                     var file = $('#userImage')[0].files[0];
@@ -48,10 +46,10 @@ $("#uploadImage").on('submit', function (e) {
                     $('#userImage').val('');
                 }
             } else { // FAILURE
-                profileErrors.show();
+                imageErrors.show();
                 $.each(data['errors'], function (id, error)
                 {
-                    profileErrors.append('<p>' + error + '</p>');
+                    imageErrors.append('<p>' + error + '</p>');
                 });
             }
         }

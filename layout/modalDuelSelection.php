@@ -35,7 +35,7 @@
                 <div class="<?= $duel->userTwoState ?>"></div>
                 <img class="userImg small" src="../assets/images/userImages/<?= $duel->userOneImage ?>" style="background-color: <?= '#' . $duel->userOneColor ?>" alt="user image" onerror="this.src='../assets/images/userImages/user-image.png'"  onabort="this.src='../assets/images/userImages/user-image.png'" />
                 <p><?= $duel->userOne ?></p>
-                <img class="imgSize small" src="../assets/images/vs.png">
+                <img class="langageImg small" src="../assets/images/langages/<?= $duel->idLangageName ?>.png">
                 <p><?= $duel->userTwo ?></p>  
                 <img class="userImg small" src="../assets/images/userImages/<?= $duel->userTwoImage ?>" style="background-color: <?= '#' . $duel->userTwoColor ?>" alt="user image" onerror="this.src='../assets/images/userImages/user-image.png'"  onabort="this.src='../assets/images/userImages/user-image.png'" />
                 <?php if ($duel->userOneState == 'inProgress' && $duel->userTwoState == 'inProgress') { ?>

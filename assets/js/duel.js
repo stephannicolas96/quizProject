@@ -4,7 +4,7 @@ $(function () {
     editor.setTheme('ace/theme/monokai');
     editor.session.setMode('ace/mode/' + scriptingModes[mode].aceMode);
     editor.session.setValue(scriptingModes[mode].value);
-    
+
     $('#duelSubmit').click(function () {
         let editorCode = editor.getValue();
         let editorMode = editor.getOption('mode');
@@ -19,7 +19,29 @@ $(function () {
             timeout: 3000,
             dataType: 'json',
             success: function (data) {
-                console.log(data);
+                let editorError = $('.editorError');
+                editorError.html('');
+                let show = true;
+                if (data['executionTime'])
+                {
+                    editorError.append('<p>' + data['executionTime'] + '</p>')
+                }
+                $.each(data['output'], function (id, output)
+                {
+                    if (show) {
+                        if (output['executionOutput']) {
+                            editorError.append('<p>' + output['executionOutput'] + '</p>');
+                        }
+
+                        if (output['compilationOutput']) {
+                            editorError.append('<p>' + output['compilationOutput'] + '</p>');
+                        }
+                    }
+
+                    if (!output['success']) {
+                        show = false
+                    }
+                });
             }
         });
     });

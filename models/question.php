@@ -59,6 +59,34 @@ class question extends database {
         if ($stmt->execute()) {
             $returnValue = $stmt->fetch(pdo::FETCH_COLUMN);
         }
+        
+        if(!$returnValue){
+            $returnValue = self::getRandomQuestion();
+        }
+        
+        return $returnValue;
+    }
+    
+    /**
+     * get a random question id
+     * @return int
+     */
+    public static function getRandomQuestion() {
+        $returnValue = -1;
+        $query = 'SELECT `q`.`id`' .
+                'FROM `T7rDZC_question` AS `q` ' .
+                'JOIN (SELECT ' .
+                'ROUND(RAND() * (SELECT ' .
+                'MAX(`id`) ' .
+                'FROM `T7rDZC_question` ' .
+                ')) AS `id` ' .
+                ') AS `x`' .
+                'WHERE `q`.`id` >= `x`.`id`' .
+                'LIMIT 1';
+
+        if ($result = database::getInstance()->query($query)) {
+            $returnValue = $result->fetch(pdo::FETCH_COLUMN);
+        }
         return $returnValue;
     }
     

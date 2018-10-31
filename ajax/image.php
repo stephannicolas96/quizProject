@@ -44,7 +44,3 @@ if (isset($_POST['submitType'])) {
 echo json_encode($result);
 
 session_write_close();
-
-/*
- 
- */

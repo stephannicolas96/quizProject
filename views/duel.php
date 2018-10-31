@@ -9,16 +9,16 @@ include path::getLayoutPath() . 'header.php';
     <img id="duelLangageImg" src="../assets/images/langages/<?= $langageId ?>.png" data-langageId="<?= $langageId ?>"/>
     <div class="duelSplit">
         <div id="question">
-            <p>Enunciated</p>
-            <p><?= $questionInstance->enunciated ?></p>
-            <p>Inpout</p>
-            <p><?= $questionInstance->input ?></p>
-            <p>Output</p>
-            <p><?= $questionInstance->output ?></p>
+            <p class="questionTitle"><?= ENUNCIATED ?></p>
+            <pre><?= $questionInstance->enunciated ?></pre>
+            <p class="questionTitle"><?= INPUT ?></p>
+            <pre><?= $questionInstance->input ?></pre>
+            <p class="questionTitle"><?= OUTPUT ?></p>
+            <pre><?= $questionInstance->output ?></pre>
         </div>
         <div class="editor" id="duelEditor"></div>
+        <div class="editorError"></div>
     </div>
-    <div class="error"></div>
 </div>
-<button id="duelSubmit">Lancer la requête AJAX</button> 
+<button id="duelSubmit"><?= TEST_YOUR_CODE ?></button> 
 <?php include path::getLayoutPath() . 'footer.php'; ?>

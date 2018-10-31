@@ -46,4 +46,7 @@ define('INPUT_INFO', '');
 define('CODE_INFO', '');
 define('QUESTION', 'Question');
 define('INPUT', 'Entrée');
+define('OUTPUT', 'Sortie');
+define('ENUNCIATED', 'Enoncé');
+define('TEST_YOUR_CODE', 'Testé votre code');
 define('CODE', 'Code');

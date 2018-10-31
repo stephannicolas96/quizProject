@@ -1,9 +1,10 @@
 <?php
 
+session_start();
+
 include_once '../classes/path.php';
 include_once path::getModelsPath() . 'user.php';
 
-session_start();
 
 $userInstance = new user();
 

@@ -51,7 +51,6 @@ if (!empty($controllerToLoad)) {
                                 <a class="right" href="logout.html"><?= LOGOUT ?></a>
                             </li>
                         <?php } ?>
-                        <li><a href="javascript:tarteaucitron.userInterface.openPanel();">Gestion des cookies</a></li>
                         <li><button class="btn-clear" onclick="openDropdown('#langageDropdown')"><img src="../assets/images/<?= $lang ?>.png" /></button></li>
                     </ul>
                     <ul class="side-nav" id="mobile-demo">
@@ -70,7 +69,7 @@ if (!empty($controllerToLoad)) {
                             <li><a href="profile.html"><?= MY_ACCOUNT ?></a></li>
                             <li><a href="logout.html"><?= LOGOUT ?></a></li>
                         <?php } ?>
-                        <li><button onclick="openDropdown('#langageDropdown')"><img src="../assets/images/<?= $lang ?>.png" /></button></li>
+                        <li><a href="../en/<?= $urlEnd ?>">english</a>/<a href="../fr/<?= $urlEnd ?>">français</a></li>
                     </ul>
                 </div>
             </nav>

@@ -29,7 +29,7 @@ const scriptingModes = [{
                 '#include <stdio.h>\n\n' +
                 'int main() {\n\t' +
                 'char s[1024];\n\t' +
-                'while (fgets(s, sizeof(s), stdin);) {\n\t\t' +
+                'while (fgets(s, sizeof(s), stdin)) {\n\t\t' +
                 'printf("%s", s);\n\t' +
                 '}\n\t' +
                 'return 0;\n' +

@@ -1,16 +1,16 @@
+<footer>
+    <a href="javascript:tarteaucitron.userInterface.openPanel();">Gestion des cookies</a>
+</footer>
+
 <script src="../assets/js/import/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-<script src="../assets/js/valueChecker.js"></script>
-<script src="../assets/js/materializeInitializer.js"></script>
-<script src="../assets/js/registration.js"></script>
-<script src="../assets/js/login.js"></script>
-<script src="../assets/js/duelSelection.js"></script>
-<script src="../assets/js/generatePasswordInput.js"></script>
-<script src="../assets/js/langageDropdown.js"></script>
+<script src="../assets/js/import/tarteaucitron/tarteaucitron.js"></script>
+<script src="../assets/js/script.js"></script>
 <?php if ($_SERVER['SCRIPT_NAME'] == '/views/creation.php' || $_SERVER['SCRIPT_NAME'] == '/views/duel.php') { ?>
     <script src="../assets/js/import/ace/ace.js"></script>
-    <?php }
-    if ($_SERVER['SCRIPT_NAME'] == '/views/creation.php' || $_SERVER['SCRIPT_NAME'] == '/views/duel.php' || $_SERVER['SCRIPT_NAME'] == '/views/leaderboard.php') {
+    <?php
+}
+if ($_SERVER['SCRIPT_NAME'] == '/views/creation.php' || $_SERVER['SCRIPT_NAME'] == '/views/duel.php' || $_SERVER['SCRIPT_NAME'] == '/views/leaderboard.php') {
     ?>
     <script src="../assets/js/editor.js"></script>
     <?php if ($_SERVER['SCRIPT_NAME'] == '/views/creation.php') { ?>
@@ -33,29 +33,5 @@ if ($_SERVER['SCRIPT_NAME'] == '/views/leaderboard.php') {
     <script src="../assets/js/pizzaInitializer.js"></script>
     <script src="../assets/js/profile.js"></script>
 <?php } ?>
-<script src="../assets/js/import/tarteaucitron/tarteaucitron.js"></script>
-<script>
-    tarteaucitron.init({
-        "privacyUrl": "", /* Privacy policy url */
-
-        "hashtag": "#tarteaucitron", /* Open the panel with this hashtag */
-        "cookieName": "tartaucitron", /* Cookie name */
-
-        "orientation": "top", /* Banner position (top - bottom) */
-        "showAlertSmall": false, /* Show the small banner on bottom right */
-        "cookieslist": true, /* Show the cookie list */
-
-        "adblocker": false, /* Show a Warning if an adblocker is detected */
-        "AcceptAllCta": true, /* Show the accept all button when highPrivacy on */
-        "highPrivacy": false, /* Disable auto consent */
-        "handleBrowserDNTRequest": false, /* If Do Not Track == 1, accept all */
-
-        "removeCredit": false, /* Remove credit link */
-        "moreInfoLink": true, /* Show more info link */
-
-        //"cookieDomain": ".my-multisite-domaine.fr" /* Shared cookie for subdomain */
-    });
-    (tarteaucitron.job = tarteaucitron.job || []).push('recaptcha');
-</script>
 </body> 
 </html>

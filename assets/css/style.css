@@ -107,12 +107,25 @@ button {
   button:hover, button:focus, button:active {
     background-color: white; }
 
-#duelLangageImg {
-  height: 4em;
-  border-radius: 50%;
-  -webkit-box-shadow: 0px 0px 5px 5px rgba(227, 163, 0, 0.69);
-  -moz-box-shadow: 0px 0px 5px 5px rgba(227, 163, 0, 0.69);
-  box-shadow: 0px 0px 5px 5px rgba(227, 163, 0, 0.69); }
+footer {
+  z-index: 1006;
+  height: 48px;
+  background-color: #301d13;
+  width: 100%; }
+  footer * {
+    display: block;
+    margin: auto;
+    line-height: 48px; }
+  footer.fixed {
+    position: fixed;
+    bottom: 0; }
+
+pre {
+  white-space: pre-wrap; }
+
+.questionTitle {
+  font-size: 2rem;
+  background-color: lightgray; }
 
 .score-row {
   display: grid;
@@ -249,8 +262,14 @@ button {
   background-color: #660107;
   border-bottom: 1px solid black; }
 
-.editor {
-  height: 30em; }
+.editor, #question {
+  height: 60vh; }
+
+#question {
+  overflow-y: scroll;
+  background-color: white;
+  padding: 1em;
+  border: solid grey 3px; }
 
 .relative {
   position: relative; }
@@ -359,6 +378,8 @@ i.material-icons.hidden {
   max-height: 95%; }
 
 .duelList {
+  height: 50vh;
+  overflow-y: scroll;
   margin-bottom: 1em; }
   .duelList li {
     justify-items: center;
@@ -397,8 +418,10 @@ i.material-icons.hidden {
       grid-row: 1;
       grid-column: 1 / span 6;
       height: 100%;
-      line-height: 4em;
-      width: 100%; }
+      width: 100%;
+      color: black;
+      -webkit-text-stroke: 1px;
+      -webkit-text-stroke-color: white; }
   .duelList p, .duelList a {
     font-weight: bold;
     font-size: 1.5rem; }
@@ -411,13 +434,36 @@ i.material-icons.hidden {
   .duelList .expired {
     background-color: grey; }
   .duelList .inProgress {
-    display: none; }
+    background-color: lightblue; }
   .duelList .won, .duelList .lost, .duelList .draw, .duelList .expired, .duelList .inProgress {
     opacity: 1; }
 
 .duelSplit {
   display: grid;
-  grid-template-columns: 20% 80%; }
+  grid-gap: 1em;
+  grid-template-columns: 25% 75%; }
+
+.side-nav li:last-child {
+  color: black;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr; }
+
+.editorError {
+  grid-column: span 2;
+  height: 30vh;
+  overflow-y: scroll;
+  background-color: white;
+  padding: 1em;
+  border: solid grey 3px; }
+  .editorError * {
+    text-align: left; }
+
+#duelLangageImg, .langageImg {
+  height: 4em;
+  border-radius: 50%;
+  -webkit-box-shadow: 0px 0px 5px 5px rgba(227, 163, 0, 0.69);
+  -moz-box-shadow: 0px 0px 5px 5px rgba(227, 163, 0, 0.69);
+  box-shadow: 0px 0px 5px 5px rgba(227, 163, 0, 0.69); }
 
 #inputExample {
   position: absolute;
@@ -463,6 +509,9 @@ i.material-icons.hidden {
 #duelCreation {
   background-color: #443127; }
 
+#langageDropdown {
+  display: none; }
+
 @media (min-width: 992px) {
   .imgSize, .userImg {
     height: 8em;
@@ -470,6 +519,9 @@ i.material-icons.hidden {
     .imgSize.small, .userImg.small {
       height: 4em;
       width: 4em; }
+
+  #langageDropdown {
+    display: block; }
 
   a.brand-logo:hover {
     transform: scale(1.1); }

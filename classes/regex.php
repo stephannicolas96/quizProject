@@ -28,7 +28,7 @@ class regex {
     const INPUT_GENERATION_PATTERN_PART_SPLIT = '/->|\*/';
     //Check if the input generation have generated any error
     const INPUT_GENERATION_ERROR = '/error.+/';
-    //Check if the input generation have generated any error
+    //Check if the output generation have generated any error
     const OUTPUT_GENERATION_ERROR = '/.+(\/temp|tmp).+/';
 
     public static function getUsernameRegex() {

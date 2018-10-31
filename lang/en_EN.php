@@ -52,4 +52,7 @@ define('INPUT_INFO', '(int)->(int); => random in the range of the two numbers</b
 define('CODE_INFO', '');
 define('QUESTION', 'Question');
 define('INPUT', 'Input');
+define('OUTPUT', 'Output');
+define('ENUNCIATED', 'Enunciated');
+define('TEST_YOUR_CODE', 'Test your code');
 define('CODE', 'Code');
