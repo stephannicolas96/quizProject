@@ -108,6 +108,14 @@ li > a{
 }
 //------------------------------------ GOOD CSS ------------------------------------//
 //------------------------------------ BASE ------------------------------------//
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+main {
+    flex: 1 0 auto;
+}
 body{
     background-color: $darkBrown;
 }
@@ -150,10 +158,6 @@ footer{
         display: block;
         margin: auto;
         line-height: 48px;
-    }
-    &.fixed{
-        position: fixed;
-        bottom: 0;
     }
 }
 pre{
@@ -408,7 +412,7 @@ pre{
 i.material-icons.hidden{
     visibility: hidden;
 }
-.success{
+div.success{
     border-radius: 5px;
     border: solid 2px green;
     background-color: lightgreen;
@@ -420,7 +424,12 @@ i.material-icons.hidden{
         margin: auto;
     }
 }
-.errors{
+p.success {
+    color: green;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+div.errors{
     border-radius: 5px;
     border: solid 2px red;
     background-color: lightcoral;
@@ -431,6 +440,17 @@ i.material-icons.hidden{
         text-align: center;
         margin: auto;
     }
+}
+p.errors {
+    color: red;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+p.normal {
+    color: darkorange;
+    background-color: transparent;
+    font-size: 1.5em;
+    font-weight: bold;
 }
 .btn-clear{
     border: none;

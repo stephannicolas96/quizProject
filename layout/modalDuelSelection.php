@@ -38,7 +38,7 @@
                 <img class="langageImg small" src="../assets/images/langages/<?= $duel->idLangageName ?>.png">
                 <p><?= $duel->userTwo ?></p>  
                 <img class="userImg small" src="../assets/images/userImages/<?= $duel->userTwoImage ?>" style="background-color: <?= '#' . $duel->userTwoColor ?>" alt="user image" onerror="this.src='../assets/images/userImages/user-image.png'"  onabort="this.src='../assets/images/userImages/user-image.png'" />
-                <?php if ($duel->userOneState == 'inProgress' && $duel->userTwoState == 'inProgress') { ?>
+                <?php if ($duel->userOneImage == 'you.png' && $duel->userOneState == 'inProgress' || $duel->userTwoImage == 'you.png' && $duel->userTwoState == 'inProgress') { ?>
                     <a href="battle-<?= $duel->idDuel ?>.html" title="Continue Battle"><?= CONTINU ?></a>
                 <?php } ?>
             </li>

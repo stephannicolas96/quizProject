@@ -5,7 +5,11 @@ session_start();
 include_once '../classes/path.php';
 include_once path::getClassesPath() . 'regex.php';
 include_once path::getModelsPath() . 'testCase.php';
+include_once path::getModelsPath() . 'userDuel.php';
 include_once path::getHelpersPath() . 'compiler.php';
+include_once path::getLangagePath() . $_SESSION['lang'];
+
+set_time_limit(11);
 
 $result = array();
 $result['success'] = false;
@@ -41,10 +45,37 @@ if ($langage != -1 && $userCode != '') {
         }
     }
 
-    $result['executionTime'] = 'Your code executed in : ' . round($cumulatedTime / 20 * 1000) . ' ms';
+    $meanExecutionTime = round($cumulatedTime / 20 * 1000);
+    $result['executionTime'] = 'Your code executed in : ' . $meanExecutionTime . ' ms';
 
     if ($numberOfGoodResult == count($testCases)) {
-        $result['success'] = true;
+        try {
+            database::getInstance()->beginTransaction();
+
+            $userDuel = new userDuel();
+            $userDuel->id_user = (isset($_SESSION['id']) && is_numeric($_SESSION['id'])) ? $_SESSION['id'] : 0;
+            $userDuel->id_duel = (isset($_POST['duelId']) && is_numeric($_POST['duelId'])) ? $_POST['duelId'] : 0;
+            $userDuel->endTime = new DateTime();
+            $userDuel->endTime = $userDuel->endTime->format('Y-m-d H:i:s');
+            $userDuel->executionTime = $meanExecutionTime;
+            $userDuel->updateUserDuelByDuelIdAndUserId('waiting');
+
+            if ($userDuel->isDuelOver()) {
+                $ids = $userDuel->getUsersId();
+                if (count($ids) == 2) {
+                    $userDuel->endDuel($ids[0]->id_user, $ids[1]->id_user);
+                }
+            }
+
+            database::getInstance()->commit();
+            $result['success'] = true;
+            $result['successMessage'] = GOOD_ANSWER;
+        } catch (Exception $ex) {
+            database::getInstance()->rollback();
+            $result['error'] = TRY_AGAIN_LATER;
+            echo json_encode($result);
+            exit();
+        }
     }
 }
 

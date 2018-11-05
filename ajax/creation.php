@@ -24,7 +24,7 @@ if (!empty($_POST['question'])) {
     $question = htmlspecialchars($_POST['question']);
     if (!preg_match(regex::getQuestionContainsRegex(), $question)) {
         $result['success'] = -1;
-        $result['message'] = 'Your question doesn\'t contains all the requested terms. Refer to the information';
+        $result['message'] = REQUESTED_TERMS;
     } else {
         $questionData = preg_split(regex::getQuestionSplitRegex(), $question);
         array_shift($questionData);
@@ -32,7 +32,7 @@ if (!empty($_POST['question'])) {
     }
 } else {
     $result['success'] = -1;
-    $result['message'] = 'Your question can\'t be empty';
+    $result['message'] = EMPTY_QUESTION;
 }
 
 //------------------------------------ INPUT ------------------------------------//
@@ -50,7 +50,7 @@ if ($result['success'] == 1) {
         });
     } else {
         $result['success'] = -2;
-        $result['message'] = 'Your input can\'t be empty'; //TODO TRAD
+        $result['message'] = EMPTY_INPUT; //TODO TRAD
     }
 
     $generatedInputs = array();
@@ -65,12 +65,12 @@ if ($result['success'] == 1) {
         foreach ($generatedInputs as $input) {
             if (preg_match(regex::getInputGenerationErrorRegex(), $input)) {
                 $result['success'] = -2;
-                $result['message'] = 'There was a problem generating inputs'; //TODO TRAD
+                $result['message'] = PROBLEM_GENERATING_INPUT; 
             }
         }
     } else {
         $result['success'] = -2;
-        $result['message'] = 'There was a problem generating inputs'; //TODO TRAD
+        $result['message'] = PROBLEM_GENERATING_INPUT; 
     }
 }
 
@@ -83,13 +83,13 @@ if ($result['success'] == 1) {
         $langage = htmlspecialchars($_POST['langage']);
     } else {
         $result['success'] = -3;
-        $result['message'] = 'Try again later...'; //TODO TRAD
+        $result['message'] = TRY_AGAIN_LATER; 
     }
     if (!empty($_POST['userCode'])) {
         $userCode = $_POST['userCode']; // TODO SECURE THIS 
     } else {
         $result['success'] = -3;
-        $result['message'] = 'Your code can\'t be empty'; //TODO TRAD
+        $result['message'] = EMPTY_CODE; 
     }
 
     $outputs = array();
@@ -99,23 +99,23 @@ if ($result['success'] == 1) {
         }
     } else {
         $result['success'] = -2;
-        $result['message'] = 'There was a problem generating inputs'; //TODO TRAD
+        $result['message'] = PROBLEM_GENERATING_OUTPUT;
     }
 
     if (count($outputs) > 0) { //if any outputs were generated we check for any error in each output
         foreach ($outputs as $output) {
             if (isset($output['executionOutput']) && preg_match(regex::getOutputGenerationErrorRegex(), $output['executionOutput'])) {
                 $result['success'] = -3;
-                $result['message'] = 'There was a problem generating outputs'; //TODO TRAD
+                $result['message'] = PROBLEM_GENERATING_OUTPUT;
             }
             if (isset($output['compilationOutput']) && preg_match(regex::getOutputGenerationErrorRegex(), $output['compilationOutput'])) {
                 $result['success'] = -3;
-                $result['message'] = 'There was a problem generating outputs'; //TODO TRAD
+                $result['message'] = PROBLEM_GENERATING_OUTPUT;
             }
         }
     } else {
         $result['success'] = -3;
-        $result['message'] = 'There was a problem generating outputs'; //TODO TRAD
+        $result['message'] = PROBLEM_GENERATING_OUTPUT;
     }
 }
 
@@ -147,7 +147,7 @@ if ($result['success'] == 1) {
     } catch (Exception $ex) {
         database::getInstance()->rollback();
         $result['success'] = -4;
-        $result['message'] = 'There was a problem registrating your question, try again later...'; //TODO TRAD
+        $result['message'] = PROBLEM_REGISTRATING_QUESTION;
     }
 }
 echo json_encode($result);

@@ -56,7 +56,7 @@ if (!empty($_POST['email'])) {
 
 //PASSWORD
 if (!empty($_POST['registrationPassword'])) {
-    $userInstance->password = password_hash($_POST['registrationPassword'], PASSWORD_BCRYPT);
+    $userInstance->password = password_hash($_POST['registrationPassword'], PASSWORD_DEFAULT);
 } else {
     $errors[] = EMPTY_PASSWORD;
 }

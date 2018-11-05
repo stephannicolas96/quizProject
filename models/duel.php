@@ -4,9 +4,9 @@ include_once path::getClassesPath() . 'database.php';
 
 class duel extends database {
 
-    public $id;
-    public $id_question;
-    public $id_langageName;
+    public $id = 0;
+    public $id_question = 0;
+    public $id_langageName = 0;
     public $startTime;
 
     /**
@@ -38,8 +38,9 @@ class duel extends database {
         $returnValue = false;
         $query = 'SELECT `d`.`id` '
                 . 'FROM `' . config::PREFIX . 'duel` AS `d` '
-                . 'INNER JOIN `' . config::PREFIX . 'userDuel` AS `ud` ON `ud`.`id_user`'
-                . 'WHERE `d`.`id` = :id AND `ud`.`id_user` = :userId';
+                . 'INNER JOIN `' . config::PREFIX . 'userDuel` AS `ud` ON `ud`.`id_duel` = `d`.`id`'
+                . 'INNER JOIN `' . config::PREFIX . 'duelState` AS `ds` ON `ds`.`id` = `ud`.`id_duelState`'
+                . 'WHERE `d`.`id` = :id AND `ud`.`id_user` = :userId AND `ds`.`name` = \'inProgress\'';
 
         $stmt = database::getInstance()->prepare($query);
         $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);

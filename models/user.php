@@ -4,12 +4,12 @@ include_once path::getClassesPath() . 'database.php';
 
 class user extends database {
 
-    public $id;
-    public $email;
-    public $username;
-    public $password;
-    public $color;
-    public $image;
+    public $id = 0;
+    public $email = '';
+    public $username = '';
+    public $password = '';
+    public $color = '';
+    public $image = '';
     private $colorsForUserCreation = ['3F0B1B', '7A1631', 'CF423C', 'FC7D49', 'FFD462'];
 
     /**
@@ -274,11 +274,11 @@ class user extends database {
     public function getRandomUserId() {
         $returnValue = -1;
         $query = 'SELECT `u`.`id`' .
-                'FROM `T7rDZC_user` AS `u` ' .
+                'FROM `' . config::PREFIX . 'user` AS `u` ' .
                 'JOIN (SELECT ' .
                 'ROUND(RAND() * (SELECT ' .
                 'MAX(`id`) ' .
-                'FROM `T7rDZC_user` ' .
+                'FROM `' . config::PREFIX . 'user` ' .
                 ')) AS `id` ' .
                 ') AS `x`' .
                 'WHERE `u`.`id` >= `x`.`id` AND `u`.`id` != :id ' .

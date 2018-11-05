@@ -4,8 +4,8 @@ include_once path::getClassesPath() . 'database.php';
 
 class duelState extends database {
 
-    public $id;
-    public $name;
+    public $id = 0;
+    public $name = '';
     
     /**
      * get all duel states

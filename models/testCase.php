@@ -4,10 +4,10 @@ include_once path::getClassesPath() . 'database.php';
 
 class testCase extends database {
 
-    public $id;
-    public $id_question;
-    public $input;
-    public $output;
+    public $id = 0;
+    public $id_question = 0;
+    public $input = '';
+    public $output = '';
     
     /**
      * get all test cases for the current question

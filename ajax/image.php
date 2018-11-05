@@ -1,8 +1,7 @@
 <?php
+session_start();
 
 include_once '../classes/path.php';
-
-session_start();
 
 $result = array();
 $result['success'] = false;

@@ -1,8 +1,3 @@
-//Manage the footer to make it fixed at the bottom when the content don't fill the entire page
-if (($('body').height() - 48) < $(window).height()) {
-    $('footer').addClass('fixed');
-}
-
 //Langage Dropdown
 function openDropdown(div) {
     $(div).addClass('active');
@@ -16,8 +11,31 @@ window.onload = function () {
     };
 };
 
-$(function () {
+//trying something found on www.cnil.fr
+tarteaucitron.init({
+    "privacyUrl": "", /* Privacy policy url */
 
+    "hashtag": "#tarteaucitron", /* Open the panel with this hashtag */
+    "cookieName": "tartaucitron", /* Cookie name */
+
+    "orientation": "top", /* Banner position (top - bottom) */
+    "showAlertSmall": false, /* Show the small banner on bottom right */
+    "cookieslist": true, /* Show the cookie list */
+
+    "adblocker": false, /* Show a Warning if an adblocker is detected */
+    "AcceptAllCta": true, /* Show the accept all button when highPrivacy on */
+    "highPrivacy": false, /* Disable auto consent */
+    "handleBrowserDNTRequest": false, /* If Do Not Track == 1, accept all */
+
+    "removeCredit": false, /* Remove credit link */
+    "moreInfoLink": true, /* Show more info link */
+
+    //"cookieDomain": ".my-multisite-domaine.fr" /* Shared cookie for subdomain */
+});
+(tarteaucitron.job = tarteaucitron.job || []).push('recaptcha');
+
+$(function () {
+    
     var registrationForm = $('#registrationForm'), //REGISTRATION FORM VARS BEGIN
             registrationSubmit = $('#registrationSubmit'),
             registrationModal = $('#registrationModal'),
@@ -41,29 +59,27 @@ $(function () {
             duelSelectionContent = $('.content', duelSelectionForm),
             opponentUsername = $('#opponentUsername');//DUEL SELECTION FORM VARS END
 
-    tarteaucitron.init({
-        "privacyUrl": "", /* Privacy policy url */
+    //Initialize all materialize stuff needed
+    $('.modal').modal();
+    $('.button-collapse').sideNav();
+    $('.tooltipped').tooltip({html: true});
 
-        "hashtag": "#tarteaucitron", /* Open the panel with this hashtag */
-        "cookieName": "tartaucitron", /* Cookie name */
-
-        "orientation": "top", /* Banner position (top - bottom) */
-        "showAlertSmall": false, /* Show the small banner on bottom right */
-        "cookieslist": true, /* Show the cookie list */
-
-        "adblocker": false, /* Show a Warning if an adblocker is detected */
-        "AcceptAllCta": true, /* Show the accept all button when highPrivacy on */
-        "highPrivacy": false, /* Disable auto consent */
-        "handleBrowserDNTRequest": false, /* If Do Not Track == 1, accept all */
-
-        "removeCredit": false, /* Remove credit link */
-        "moreInfoLink": true, /* Show more info link */
-
-        //"cookieDomain": ".my-multisite-domaine.fr" /* Shared cookie for subdomain */
+    //Change the strength of the password based on the current entered password
+    $('input[strength]').blur(function () {
+        let strength = $('.passwordStrengthForeground', $(this).parent());
+        $.ajax({
+            type: 'POST',
+            url: '../ajax/passwordChecker.php',
+            data: {
+                inputValue: $(this).val()
+            },
+            timeout: 1000,
+            success: function (data) {
+                strength.attr('strength', data);
+            }
+        });
     });
-    (tarteaucitron.job = tarteaucitron.job || []).push('recaptcha');
-
-
+    
     //Add a simple hide and show button to all password inputs
     $('input[type=password]').each(function () {
         let input = $(this);
@@ -87,27 +103,6 @@ $(function () {
         let input = $(this);
         input.parent().append('<div class="passwordStrength"><div class="passwordStrengthForeground" strength="' + input.attr('strength') + '"></div></div>');
         input.removeAttr('strength');
-    });
-
-    //Initialize all materialize stuff needed
-    $('.modal').modal();
-    $('.button-collapse').sideNav();
-    $('.tooltipped').tooltip({html: true});
-
-    //Change the strength of the password based on the current entered password
-    $('input[strength]').blur(function () {
-        let strength = $('.passwordStrengthForeground', $(this).parent());
-        $.ajax({
-            type: 'POST',
-            url: '../ajax/passwordChecker.php',
-            data: {
-                inputValue: $(this).val()
-            },
-            timeout: 1000,
-            success: function (data) {
-                strength.attr('strength', data);
-            }
-        });
     });
 
     //Allow a display of a list of usernames when something is writing in the input

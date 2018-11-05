@@ -17,7 +17,7 @@ include path::getLayoutPath() . 'modeSelector.php'
 </div>
 <div class="md-container">
     <?php foreach ($leaderboardTwentyPlayers as $row => $user) { ?>
-        <a class="score-row <?= $row%2 ? 'light' : 'normal' ?>" href="profile-<?= $user->id ?>.html">
+        <a class="score-row <?= $row % 2 ? 'light' : 'normal' ?>" href="profile-<?= $user->id ?>.html">
             <p><?= $user->rank ?></p>
             <img class="userImg" src="../assets/images/userImages/<?= $user->image ?>" style="background-color: <?= '#' . $user->color ?>" title="user image" alt="user image" onerror="this.src='../assets/images/userImages/user-image.png'"  onabort="this.src='../assets/images/userImages/user-image.png'" />
             <p><?= $user->username ?></p>

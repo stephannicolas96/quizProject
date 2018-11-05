@@ -19,6 +19,6 @@ include path::getLayoutPath() . 'header.php';
         <div class="editor" id="duelEditor"></div>
         <div class="editorError"></div>
     </div>
+    <button id="duelSubmit"><?= TEST_YOUR_CODE ?></button> 
 </div>
-<button id="duelSubmit"><?= TEST_YOUR_CODE ?></button> 
 <?php include path::getLayoutPath() . 'footer.php'; ?>

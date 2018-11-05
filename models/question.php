@@ -41,15 +41,10 @@ class question extends database {
      */
     public function getRandomQuestionNotCreatedByThePlayers($playerOneId, $playerTwoId) {
         $returnValue = -1;
-        $query = 'SELECT `q`.`id`' .
-                'FROM `T7rDZC_question` AS `q` ' .
-                'JOIN (SELECT ' .
-                'ROUND(RAND() * (SELECT ' .
-                'MAX(`id`) ' .
-                'FROM `T7rDZC_question` ' .
-                ')) AS `id` ' .
-                ') AS `x`' .
-                'WHERE `q`.`id` >= `x`.`id` AND `q`.`id_user` != :playerOneId AND `q`.`id_user` != :playerTwoId ' .
+        $query = 'SELECT `id`' .
+                'FROM `' . config::PREFIX . 'question`' .
+                'WHERE `id_user` != :playerOneId AND `id_user` != :playerTwoId ' .
+                'ORDER BY RAND()' .
                 'LIMIT 1';
 
         $stmt = database::getInstance()->prepare($query);
@@ -73,15 +68,9 @@ class question extends database {
      */
     public static function getRandomQuestion() {
         $returnValue = -1;
-        $query = 'SELECT `q`.`id`' .
-                'FROM `T7rDZC_question` AS `q` ' .
-                'JOIN (SELECT ' .
-                'ROUND(RAND() * (SELECT ' .
-                'MAX(`id`) ' .
-                'FROM `T7rDZC_question` ' .
-                ')) AS `id` ' .
-                ') AS `x`' .
-                'WHERE `q`.`id` >= `x`.`id`' .
+        $query = 'SELECT `id`' .
+                'FROM `' . config::PREFIX . 'question`' .
+                'ORDER BY RAND()' .
                 'LIMIT 1';
 
         if ($result = database::getInstance()->query($query)) {

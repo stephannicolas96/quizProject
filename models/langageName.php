@@ -4,8 +4,8 @@ include_once path::getClassesPath() . 'database.php';
 
 class langageName extends database {
 
-    public $id;
-    public $name;
+    public $id = 0;
+    public $name = '';
 
     /**
      * get all langages name
@@ -29,11 +29,11 @@ class langageName extends database {
     public function getRandomLangage() {
         $returnValue = -1;
         $query = 'SELECT `ln`.`id`' .
-                'FROM `T7rDZC_langageName` AS `ln` ' .
+                'FROM `' . config::PREFIX . 'langageName` AS `ln` ' .
                 'JOIN (SELECT ' .
                 'ROUND(RAND() * (SELECT ' .
                 'MAX(`id`) ' .
-                'FROM `T7rDZC_langageName` ' .
+                'FROM `' . config::PREFIX . 'langageName` ' .
                 ')) AS `id` ' .
                 ') AS `x`' .
                 'WHERE `ln`.`id` >= `x`.`id`' .

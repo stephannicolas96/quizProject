@@ -4,10 +4,10 @@ include_once path::getClassesPath() . 'database.php';
 
 class score extends database {
 
-    public $id;
-    public $points;
-    public $id_user;
-    public $id_langageName;
+    public $id = 0;
+    public $points = 0;
+    public $id_user = 0;
+    public $id_langageName = 0;
     
     /**
      * get leaderboard made from 10 players before and after the targeted player

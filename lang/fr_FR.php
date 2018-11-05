@@ -50,3 +50,16 @@ define('OUTPUT', 'Sortie');
 define('ENUNCIATED', 'Enoncé');
 define('TEST_YOUR_CODE', 'Testé votre code');
 define('CODE', 'Code');
+
+define('REQUESTED_TERMS','Your question doesn\'t contains all the requested terms. Refer to the information');
+define('EMPTY_QUESTION', 'Your question can\'t be empty');
+define('EMPTY_INPUT', 'Your input can\'t be empty');
+define('EMPTY_CODE', 'Your code can\'t be empty');
+define('PROBLEM_GENERATING_INPUT', 'There was a problem generating inputs');
+define('PROBLEM_GENERATING_OUTPUT', 'There was a problem generating outputs');
+define('PROBLEM_REGISTRATING_QUESTION', 'There was a problem registrating your question, try again later...');
+define('TRY_AGAIN_LATER', 'There was a problem, try again later...');
+define('SUCCESSFUL_MODIFICATION', 'Successful modification');
+define('WRONG_PASSWORD', 'wrong password');
+define('REGISTER_QUESTION', 'Register question');
+define('GOOD_ANSWER', 'Good answer! you will be redirected to the home page');

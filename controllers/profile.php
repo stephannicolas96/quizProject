@@ -28,7 +28,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 }
 
 // If the user is looking at is own profile
-if ($canModify) {   //TODO ADD IMAGE TO FILE WITH FILE INPUT (check if png or jpg, resize, rename to (id).png ex: 1.png 2.png ect...)
+if ($canModify) {
     $userInstance->id = $userDuelInstance->id_user = $sessionId;
 } else if (isset($urlId)) { // If the user look another player profile
     $userInstance->id = $userDuelInstance->id_user = $urlId;

@@ -21,7 +21,7 @@ include path::getLayoutPath() . 'header.php';
             </form>
             <form id="profileForm" action="" method="POST">
                 <div class="errors hidden"></div>
-                <div class="success hidden">SUCCESSFUL MODIFICATION TODO TRADUCTION</div>
+                <div class="success hidden"><?= SUCCESSFUL_MODIFICATION ?></div>
                 <div class="loader medium"></div>
                 <?php foreach ($profileInputs as $inputData) { ?>
                     <div class="<?= $inputData->wrappingDivClasses ?>">
@@ -38,24 +38,25 @@ include path::getLayoutPath() . 'header.php';
             <img class="userImg center" src="../assets/images/userImages/<?= $userInstance->image ?>" title="user image" alt="user image" style="background-color: <?= '#' . $userInstance->color ?>" onerror="this.src='../assets/images/userImages/user-image.png'"  onabort="this.src='../assets/images/userImages/user-image.png'" />
             <p><?= USERNAME ?></p>
             <p><?= $userInstance->username ?></p>
-            <p><?= EMAIL ?></p>
-            <p><?= $userInstance->email ?></p>
         </div>
     <?php } ?>
     <div class="split">
-        <?php foreach ($userDuelDataTransformed as $langage => $states) { ?>
-            <div>
-                <ul data-pie-id="<?= $langage ?>" class="hidden">
-                    <?php foreach ($states as $stateName => $amount) { ?>
-                        <li data-value="<?= $amount ?>" class="<?= $stateName ?>"><?= $stateName ?></li>
-                    <?php } ?>
-                </ul>
-                <div id="<?= $langage ?>" class="v-center pie-chart"></div>
-            </div>
-        <?php } ?>
-    </div>
-    <div>
-
+        <?php
+        foreach ($userDuelDataTransformed as $langage => $states) {
+            if (count($states) > 0) {
+                ?>
+                <div>
+                    <ul data-pie-id="<?= $langage ?>" class="hidden">
+                        <?php foreach ($states as $stateName => $amount) { ?>
+                            <li data-value="<?= $amount ?>" class="<?= $stateName ?>"><?= $stateName ?></li>
+                        <?php } ?>
+                    </ul>
+                    <div id="<?= $langage ?>" class="v-center pie-chart"></div>
+                </div>
+                <?php
+            }
+        }
+        ?>
     </div>
 </div>
 <?php include path::getLayoutPath() . 'footer.php'; ?>

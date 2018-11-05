@@ -3,7 +3,6 @@ include_once '../classes/path.php';
 $pageTitle = 'CREATE';
 include path::getLayoutPath() . 'header.php';
 ?>
-
 <?php include path::getLayoutPath() . 'modeSelector.php' ?>
 <div class="md-container">
     <ul class="collapsible">
@@ -36,9 +35,9 @@ include path::getLayoutPath() . 'header.php';
             <div class="collapsible-body editor" id="codeEditor"></div>
         </li>
     </ul>
+    <div id="questionErrors" class="errors hidden"></div>
+    <div id="questionSuccess" class="success hidden"><p><?= QUESTION_REGISTERED ?></p></div>
+    <button id="register"><?= REGISTER_QUESTION ?></button> 
 </div>
-<div id="questionErrors" class="errors hidden"></div>
-<div id="questionSuccess" class="success hidden"><p><?= QUESTION_REGISTERED ?></p></div>
-<button id="register">Register question</button> 
 <?php include path::getLayoutPath() . 'footer.php'; ?>
 

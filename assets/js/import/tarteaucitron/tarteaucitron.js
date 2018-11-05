@@ -16,7 +16,7 @@ var scripts = document.getElementsByTagName('script'),
 
 
 var tarteaucitron = {
-    "version": 20180914,
+    "version": 20181003,
     "cdn": cdn,
     "user": {},
     "lang": {},
@@ -218,7 +218,8 @@ var tarteaucitron = {
                 "handleBrowserDNTRequest": false,
                 "AcceptAllCta" : false,
                 "moreInfoLink": true,
-                "privacyUrl": ""
+                "privacyUrl": "",
+                "useExternalCss": false
             },
             params = tarteaucitron.parameters;
 
@@ -238,12 +239,14 @@ var tarteaucitron = {
         tarteaucitron.highPrivacy = tarteaucitron.parameters.highPrivacy;
         tarteaucitron.handleBrowserDNTRequest = tarteaucitron.parameters.handleBrowserDNTRequest;
 
-        // Step 1: load css
-        linkElement.rel = 'stylesheet';
-        linkElement.type = 'text/css';
-        linkElement.href = cdn + 'css/tarteaucitron.css?v=' + tarteaucitron.version;
-        document.getElementsByTagName('head')[0].appendChild(linkElement);
 
+        // Step 1: load css
+        if ( !tarteaucitron.parameters.useExternalCss ) {
+            linkElement.rel = 'stylesheet';
+            linkElement.type = 'text/css';
+            linkElement.href = cdn + 'css/tarteaucitron.css?v=' + tarteaucitron.version;
+            document.getElementsByTagName('head')[0].appendChild(linkElement);
+        }
         // Step 2: load language and services
         tarteaucitron.addScript(pathToLang, '', function () {
 
@@ -397,7 +400,7 @@ var tarteaucitron = {
                     if (tarteaucitronNoAdBlocker === true || tarteaucitron.parameters.adblocker === false) {
 
                         // create a wrapper container at the same level than tarteaucitron so we can add an aria-hidden when tarteaucitron is opened
-                        var wrapper = document.createElement('div');
+                        /*var wrapper = document.createElement('div');
                         wrapper.id = "contentWrapper";
                         
                         while (document.body.firstChild)
@@ -406,7 +409,7 @@ var tarteaucitron = {
                         }
 
                         // Append the wrapper to the body
-                        document.body.appendChild(wrapper);
+                        document.body.appendChild(wrapper);*/
 
                         div.id = 'tarteaucitronRoot';
                         body.appendChild(div, body);
@@ -468,7 +471,7 @@ var tarteaucitron = {
                             html += '<div id="tarteaucitronPremium"></div>';
 
                             // create wrapper container
-                            var wrapper = document.createElement('div');
+                            /*var wrapper = document.createElement('div');
                             wrapper.id = "contentWrapper";
                             
                             while (document.body.firstChild)
@@ -476,8 +479,9 @@ var tarteaucitron = {
                                 wrapper.appendChild(document.body.firstChild);
                             }
 
-                        // Append the wrapper to the body
-                        document.body.appendChild(wrapper);
+                            // Append the wrapper to the body
+                            document.body.appendChild(wrapper);*/
+
                             div.id = 'tarteaucitronRoot';
                             body.appendChild(div, body);
                             div.innerHTML = html;
@@ -753,7 +757,7 @@ var tarteaucitron = {
             tarteaucitron.userInterface.css('tarteaucitronCookiesListContainer', 'display', 'none');
 
             document.getElementById('tarteaucitronClosePanel').focus();
-            document.getElementById('contentWrapper').setAttribute("aria-hidden", "true");
+            //document.getElementById('contentWrapper').setAttribute("aria-hidden", "true");
             document.getElementsByTagName('body')[0].classList.add('modal-open');
             tarteaucitron.userInterface.focusTrap();
             tarteaucitron.userInterface.jsSizing('main');
@@ -779,7 +783,7 @@ var tarteaucitron = {
             if (document.getElementById('tarteaucitronCloseAlert') !== null) {
                 document.getElementById('tarteaucitronCloseAlert').focus();
             }
-            document.getElementById('contentWrapper').setAttribute("aria-hidden", "false");
+            //document.getElementById('contentWrapper').setAttribute("aria-hidden", "false");
             document.getElementsByTagName('body')[0].classList.remove('modal-open');
             
         },
@@ -899,7 +903,7 @@ var tarteaucitron = {
             if (typeof Array.prototype.map === 'function') {
                 Array.prototype.map.call(main.children, Object).sort(function (a, b) {
                 //var mainChildren = Array.from(main.children);
-	            //mainChildren.sort(function (a, b) {
+                //mainChildren.sort(function (a, b) {
                     if (tarteaucitron.services[a.id.replace(/Line/g, '')].name > tarteaucitron.services[b.id.replace(/Line/g, '')].name) { return 1; }
                     if (tarteaucitron.services[a.id.replace(/Line/g, '')].name < tarteaucitron.services[b.id.replace(/Line/g, '')].name) { return -1; }
                     return 0;
@@ -1391,11 +1395,16 @@ var tarteaucitron = {
     "engage": function (id) {
         "use strict";
         var html = '',
-            r = Math.floor(Math.random() * 100000);
+            r = Math.floor(Math.random() * 100000),
+            engage = tarteaucitron.services[id].name + ' ' + tarteaucitron.lang.fallback;
+
+        if (tarteaucitron.lang['engage-' + id] !== undefined) {
+            engage = tarteaucitron.lang['engage-' + id];
+        }
 
         html += '<div class="tac_activate">';
         html += '   <div class="tac_float">';
-        html += '      <strong>' + tarteaucitron.services[id].name + '</strong> ' + tarteaucitron.lang.fallback;
+        html += '      ' + engage;
         html += '      <button class="tarteaucitronAllow" id="Eng' + r + 'ed' + id + '" onclick="tarteaucitron.userInterface.respond(this, true);">';
         html += '          &#10003; ' + tarteaucitron.lang.allow;
         html += '       </button>';

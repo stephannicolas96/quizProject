@@ -16,10 +16,10 @@ $errors = array();
 if (isset($_SESSION['id']) && is_numeric($_SESSION['id'])) {
     $scoreInstance->id_user = $duelInstance->id_playerOne = $duelInstance->id_playerTwo = $userInstance->id = htmlspecialchars($_SESSION['id']);
     if (!$userInstance->getUserByID()) {
-        //ERROR
+        $errors[] = TRY_AGAIN_LATER; 
     }
 } else {
-    $errors[] = 'An error occured!'; //TODO TRADUCTION
+    $errors[] = TRY_AGAIN_LATER; 
     echo json_encode(array('errors' => $errors, 'success' => $success));
     exit();
 }
@@ -64,16 +64,16 @@ if (isset($_POST['submitType']) && is_numeric($_POST['submitType'])) {
             $errors['email'] = EMAIL_EMPTY;
         }
 
-        if (!empty($_POST['actualPassword'])) { //TODO COMPARE WITH ACTUAL PASSWORD
-            if (password_verify($_POST['actualPassword'], $userInstance->password)) {
-                $errors[] = 'wrong password'; //TODO TRADUCTION
+        if (!empty($_POST['actualPassword'])) { 
+            if (!password_verify($_POST['actualPassword'], $userInstance->password)) {
+                $errors[] = WRONG_PASSWORD; 
             }
         } else {
-            $errors[] = 'wrong password'; //TODO TRADUCTION
+            $errors[] = WRONG_PASSWORD; 
         }
 
         if (!empty($_POST['newPassword'])) {
-            $newPassword = password_hash($_POST['newPassword'], PASSWORD_BCRYPT);
+            $newPassword = password_hash($_POST['newPassword'], PASSWORD_DEFAULT);
         }
 
         if (count($errors) == 0) {
@@ -100,13 +100,13 @@ if (isset($_POST['submitType']) && is_numeric($_POST['submitType'])) {
             $success = true;
         } catch (Exception $ex) {
             database::getInstance()->rollback();
-            $errors[] = 'An error occured!'; //TODO TRADUCTION
+            $errors[] = TRY_AGAIN_LATER; 
             echo json_encode(array('errors' => $errors, 'success' => $success));
             exit();
         }
     }
 } else {
-    $errors[] = 'An error occured!'; //TODO TRADUCTION
+    $errors[] = TRY_AGAIN_LATER; 
 }
 
 echo json_encode(array('errors' => $errors, 'success' => $success));
