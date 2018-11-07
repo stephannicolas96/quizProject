@@ -19,7 +19,7 @@
                 </div>
                 <!-- OPPONENT SELECTION -->
                 <div class="input-field">
-                    <input id="opponentUsername" class="autocomplete" name="opponentUsername" type="text" autocomplete="off" />
+                    <input id="opponentUsername" name="opponentUsername" type="text" autocomplete="off" />
                     <label for="opponentUsername"><?= OPPONENT_USERNAME ?></label>
                 </div>
                 <input type="submit" name="randomOpponent" value="RANDOM OPPONENT"/>
@@ -39,7 +39,7 @@
                 <p><?= $duel->userTwo ?></p>  
                 <img class="userImg small" src="../assets/images/userImages/<?= $duel->userTwoImage ?>" style="background-color: <?= '#' . $duel->userTwoColor ?>" alt="user image" onerror="this.src='../assets/images/userImages/user-image.png'"  onabort="this.src='../assets/images/userImages/user-image.png'" />
                 <?php if ($duel->userOneImage == 'you.png' && $duel->userOneState == 'inProgress' || $duel->userTwoImage == 'you.png' && $duel->userTwoState == 'inProgress') { ?>
-                    <a href="battle-<?= $duel->idDuel ?>.html" title="Continue Battle"><?= CONTINU ?></a>
+                    <a href="battle-<?= $duel->idDuel ?>" title="Continue Battle"><?= CONTINU ?></a>
                 <?php } ?>
             </li>
         <?php } ?>

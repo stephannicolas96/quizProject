@@ -242,7 +242,7 @@ class user extends database {
      * @return boolean
      */
     public function deleteUserById() {
-        $query = 'DELETE `user` '
+        $query = 'DELETE '
                 . 'FROM `' . config::PREFIX . 'user` AS `user` '
                 . 'WHERE `user`.`id` = :id';
 

@@ -82,6 +82,3 @@ if ($langage != -1 && $userCode != '') {
 echo json_encode($result);
 
 session_write_close();
-
-
-// TODO ADD ENDTIME AND EXECUTIONTIME TO DB FOR EACH USER AND WHEN THERE IS A WINNER INCREASE HIS SCORE AND DECREASE THE OPPONENT ONE

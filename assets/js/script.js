@@ -191,7 +191,7 @@ $(function () {
                     loginSuccess.show();
                     setTimeout(function () {
                         loginModal.modal('close');
-                        window.location.href = 'home.html';
+                        window.location.href = 'home';
                     }, 500);
                 } else { // LOGIN FAILURE (show all the error messages)
                     loginPassword.val('');
@@ -213,7 +213,7 @@ $(function () {
         });
     });
 
-    //------------------------------------ LOGIN FORM ------------------------------------//
+    //------------------------------------ DUEL SELECTION FORM ------------------------------------//
     duelSelectionForm.on('submit', function (e) {
         e.preventDefault(); //Prevent the page from reloading
         let submitType = 0;

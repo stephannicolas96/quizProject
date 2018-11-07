@@ -11,13 +11,13 @@ Pizza.init(document.body, {
 
 //------------------------------------ IMAGE ------------------------------------//
 var imageForm = $('#uploadImage'),
-        imageErrors = $('.errors', profileForm);
+        imageErrors = $('.errors', imageForm);
 
 $('#userImage').on('change', function () {
-    $("#uploadImage").submit();
+    $('#uploadImage').submit();
 });
 
-$("#uploadImage").on('submit', function (e) {
+$('#uploadImage').on('submit', function (e) {
     e.preventDefault();
     let submitType = 0;
     if (e.originalEvent != null) { //erase image button
@@ -28,10 +28,9 @@ $("#uploadImage").on('submit', function (e) {
     }
     let formData = new FormData(this);
     formData.append('submitType', submitType);
-
     $.ajax({
-        type: "POST",
-        url: "../ajax/image.php",
+        type: 'POST',
+        url: '../ajax/image.php',
         data: formData,
         contentType: false, // The content type used when sending data to the server.
         cache: false, // To unable request pages to be cached
@@ -81,7 +80,7 @@ var profileForm = $('#profileForm'),
         profileUpdate = $('#update', profileForm),
         profileDeleteUser = $('#deleteUser', profileForm);
 
-$("#profileForm").on('submit', function (e) {
+$('#profileForm').on('submit', function (e) {
     e.preventDefault();
     let submitType = 0;
     let canSubmit = true;
@@ -106,16 +105,16 @@ $("#profileForm").on('submit', function (e) {
                 profileErrors.html('');
                 profileErrors.hide();
                 profileSuccess.hide();
-                if (submitType = 0) {
-                    profilePassword.val('');
-                    profileNewPassword.val('');
-                }
+                profilePassword.val('');
+                profileNewPassword.val('');
                 if (data['success']) { // SUCCESS
-                    profileSuccess.show();
-                } else { // FAILURE
-                    if (submitType = 1) {
-                        profilePassword.val('');
+                    if (submitType == 1)
+                    {
+                        window.location.href = 'logout';
+                    } else {
+                        profileSuccess.show();
                     }
+                } else { // FAILURE
                     profileErrors.show();
                     $.each(data['errors'], function (id, error)
                     {

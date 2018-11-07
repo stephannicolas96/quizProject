@@ -25,21 +25,9 @@ switch ($lang) {
         break;
 }
 
-switch ($pageTitle) {
-    case 'HOME':
-        $pageTitle = HOME;
-        break;
-    case 'BATTLE':
-        $pageTitle = BATTLE;
-        break;
-    case 'CREATE':
-        $pageTitle = CREATE;
-        break;
-    case 'LEADERBOARD':
-        $pageTitle = LEADERBOARD;
-        break;
-    default:
-        break;
+if(defined($pageTitle))
+{
+    $pageTitle = constant($pageTitle);
 }
 
 $isLogged = (isset($_SESSION['logged'])) ? htmlspecialchars($_SESSION['logged']) : false;

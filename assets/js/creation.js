@@ -75,7 +75,7 @@ $(function () {
             dataType: 'json',
             success: function (data) {
                 $('.warning').css('visibility', 'hidden');
-                $('#message').html('');
+                $('#questionSuccess').html('');
                 if(data['success'] == -1){
                     let w = $('.warning:eq(0)');
                     w.css('visibility', 'visible');
@@ -96,6 +96,7 @@ $(function () {
                     $('#questionErrors').append(data['outputs']);
                 } else if(data['success'] == 1){
                     $('#questionSuccess').html(data['message']);
+                    $('#questionSuccess').show();
                 }
             },
             beforeSend: function () {

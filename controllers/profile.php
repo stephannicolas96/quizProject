@@ -23,7 +23,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     if ($isLogged) {
         $canModify = true;
     } else {
-        header('Location: home.html');
+        header('Location: home');
     }
 }
 
@@ -34,12 +34,12 @@ if ($canModify) {
     $userInstance->id = $userDuelInstance->id_user = $urlId;
 }
 if (!$userInstance->getUserByID()) {
-    header('Location: home.html');
+    header('Location: home');
 }
 $userDuelData = $userDuelInstance->getPlayerData();
 $userDuelDataTransformed = array();
 if (!is_array($userDuelData)) {
-    header('Location: home.html');
+    header('Location: home');
 } else {
     $langage = null;
     foreach ($userDuelData as $data) {

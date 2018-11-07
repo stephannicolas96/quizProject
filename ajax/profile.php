@@ -1,25 +1,26 @@
 <?php
+
 session_start();
 
 include_once '../classes/path.php';
 include_once path::getModelsPath() . 'score.php';
-include_once path::getModelsPath() . 'duel.php';
+include_once path::getModelsPath() . 'userDuel.php';
 include_once path::getModelsPath() . 'user.php';
 include_once path::getLangagePath() . $_SESSION['lang'];
 
 $userInstance = new user();
-$duelInstance = new duel();
 $scoreInstance = new score();
+$userDuelInstance = new userDuel();
 $success = false;
 $errors = array();
 
 if (isset($_SESSION['id']) && is_numeric($_SESSION['id'])) {
-    $scoreInstance->id_user = $duelInstance->id_playerOne = $duelInstance->id_playerTwo = $userInstance->id = htmlspecialchars($_SESSION['id']);
+    $scoreInstance->id_user = $userDuelInstance->id_user = $userInstance->id = htmlspecialchars($_SESSION['id']);
     if (!$userInstance->getUserByID()) {
-        $errors[] = TRY_AGAIN_LATER; 
+        $errors[] = TRY_AGAIN_LATER;
     }
 } else {
-    $errors[] = TRY_AGAIN_LATER; 
+    $errors[] = TRY_AGAIN_LATER;
     echo json_encode(array('errors' => $errors, 'success' => $success));
     exit();
 }
@@ -64,12 +65,12 @@ if (isset($_POST['submitType']) && is_numeric($_POST['submitType'])) {
             $errors['email'] = EMAIL_EMPTY;
         }
 
-        if (!empty($_POST['actualPassword'])) { 
+        if (!empty($_POST['actualPassword'])) {
             if (!password_verify($_POST['actualPassword'], $userInstance->password)) {
-                $errors[] = WRONG_PASSWORD; 
+                $errors[] = WRONG_PASSWORD;
             }
         } else {
-            $errors[] = WRONG_PASSWORD; 
+            $errors[] = WRONG_PASSWORD;
         }
 
         if (!empty($_POST['newPassword'])) {
@@ -90,23 +91,21 @@ if (isset($_POST['submitType']) && is_numeric($_POST['submitType'])) {
             database::getInstance()->beginTransaction();
 
             $scoreInstance->deleteScoreByUserId();
-            $detailsInstance->deleteDetailsByUserId();
-            $duelInstance->deleteDuelByUserId();
+            $userDuelInstance->replaceAllUserDuelUserIdWithTheFirstUserId();
             $userInstance->deleteUserById();
 
             database::getInstance()->commit();
             session_destroy();
-            header('Location: home.html');
             $success = true;
         } catch (Exception $ex) {
             database::getInstance()->rollback();
-            $errors[] = TRY_AGAIN_LATER; 
+            $errors[] = TRY_AGAIN_LATER;
             echo json_encode(array('errors' => $errors, 'success' => $success));
             exit();
         }
     }
 } else {
-    $errors[] = TRY_AGAIN_LATER; 
+    $errors[] = TRY_AGAIN_LATER;
 }
 
 echo json_encode(array('errors' => $errors, 'success' => $success));

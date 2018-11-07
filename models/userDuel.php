@@ -5,6 +5,7 @@ include_once path::getClassesPath() . 'database.php';
 class userDuel extends database {
 
     public $id = 0;
+    public $startTime;
     public $endTime;
     public $executionTime = 0;
     public $id_duel = 0;
@@ -65,7 +66,7 @@ class userDuel extends database {
     }
 
     /**
-     * update the user duel by the duel id and the user id
+     * update the user duel using the duel id and the user id
      * @return array()
      */
     public function updateUserDuelByDuelIdAndUserId($duelState) {
@@ -82,6 +83,21 @@ class userDuel extends database {
         $stmt->bindValue(':id_user', $this->id_user, PDO::PARAM_INT);
         $stmt->bindValue(':endTime', $this->endTime, PDO::PARAM_STR);
         $stmt->bindValue(':executionTime', $this->executionTime, PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
+    
+     /**
+     * update the user duel startTime using the duel id and the user id
+     * @return array()
+     */
+    public function updateStartTimeByDuelIdAnsUserId() {
+        $query = 'UPDATE `' . config::PREFIX . 'userDuel`'
+                . ' SET `startTime` = :startTime'
+                . ' WHERE `id_duel` = :id_duel AND `id_user` = :id_user';
+
+        $stmt = database::getInstance()->prepare($query);
+        $stmt->bindValue(':startTime', $this->startTime, PDO::PARAM_STR);
 
         return $stmt->execute();
     }
@@ -145,6 +161,65 @@ class userDuel extends database {
             $returnValue = $stmt->fetchAll(PDO::FETCH_OBJ);
         }
         
+        return $returnValue;
+    }
+    
+     /**
+     * get the startTime of the current user
+     * @return array()
+     */
+    public function getUserStartTime() {
+        $returnValue = array();
+        $query = 'SELECT `startTime` FROM `' . config::PREFIX . 'userDuel` WHERE `id_duel` = :id_duel AND `id_user` = :id_user';
+
+        $stmt = database::getInstance()->prepare($query);
+        $stmt->bindValue(':id_duel', $this->id_duel, PDO::PARAM_INT);
+        $stmt->bindValue(':id_user', $this->id_user, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $returnValue = $stmt->fetch(PDO::FETCH_COLUMN);
+        }
+        
+        return $returnValue;
+    }
+    
+    /**
+     * update the id_user of the current user to id 1 so we can keep the duel for the second user and still delete the current user
+     * the user with the id 1 must be a GameMaster
+     * @return array()
+     */
+    public function replaceAllUserDuelUserIdWithTheFirstUserId() {
+        $query = 'UPDATE `' . config::PREFIX . 'userDuel`'
+                . ' SET `id_user` = 1'
+                . ' WHERE `id_user` = :id_user';
+
+        $stmt = database::getInstance()->prepare($query);
+        $stmt->bindValue(':id_user', $this->id_user, PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
+    
+    /**
+     * check if the duel is over and data can be computed
+     * @return boolean
+     */
+    public function isDuelStarted() {
+        $returnValue = false;
+        $query = 'SELECT `startTime` '
+                . 'FROM `' . config::PREFIX . 'userDuel` '
+                . 'WHERE `id_duel` = :id_duel AND `id_user` = :id_user';
+
+        $stmt = database::getInstance()->prepare($query);
+        $stmt->bindValue(':id_duel', $this->id_duel, PDO::PARAM_INT);
+        $stmt->bindValue(':id_user', $this->id_user, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $result = $stmt->fetch(PDO::FETCH_COLUMN);
+            if (!is_null($result)) {
+                $returnValue = true;
+            }
+        }
+
         return $returnValue;
     }
 
