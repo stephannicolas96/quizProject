@@ -28,59 +28,9 @@ class regex {
     const INPUT_GENERATION_PATTERN_PART_SPLIT = '/->|\*/';
     //Check if the input generation have generated any error
     const INPUT_GENERATION_ERROR = '/error.+/';
+    //Check if the input generation contain any comment
+    const INPUT_GENERATION_COMMENT = '/^\#.*$/';
     //Check if the output generation have generated any error
     const OUTPUT_GENERATION_ERROR = '/.+(\/temp|tmp).+/';
-
-    public static function getUsernameRegex() {
-        return self::USERNAME;
-    }
-
-    public static function getBadPasswordRegex() {
-        return self::BAD_PASSWORD;
-    }
-
-    public static function getGoodPasswordRegex() {
-        return self::GOOD_PASSWORD;
-    }
-
-    public static function getBetterPasswordRegex() {
-        return self::BETTER_PASSWORD;
-    }
-
-    public static function getBestPasswordRegex() {
-        return self::BEST_PASSWORD;
-    }
-
-    public static function getQuestionContainsRegex() {
-        return self::QUESTION_CONTAINS;
-    }
-
-    public static function getQuestionSplitRegex() {
-        return self::QUESTION_SPLIT;
-    }
-
-    public static function getInputGenerationLineRegex() {
-        return self::INPUT_GENERATION_LINE;
-    }
-    
-    public static function getInputGenerationPatternSplitRegex() {
-        return self::INPUT_GENERATION_PATTERN_SPLIT;
-    }
-    
-    public static function getInputGenerationRepeatLineSplitRegex() {
-        return self::INPUT_GENERATION_REPEAT_LINE_SPLIT;
-    }
-    
-    public static function getInputGenerationPatternPartSplitRegex() {
-        return self::INPUT_GENERATION_PATTERN_PART_SPLIT;
-    }
-
-    public static function getInputGenerationErrorRegex() {
-        return self::INPUT_GENERATION_ERROR;
-    }
-
-    public static function getOutputGenerationErrorRegex() {
-        return self::OUTPUT_GENERATION_ERROR;
-    }
 
 }

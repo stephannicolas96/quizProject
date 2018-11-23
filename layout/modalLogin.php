@@ -16,7 +16,7 @@
             <div class="loader large hidden"><img src="../assets/images/loading.gif"/></div>
         </div>
         <div class="modal-footer">
-            <input id="loginSubmit" class="modal-action waves-effect waves-green btn-flat" type="submit" value="<?= SUBMIT ?>" />
+            <input id="loginSubmit" class="modal-action btn-flat" type="submit" value="<?= CONNEXION ?>" />
         </div>
     </form>
 </div>

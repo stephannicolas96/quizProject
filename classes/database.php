@@ -18,8 +18,10 @@ class database {
     public static function getInstance() {
         if (is_null(self::$_db)) {
             try {
-                self::$_db = new PDO('mysql:host=' . config::SERVER_NAME . ';dbname=' . config::DATABASE_NAME . ';charset=utf8', config::USER_NAME, config::PASSWORD);
-                self::$_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //TODO REMOVE TO AVOID DISPLAYING SQL ERROR
+                self::$_db = new PDO('mysql:host=' . config::SERVER_NAME . ';dbname=' . 
+                        config::DATABASE_NAME . ';charset=utf8', config::USER_NAME, config::PASSWORD);
+                //TODO REMOVE THE LINE UNDER TO AVOID DISPLAYING SQL ERROR
+                self::$_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
             } catch (PDOException $e) {
                 die('Connection failed: ' . $e->getMessage());
             }

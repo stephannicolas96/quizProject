@@ -6,7 +6,11 @@ include_once '../classes/path.php';
 include_once path::getModelsPath() . 'score.php';
 include_once path::getModelsPath() . 'userDuel.php';
 include_once path::getModelsPath() . 'user.php';
-include_once path::getLangagePath() . $_SESSION['lang'];
+if (isset($_SESSION['lang'])) {
+    include_once path::getLangagePath() . $_SESSION['lang'];
+} else {
+    exit;
+}
 
 $userInstance = new user();
 $scoreInstance = new score();
@@ -29,7 +33,7 @@ if (isset($_POST['submitType']) && is_numeric($_POST['submitType'])) {
     if ($submit == 0) { //UPDATE USER DATA
         if (!empty($_POST['username'])) {
             $result = inputChecker::checkInput($_POST['username'], $userInstance->username, function($valueToCheck) {
-                        return preg_match(regex::getUsernameRegex(), $valueToCheck) && strlen($valueToCheck) <= 255;
+                        return preg_match(regex::USERNAME, $valueToCheck) && strlen($valueToCheck) <= 255;
                     }, USERNAME_INCORRECT, function($valueToCheck) {
                         $returnValue = true;
                         if (isset($_SESSION['username']) && strtolower($_SESSION['username']) == strtolower($valueToCheck)) {

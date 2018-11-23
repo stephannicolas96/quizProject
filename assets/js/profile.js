@@ -2,11 +2,11 @@ Pizza.init(document.body, {
     donut: false,
     donut_inner_ratio: 0.4, // between 0 and 1
     percent_offset: 30, // relative to radius
-    /*stroke_color: '#333',*/
+    stroke_color: '#ffffff',
     stroke_width: 0,
     show_percent: false, // show or hide the percentage on the chart.
     animation_speed: 500,
-    animation_type: 'elastic' // options: backin, backout, bounce, easein, 
+    animation_type: 'elastic', // options: backin, backout, bounce, easein, 
 });
 
 //------------------------------------ IMAGE ------------------------------------//
@@ -22,7 +22,7 @@ $('#uploadImage').on('submit', function (e) {
     let submitType = 0;
     if (e.originalEvent != null) { //erase image button
         submitType = 1;
-        if ($('#userImageDisplayed').attr('src') == '../assets/images/userImages/user-image.png') {
+        if ($('#userImageDisplayed').attr('src') == '../assets/images/userImages/user-image') {
             return;
         }
     }
@@ -44,15 +44,15 @@ $('#uploadImage').on('submit', function (e) {
                 if (submitType == 0) {
                     var file = $('#userImage')[0].files[0];
                     var imagefile = file.type;
-                    var match = 'image/png';
-                    if (imagefile == match)
+                    var match = ['image/png', 'image/jpeg'];
+                    if (match.includes(imagefile))
                     {
                         var reader = new FileReader();
                         reader.onload = imageIsLoaded;
                         reader.readAsDataURL($('#userImage')[0].files[0]);
                     }
                 } else {
-                    $('#userImageDisplayed').attr('src', '../assets/images/userImages/user-image.png');
+                    $('#userImageDisplayed').attr('src', '../assets/images/userImages/user-image');
                     $('#userImage').val('');
                 }
             } else { // FAILURE

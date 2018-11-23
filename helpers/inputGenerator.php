@@ -17,24 +17,24 @@ class inputGenerator {
      * @return string
      */
     public static function generateInput($array) {
-        
+
         $output = array();
         foreach ($array as $lineNumber => $line) {
-            if (preg_match(regex::getInputGenerationLineRegex(), $line)) { //$line is a line inside the input editor
-                $repeatLine = preg_split(regex::getInputGenerationRepeatLineSplitRegex(), $line);
+            if (preg_match(regex::INPUT_GENERATION_LINE, $line)) { //$line is a line inside the input editor
+                $repeatLine = preg_split(regex::INPUT_GENERATION_REPEAT_LINE_SPLIT, $line);
                 $repeatTimes = 1;
                 if (count($repeatLine) > 1) {
-                    $data = preg_split(regex::getInputGenerationPatternPartSplitRegex(), $repeatLine[1]);
+                    $data = preg_split(regex::INPUT_GENERATION_PATTERN_PART_SPLIT, $repeatLine[1]);
                     $repeatTimes = rand($data[0], $data[1]);
-                    $groups = preg_split(regex::getInputGenerationPatternSplitRegex(), $repeatLine[0]);
+                    $groups = preg_split(regex::INPUT_GENERATION_PATTERN_SPLIT, $repeatLine[0]);
                 } else {
-                    $groups = preg_split(regex::getInputGenerationPatternSplitRegex(), $line);
+                    $groups = preg_split(regex::INPUT_GENERATION_PATTERN_SPLIT, $line);
                 }
                 for ($j = 0; $j < $repeatTimes; $j++) {
                     $lineOutput = array();
                     foreach ($groups as $group) { //$groups are separated by '/' inside the input editor
                         $groupOutput = array();
-                        $data = preg_split(regex::getInputGenerationPatternPartSplitRegex(), $group);
+                        $data = preg_split(regex::INPUT_GENERATION_PATTERN_PART_SPLIT, $group);
 
                         if (is_numeric($data[0])) {
                             $multiplier = (isset($data[2])) ? $data[2] : 1;
@@ -91,5 +91,18 @@ class inputGenerator {
         }
         return implode('|', $output);
     }
-
+    
+    /**
+     * Do everything needed on the input format to make it understandable for the generateInput function
+     * @param string $inputFormat
+     */
+    public static function prepareInputFormat(&$inputFormat) {
+        $inputFormat = htmlspecialchars($_POST['inputFormat']);
+        $inputFormat = str_replace('&gt;', '>', $inputFormat);
+        $inputFormat = explode(PHP_EOL, $inputFormat);
+        $inputFormat = array_map('trim', $inputFormat);
+        $inputFormat = array_filter($inputFormat, function($element) {
+            return strlen($element) != 0 && !preg_match(regex::INPUT_GENERATION_COMMENT, $element);
+        });
+    }
 }

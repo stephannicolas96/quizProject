@@ -1,6 +1,103 @@
 <?php
 
 class compiler {
+
+//    /**
+//     * create the file needed for the execution of the code
+//     * @param string $langage
+//     * @param string $filePath
+//     * @return string 
+//     */
+//    public static function getFilePath($langage, $userCode, &$filePath) {
+//        switch ($langage) {
+//            case 'php':
+//                $output = compiler::compileUserCode($userCode, $filePath, 'php');
+//                break;
+//            case 'cpp':
+//                $output = compiler::compileUserCode($userCode, $filePath, 'cpp', 'g++');
+//                break;
+//            case 'c' :
+//                $output = compiler::compileUserCode($userCode, $filePath, 'c', 'gcc');
+//                break;
+//            case 'csharp' :
+//                $output = compiler::compileUserCode($userCode, $filePath, 'cs', 'mono');
+//                break;
+//            default:
+//                break;
+//        }
+//        return $output;
+//    }
+//
+//    /**
+//     * create a temporary file with the generated input in it and then execute the user code with this temporary file
+//     * this allow the user code to have access to the generated input inside the standard input
+//     * @param string $generatedInput
+//     * @param string $langage
+//     * @param string $userCode
+//     * @return string
+//     */
+//    public static function prepareInputAndExecute($generatedInput, $filePath) {
+//
+//        //Prepare input parameter
+//        $inputs = explode('|', $generatedInput);
+//        $parameterFile = tmpfile();
+//        $parameter = '<?php ';
+//        foreach ($inputs as $input) {
+//            $parameter = $parameter . 'echo(\'' . $input . PHP_EOL . '\');';
+//        }
+//
+//        //Execute the user code and then close the temp file to delete it
+//        fwrite($parameterFile, $parameter);
+//        $output = self::executeUserCode($parameterFile, $filePath);
+//        fclose($parameterFile);
+//
+//        return $output;
+//    }
+//
+//    /**
+//     * Return a file with an uniq name
+//     * @param string $extension
+//     * @return string
+//     */
+//    public static function getFileName($extension) {
+//        return uniqid() . '.' . $extension;
+//    }
+//
+//    /**
+//     * Execute the user code
+//     * @param string $parameterFile
+//     * @param string $filePath
+//     */
+//    public static function executeUserCode($parameterFile, $filePath) {
+//        $output = shell_exec('php  ' . stream_get_meta_data($parameterFile)['uri'] . ' | ' . $filePath . ' 2>&1'); // Execution
+//        return $output;
+//    }
+//
+//    /**
+//     * Compile the user code to allow execution later
+//     * @param string $langageExtension
+//     * @param string $compiler
+//     * @param string $userCode
+//     * @param string $filePath
+//     * @return string
+//     */
+//    public static function compileUserCode($userCode, &$filePath, $langageExtension, $compiler = '') {
+//        $tempFile = fopen('../temp/' . self::getFileName($langageExtension), 'w');
+//        fwrite($tempFile, $userCode);
+//        $filePath = stream_get_meta_data($tempFile)['uri'];
+//        if ($compiler != '') {
+//            $output = shell_exec($compiler . ' ' . $filePath . ' -O3 -o ' . $filePath . '.exe 2>&1'); //Compilation
+//            fclose($tempFile);
+//            if (file_exists($filePath)) { // Erase UserCode File
+//                unlink($filePath);
+//            }
+//            $filePath .= '.exe';
+//        } else {
+//            fclose($tempFile);
+//        }
+//        return (isset($output)) ? $output : '';
+//    }
+
     //2>&1 means that we redirect the standard error in the standard output
     //this way we can use them to display some errors to the user
 
@@ -85,5 +182,4 @@ class compiler {
 
         return $output;
     }
-
 }

@@ -47,7 +47,7 @@ if (!is_array($userDuelData)) {
             $langage = $data->langage;
             $userDuelDataTransformed[$data->langage] = array();
         }
-        if ($data->state != 'inProgress') {
+        if ($data->state != 'inProgress' && $data->state != 'expiredButPlayed' && $data->state != 'waiting') {
             $userDuelDataTransformed[$data->langage][$data->state] = $data->amount;
         }
     }

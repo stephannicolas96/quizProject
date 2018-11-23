@@ -4,7 +4,11 @@ session_start();
 
 include_once '../classes/path.php';
 include_once path::getModelsPath() . 'user.php';
-include_once path::getLangagePath() . $_SESSION['lang'];
+if (isset($_SESSION['lang'])) {
+    include_once path::getLangagePath() . $_SESSION['lang'];
+} else {
+    exit;
+}
 
 $userInstance = new user;
 $errors = array();

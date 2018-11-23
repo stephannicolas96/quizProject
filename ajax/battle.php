@@ -7,7 +7,11 @@ include_once path::getClassesPath() . 'regex.php';
 include_once path::getModelsPath() . 'testCase.php';
 include_once path::getModelsPath() . 'userDuel.php';
 include_once path::getHelpersPath() . 'compiler.php';
-include_once path::getLangagePath() . $_SESSION['lang'];
+if (isset($_SESSION['lang'])) {
+    include_once path::getLangagePath() . $_SESSION['lang'];
+} else {
+    exit;
+}
 
 set_time_limit(11);
 
@@ -40,8 +44,8 @@ if ($langage != -1 && $userCode != '') {
         if (isset($output['executionOutput']) && trim($output['executionOutput']) == $testCase->output) {
             $numberOfGoodResult++;
             $result['output'][$lastId]['success'] = true;
-        } else if (!preg_match(regex::getOutputGenerationErrorRegex(), $result['output'][$lastId]['executionOutput'])) {
-            $result['output'][$lastId]['executionOutput'] = 'Your output is : ' . $result['output'][$lastId]['executionOutput'] . '<br/>Expected was : ' . $testCase->output;
+        } else if (!preg_match(regex::OUTPUT_GENERATION_ERROR, $result['output'][$lastId]['executionOutput'])) {
+            $result['output'][$lastId]['executionOutput'] = 'Your output is : ' . htmlspecialchars($result['output'][$lastId]['executionOutput']) . '<br/>Expected was : ' . $testCase->output;
         }
     }
 
@@ -54,7 +58,7 @@ if ($langage != -1 && $userCode != '') {
 
             $userDuel = new userDuel();
             $userDuel->id_user = (isset($_SESSION['id']) && is_numeric($_SESSION['id'])) ? $_SESSION['id'] : 0;
-            $userDuel->id_duel = (isset($_POST['duelId']) && is_numeric($_POST['duelId'])) ? $_POST['duelId'] : 0;
+            $userDuel->id_duel = (isset($_SESSION['duelId']) && is_numeric($_SESSION['duelId'])) ? $_SESSION['duelId'] : 0;
             $userDuel->endTime = new DateTime();
             $userDuel->endTime = $userDuel->endTime->format('Y-m-d H:i:s');
             $userDuel->executionTime = $meanExecutionTime;

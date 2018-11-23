@@ -20,10 +20,10 @@ $(function () {
     //--- allow modes selection ---//
     $.each(scriptingModes, function (id, element) {
         $('#' + element.mode).click(function () {
-                scriptingModes[selectedMode].value = codeEditor.session.getValue();
-                codeEditor.session.setMode('ace/mode/' + element.aceMode);
-                selectedMode = id;
-                codeEditor.session.setValue(element.value);
+            scriptingModes[selectedMode].value = codeEditor.session.getValue();
+            codeEditor.session.setMode('ace/mode/' + element.aceMode);
+            selectedMode = id;
+            codeEditor.session.setValue(element.value);
         });
     });
     //--- shortcut ---//
@@ -32,80 +32,101 @@ $(function () {
     addCommandToEditor(codeEditor);
 
     //--- generate one input example ---//
+    var inputExample = $('#inputExample'),
+            intputExampleLoader = $('.loader', inputExample),
+            intputExampleContent = $('.content', inputExample);
+
+    var inputExampleTimeout = null;
     inputEditor.on('change', function () {
-        $.ajax({
-            type: 'POST',
-            url: '../ajax/exampleInput.php',
-            data: {
-                inputFormat: inputEditor.getValue()
-            },
-            timeout: 3000,
-            dataType: 'json',
-            success: function (data) {
-                if (data['success'] && data['message']) {
-                    $('#inputExample .content').html('');
-                    data['message'] = data['message'].split('|');
-                    $.each(data['message'], function (id, element) {
-                        $('#inputExample .content').append(element + '<br/>');
-                    });
+        clearTimeout(inputExampleTimeout);
+        inputExampleTimeout = setTimeout(function () {
+            $.ajax({
+                type: 'POST',
+                url: '../ajax/exampleInput.php',
+                data: {
+                    inputFormat: inputEditor.getValue()
+                },
+                timeout: 3000,
+                dataType: 'json',
+                success: function (data) {
+                    if (data['success'] && data['message']) {
+                        intputExampleContent.html('');
+                        data['message'] = data['message'].split('|');
+                        $.each(data['message'], function (id, element) {
+                            intputExampleContent.append(element + '<br/>');
+                        });
+                    }
+                },
+                beforeSend: function () {
+                    intputExampleContent.hide();
+                    intputExampleLoader.show();
+                },
+                complete: function () {
+                    intputExampleContent.show();
+                    intputExampleLoader.hide();
                 }
-            },
-            beforeSend: function () {
-                $('#inputExample .content').hide();
-                $('#inputExample .loader').show();
-            },
-            complete: function () {
-                $('#inputExample .content').show();
-                $('#inputExample .loader').hide();
-            }
-        });
+            });
+        }, 1500);
     });
 
-    $('#register').click(function () {
+    //--- set the base value to the input example after the input editor event was set to make the ajax call and compute this example ---//
+    inputEditor.session.setValue(
+            '#This is a basic example for an input format\n' +
+            '1->100*2/A->z*5~1->5'
+            );
+
+    //--- register the question in the database ---//
+    var registerQuestion = $('#register'),
+            questionErrors = $('#questionErrors'),
+            questionSuccess = $('#questionSuccess'),
+            questionLoader = $('#questionLoader');
+
+    registerQuestion.click(function () {
         $.ajax({
             type: 'POST',
             url: '../ajax/creation.php',
             data: {
                 question: questionEditor.getValue(),
                 inputFormat: inputEditor.getValue(),
-                numberOfInputToGenerate: 20,
                 userCode: codeEditor.getValue(),
+                numberOfInputToGenerate: 20,
                 langage: scriptingModes[selectedMode].mode
             },
             dataType: 'json',
             success: function (data) {
-                $('.warning').css('visibility', 'hidden');
-                $('#questionSuccess').html('');
-                if(data['success'] == -1){
-                    let w = $('.warning:eq(0)');
-                    w.css('visibility', 'visible');
-                    w.attr('data-tooltip', data['message']);
-                    w.tooltip();
-                } else if(data['success'] == -2){
-                    let w = $('.warning:eq(1)');
-                    w.css('visibility', 'visible');
-                    w.attr('data-tooltip', data['message']);
-                    w.tooltip();
-                } else if(data['success'] == -3){
-                    let w = $('.warning:eq(2)');
-                    w.css('visibility', 'visible');
-                    w.attr('data-tooltip', data['message']);
-                    w.tooltip();
-                } else if(data['success'] == -4){
-                    $('#questionErrors').html(data['message']);
-                    $('#questionErrors').append(data['outputs']);
-                } else if(data['success'] == 1){
-                    $('#questionSuccess').html(data['message']);
-                    $('#questionSuccess').show();
+                if (data['success'] == -1) {
+                    $('.warning:eq(0)').css('visibility', 'visible');
+                } else if (data['success'] == -2) {
+                    $('.warning:eq(1)').css('visibility', 'visible');
+                } else if (data['success'] == -3) {
+                    $('.warning:eq(2)').css('visibility', 'visible');
+                }
+                if (data['success'] < 1) {
+                    questionErrors.html(data['message'] + '<br/>');
+                    if (data['outputs'][0]['executionOutput']) {
+                        questionErrors.append(data['outputs'][0]['executionOutput']);
+                    }
+                    if (data['outputs'][0]['compilationOutput']) {
+                        questionErrors.append(data['outputs'][0]['compilationOutput']);
+                    }
+                    questionErrors.show();
+                } else if (data['success'] == 1) {
+                    questionSuccess.html(data['message']);
+                    questionSuccess.show();
                 }
             },
             beforeSend: function () {
-                $('#register').css('visibility', 'hidden');
+                $('.warning').css('visibility', 'hidden');
+                registerQuestion.css('visibility', 'hidden');
+                questionErrors.hide();
+                questionSuccess.hide();
+                questionLoader.show();
             },
             complete: function () {
-                $('#register').css('visibility', 'visible');
+                registerQuestion.css('visibility', 'visible');
+                questionLoader.hide();
             }
         });
     });
-
-});
+}
+);

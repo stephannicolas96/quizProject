@@ -1,12 +1,12 @@
 const scriptingModes = [{
         mode: 'php',
         aceMode: 'php',
-        value: '<?php\n' +
+        value: '<?php\n\n' +
+                '//Use echo to output your value and PHP_EOL to end a line\n' +
                 'do{\n\t' +
                 '$f = stream_get_line(STDIN, 10000, PHP_EOL);\n\t' +
                 'if($f!==false){\n\t\t' +
-                '$input[] = $f;\n\t\t' +
-                'echo $f . PHP_EOL;\n\t' +
+                '$input[] = $f;\n\t' +
                 '}\n' +
                 '}while($f!==false);\n'
     }, {
@@ -15,11 +15,11 @@ const scriptingModes = [{
         value: '#include <iostream>\n' +
                 '#include <limits>\n' +
                 '#include <sstream>\n\n' +
+                '//Use std::cout to output your value and std::endl to end a line\n' +
                 'int main() {\n\t' +
                 'std::string line;\n\t' +
                 'while (std::getline(std::cin, line))\n\t' +
-                '{\n\t\t' +
-                'std::cout << line << std::endl;\n\t' +
+                '{\n\t' +
                 '}\n' +
                 '}'
     }, {
@@ -27,10 +27,10 @@ const scriptingModes = [{
         aceMode: 'c_cpp',
         value: '#include <stdlib.h>\n' +
                 '#include <stdio.h>\n\n' +
+                '//Use printf() to output your value\n' +
                 'int main() {\n\t' +
                 'char s[1024];\n\t' +
-                'while (fgets(s, sizeof(s), stdin)) {\n\t\t' +
-                'printf("%s", s);\n\t' +
+                'while (fgets(s, sizeof(s), stdin)) {\n\t' +
                 '}\n\t' +
                 'return 0;\n' +
                 '}'
@@ -41,6 +41,7 @@ const scriptingModes = [{
                 'using System.Collections.Generic;\n' +
                 'using System.Linq;\n' +
                 'using System.Text;\n\n' +
+                '//Use Console.WriteLine() to output your value and std::endl to end a line\n' +
                 'static void Main(string[] args)\n' +
                 '{\n\t' +
                 'string line;\n\t' +

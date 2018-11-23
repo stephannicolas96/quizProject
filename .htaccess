@@ -15,6 +15,5 @@ RewriteRule ^([\w]+)/profile$ views/profile.php?lang=$1
 RewriteRule ^profile$ views/profile.php
 RewriteRule ^([\w]+)/logout$ views/logout.php?lang=$1
 RewriteRule ^logout views/logout.php
-ErrorDocument 403 /views/error403.php
 ErrorDocument 404 /views/error404.php
 </ifModule>

@@ -17,9 +17,9 @@ if (isset($duelId) && isset($userId)) { //If we have an user and an duelId we ca
     $userDuelInstance = new userDuel();
     $duelInstance = new duel();
     $userDuelInstance->id_user = $userId;
-    $userDuelInstance->id_duel = $duelInstance->id = $duelId;
+    $_SESSION['duelId'] = $userDuelInstance->id_duel = $duelInstance->id = $duelId;
 
-    if ($userDuelInstance->isDuelStarted()) {
+    if (!$userDuelInstance->isDuelStarted()) {
         $userDuelInstance->startTime = new DateTime();
         $userDuelInstance->startTime = $userDuelInstance->startTime->format('Y-m-d H:i:s');
         $userDuelInstance->updateStartTimeByDuelIdAnsUserId();

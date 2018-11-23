@@ -1,5 +1,6 @@
 <?php
 
+//TODO TRANSLATE 
 session_start();
 
 include_once '../classes/path.php';
@@ -8,7 +9,11 @@ include_once path::getModelsPath() . 'langageName.php';
 include_once path::getModelsPath() . 'duel.php';
 include_once path::getModelsPath() . 'userDuel.php';
 include_once path::getModelsPath() . 'question.php';
-include_once path::getLangagePath() . $_SESSION['lang'];
+if (isset($_SESSION['lang'])) {
+    include_once path::getLangagePath() . $_SESSION['lang'];
+} else {
+    exit;
+}
 
 $result = array();
 $result['success'] = false;
@@ -39,20 +44,23 @@ if (isset($_POST['submitType']) && is_numeric($_POST['submitType'])) {
     }
     if ($submit == 1) { //SELECT RANDOM OPPONENT
         $userId = $userInstance->getRandomUserId();
+            if (!is_numeric($userId) || $userid == -1) {
+            $result['error'] = 'An error occured try again later!';
+        }
     } else if ($submit == 2) { //SELECT CHOOSEN OPPONENT 
         if (!empty($_POST['opponentUsername'])) {
             $userInstance->username = htmlspecialchars($_POST['opponentUsername']);
             $userId = $userInstance->getUserIdByUsername();
+            if (!is_numeric($userId) || $userid == -1) {
+                $result['error'] = 'This user doesn\'t exist';
+            }
         } else {
-            $result['error'] = 'Enter a valid username';
+            $result['error'] = 'Username can\'t be empty';
         }
     } else {
         $result['error'] = 'An error occured try again later!';
     }
 
-    if (is_null($userId) || $userId == -1) {
-        $result['error'] = 'An error occured try again later!';
-    }
 
     $questionInstance = new question();
     $questionId = $questionInstance->getRandomQuestionNotCreatedByThePlayers($userInstance->id, $userId);
@@ -68,7 +76,7 @@ if ($result['error'] == '') {
         $duelInstance->id_langageName = $langageId;
         $duelInstance->id_question = $questionId;
         $duelInstance->createDuel();
-        $duelId = $duelInstance->getLastInsertedId();
+        $duelId = $result['questionId'] = $duelInstance->getLastInsertedId();
 
         $userDuelInstance = new userDuel();
         $userDuelInstance->id_duelState = 1;
@@ -82,7 +90,7 @@ if ($result['error'] == '') {
         $result['success'] = true;
     } catch (Exception $ex) {
         database::getInstance()->rollback();
-        $result['errors'][] = 'An error occured try again later!';
+        $result['error'] = 'An error occured try again later!';
         echo json_encode($result);
         exit();
     }

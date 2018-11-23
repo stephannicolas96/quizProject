@@ -78,7 +78,7 @@ class user extends database {
      */
     public function getUserByEmail() {
         $returnValue = false;
-        $query = 'SELECT `id`, `email`, `password`, `username`, `color`, CONCAT(`id`,".png") AS `image` '
+        $query = 'SELECT `id`, `email`, `password`, `username`, `color`, CONCAT(`id`,"") AS `image` '
                 . 'FROM `' . config::PREFIX . 'user` '
                 . 'WHERE `email` = :email';
 
@@ -106,7 +106,7 @@ class user extends database {
      */
     public function getUserByUsername() {
         $returnValue = false;
-        $query = 'SELECT `id`, `email`, `password`, `username`, `color`, CONCAT(`id`,".png") AS `image` '
+        $query = 'SELECT `id`, `email`, `password`, `username`, `color`, CONCAT(`id`,"") AS `image` '
                 . 'FROM `' . config::PREFIX . 'user` '
                 . 'WHERE `username` = :username';
 
@@ -153,7 +153,7 @@ class user extends database {
      */
     public function getTenUsernameLike() {
         $returnValue = array();
-        $query = 'SELECT `username`, CONCAT(`id`,".png") AS `image` '
+        $query = 'SELECT `username`, CONCAT(`id`,"") AS `image` '
                 . 'FROM `' . config::PREFIX . 'user` '
                 . 'WHERE `username` LIKE :username AND `id` != :id '
                 . 'ORDER BY `username` ASC '
@@ -175,7 +175,7 @@ class user extends database {
      */
     public function getUserByID() {
         $returnValue = false;
-        $query = 'SELECT `id`, `email`, `password`, `username`, `color`, CONCAT(`id`,".png") AS `image` '
+        $query = 'SELECT `id`, `email`, `password`, `username`, `color`, CONCAT(`id`,"") AS `image` '
                 . 'FROM `' . config::PREFIX . 'user` '
                 . 'WHERE `id` = :id';
 
@@ -288,10 +288,7 @@ class user extends database {
         $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
-            $data = $stmt->fetch(PDO::FETCH_OBJ);
-            if ($data != null) {
-                $returnValue = $data->id;
-            }
+            $returnValue = $stmt->fetch(PDO::FETCH_COLUMN);
         }
         return $returnValue;
     }

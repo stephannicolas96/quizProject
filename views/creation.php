@@ -1,6 +1,7 @@
 <?php
 include_once '../classes/path.php';
 $pageTitle = 'CREATE';
+$controllerToLoad = 'creation.php';
 include path::getLayoutPath() . 'header.php';
 ?>
 <?php include path::getLayoutPath() . 'modeSelector.php' ?>
@@ -37,7 +38,8 @@ include path::getLayoutPath() . 'header.php';
     </ul>
     <div id="questionErrors" class="errors hidden"></div>
     <div id="questionSuccess" class="success hidden"><p><?= QUESTION_REGISTERED ?></p></div>
-    <button id="register"><?= REGISTER_QUESTION ?></button> 
+    <div id="questionLoader" class="loader small hidden"><img src="../assets/images/loading.gif"/></div>
+    <button id="register" class="btn-flat"><?= REGISTER_QUESTION ?></button> 
 </div>
 <?php include path::getLayoutPath() . 'footer.php'; ?>
 

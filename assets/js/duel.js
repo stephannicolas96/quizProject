@@ -28,10 +28,13 @@ $(function () {
                 let show = true;
                 if (data['executionTime'])
                 {
-                    editorError.append('<p class="normal">' + data['executionTime'] + '</p>')
+                    editorError.append('<p class="normal">' + data['executionTime'] + '</p>');
                 }
                 if (data['success']) {
-                    editorError.append('<p class="success">' + data['successMessage'] + '</p>')
+                    editorError.append('<p class="success">' + data['successMessage'] + '</p>'); 
+                    setTimeout(function () {
+                        window.location.href = 'home';
+                    }, 1000);
                 } else {
                     $.each(data['output'], function (id, output)
                     {

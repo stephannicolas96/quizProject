@@ -98,6 +98,8 @@ class userDuel extends database {
 
         $stmt = database::getInstance()->prepare($query);
         $stmt->bindValue(':startTime', $this->startTime, PDO::PARAM_STR);
+        $stmt->bindValue(':id_duel', $this->id_duel, PDO::PARAM_INT);
+        $stmt->bindValue(':id_user', $this->id_user, PDO::PARAM_INT);
 
         return $stmt->execute();
     }

@@ -35,7 +35,7 @@ tarteaucitron.init({
 (tarteaucitron.job = tarteaucitron.job || []).push('recaptcha');
 
 $(function () {
-    
+
     var registrationForm = $('#registrationForm'), //REGISTRATION FORM VARS BEGIN
             registrationSubmit = $('#registrationSubmit'),
             registrationModal = $('#registrationModal'),
@@ -55,7 +55,7 @@ $(function () {
             duelSelectionForm = $('#duelSelectionForm'), //DUEL SELECTION FORM VARS BEGIN
             duelSelectionLoader = $('.loader', duelSelectionForm),
             duelSelectionSuccess = $('.success', duelSelectionForm),
-            duelSelectionErrors = $('.editorError', duelSelectionForm),
+            duelSelectionErrors = $('.errors', duelSelectionForm),
             duelSelectionContent = $('.content', duelSelectionForm),
             opponentUsername = $('#opponentUsername');//DUEL SELECTION FORM VARS END
 
@@ -65,21 +65,26 @@ $(function () {
     $('.tooltipped').tooltip({html: true});
 
     //Change the strength of the password based on the current entered password
-    $('input[strength]').blur(function () {
+    var inputTimeout = null;
+    $('input[strength]').on('input', function () {
+        let input = $(this);
         let strength = $('.passwordStrengthForeground', $(this).parent());
-        $.ajax({
-            type: 'POST',
-            url: '../ajax/passwordChecker.php',
-            data: {
-                inputValue: $(this).val()
-            },
-            timeout: 1000,
-            success: function (data) {
-                strength.attr('strength', data);
-            }
-        });
+        clearTimeout(inputTimeout);
+        inputTimeout = setTimeout(function () {
+            $.ajax({
+                type: 'POST',
+                url: '../ajax/passwordChecker.php',
+                data: {
+                    inputValue: input.val()
+                },
+                timeout: 1000,
+                success: function (data) {
+                    strength.attr('strength', data);
+                }
+            });
+        }, 250);
     });
-    
+
     //Add a simple hide and show button to all password inputs
     $('input[type=password]').each(function () {
         let input = $(this);
@@ -238,14 +243,13 @@ $(function () {
                 if (data['success']) {
                     duelSelectionSuccess.show();
                     setTimeout(function () {
-                        location.reload();
+                        window.location.href = 'battle-' + data['questionId'];
                     }, 500);
                 } else {
                     duelSelectionContent.show();
-                    $.each(data['errors'], function (id, error)
-                    {
-                        duelSelectionErrors.append('<p>' + error + '</p>');
-                    });
+                    if (data['error']) {
+                        duelSelectionErrors.append('<p>' + data['error'] + '</p>');
+                    }
                     duelSelectionErrors.show();
                 }
             },

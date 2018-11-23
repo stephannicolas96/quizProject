@@ -9,9 +9,9 @@ $langageNameInstance = new langageName();
 
 $allLangages = $langageNameInstance->getAllLangages();
 
+$duels = array();
 if (isset($_SESSION['id'])) {
     $userDuelInstance->id_user = htmlspecialchars($_SESSION['id']);
-    $duels = array();
     $duels = $userDuelInstance->getTwentyDuelByUserId();
 }
 

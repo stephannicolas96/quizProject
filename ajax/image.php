@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 include_once '../classes/path.php';
@@ -11,14 +12,15 @@ if (isset($_POST['submitType'])) {
     $submit = htmlspecialchars($_POST['submitType']);
     if ($submit == 0) {
         $id = isset($_POST['id']) ? htmlspecialchars($_POST['id']) : -1;
-        $validextensions = array('png');
+        $validextensions = array('png', 'jpg', 'jpeg');
+        $validfiles = array('image/png', 'image/jpeg');
         $temporary = explode('.', $_FILES['userImage']['name']);
         $file_extension = end($temporary);
-        $filename = $id . '.' . $file_extension;
+        $filename = $id;
         $targetPath = path::getUserImagesPath() . $filename;
         $sourcePath = $_FILES['userImage']['tmp_name'];
 
-        if ($_FILES['userImage']['type'] == 'image/png' && $_FILES['userImage']['size'] < 500000 && in_array($file_extension, $validextensions) && getimagesize($_FILES['userImage']['tmp_name']) != false) { //500ko max image size
+        if (in_array($_FILES['userImage']['type'], $validfiles) && $_FILES['userImage']['size'] < 500000 && in_array($file_extension, $validextensions) && getimagesize($_FILES['userImage']['tmp_name']) != false) { //500ko max image size
             if ($_FILES['userImage']['error'] > 0) {
                 $result['errors'][] = 'An error occured'; //TODO TRADUCTION
             } else {
@@ -32,7 +34,7 @@ if (isset($_POST['submitType'])) {
             $result['errors'][] = 'Invalid file Size or Type'; //TODO TRADUCTION
         }
     } else if ($submit == 1) { //DELETE USER IMAGE
-        $image = path::getUserImagesPath() . htmlspecialchars($_SESSION['id']) . '.png';
+        $image = path::getUserImagesPath() . htmlspecialchars($_SESSION['id']);
         if (file_exists($image)) {
             unlink($image);
             $result['success'] = true;

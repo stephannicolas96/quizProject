@@ -4,7 +4,11 @@ session_start();
 include_once '../classes/path.php';
 include_once path::getModelsPath() . 'user.php';
 include_once path::getModelsPath() . 'score.php';
-include_once path::getLangagePath() . $_SESSION['lang'];
+if (isset($_SESSION['lang'])) {
+    include_once path::getLangagePath() . $_SESSION['lang'];
+} else {
+    exit;
+}
 
 $userInstance = new user();
 $scoreInstance = new score();
@@ -17,7 +21,7 @@ $hashedPassword = null;
 //USERNAME
 if (!empty($_POST['username'])) {
     $result = inputChecker::checkInput($_POST['username'], $userInstance->username, function($valueToCheck) {
-                return preg_match(regex::getUsernameRegex(), $valueToCheck) && strlen($valueToCheck) <= 255;
+                return preg_match(regex::USERNAME, $valueToCheck) && strlen($valueToCheck) <= 255;
             }, USERNAME_INCORRECT, function($valueToCheck) {
                 $returnValue = true;
                 if (isset($_SESSION['username']) && strtolower($_SESSION['username']) == strtolower($valueToCheck)) {
@@ -66,9 +70,18 @@ if (count($errors) == 0) {
         database::getInstance()->beginTransaction();
 
         $userInstance->addUser();
+        $userInstance->id = $userInstance->getLastInsertedId();
         $scoreInstance->addBaseScoreToLastUser();
 
         database::getInstance()->commit();
+        
+        $userInstance->getUserByID();
+        
+        $_SESSION['username'] = $userInstance->username;
+        $_SESSION['email'] = $userInstance->email;
+        $_SESSION['color'] = $userInstance->color;
+        $_SESSION['id'] = $userInstance->id;
+        $_SESSION['logged'] = true;
         $success = true;
     } catch (Exception $ex) {
         database::getInstance()->rollback();

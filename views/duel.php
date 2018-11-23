@@ -6,8 +6,8 @@ $pageTitle = 'BATTLE';
 include path::getLayoutPath() . 'header.php';
 ?>
 <div class="big-container">
-    <img id="duelLangageImg" src="../assets/images/langages/<?= $langageId ?>.png" data-langageId="<?= $langageId ?>"/>
     <div class="duelSplit">
+        <img id="duelLangageImg" src="../assets/images/langages/<?= $langageId ?>" data-langageId="<?= $langageId ?>"/>
         <div id="question">
             <p class="questionTitle"><?= ENUNCIATED ?></p>
             <pre><?= $questionInstance->enunciated ?></pre>
@@ -19,6 +19,6 @@ include path::getLayoutPath() . 'header.php';
         <div class="editor" id="duelEditor"></div>
         <div class="editorError"></div>
     </div>
-    <button id="duelSubmit"><?= TEST_YOUR_CODE ?></button> 
+    <button id="duelSubmit" class="btn-flat"><?= TEST_YOUR_CODE ?></button> 
 </div>
 <?php include path::getLayoutPath() . 'footer.php'; ?>

@@ -8,11 +8,16 @@ include_once path::getHelpersPath() . 'compiler.php';
 include_once path::getHelpersPath() . 'inputGenerator.php';
 include_once path::getModelsPath() . 'question.php';
 include_once path::getModelsPath() . 'testCase.php';
+if (isset($_SESSION['lang'])) {
+    include_once path::getLangagePath() . $_SESSION['lang'];
+} else {
+    exit;
+}
 
 $result = array();
 
 $result['success'] = 1;
-
+$result['message'] = QUESTION_REGISTRATION_SUCCESS;
 
 $result['outputs'] = array();
 
@@ -22,11 +27,11 @@ $result['outputs'] = array();
 
 if (!empty($_POST['question'])) {
     $question = htmlspecialchars($_POST['question']);
-    if (!preg_match(regex::getQuestionContainsRegex(), $question)) {
+    if (!preg_match(regex::QUESTION_CONTAINS, $question)) {
         $result['success'] = -1;
         $result['message'] = REQUESTED_TERMS;
     } else {
-        $questionData = preg_split(regex::getQuestionSplitRegex(), $question);
+        $questionData = preg_split(regex::QUESTION_SPLIT, $question);
         array_shift($questionData);
         $questionData = array_map('trim', $questionData);
     }
@@ -41,16 +46,11 @@ if (!empty($_POST['question'])) {
 
 if ($result['success'] == 1) {
     if (!empty($_POST['inputFormat'])) { // INPUT FORMAT WRITTEN INSIDE THE INPUT EDITOR
-        $inputFormat = htmlspecialchars($_POST['inputFormat']);                //
-        $inputFormat = str_replace('&gt;', '>', $inputFormat);                      //
-        $inputFormat = explode(';', $inputFormat);                                     //  preparing each row for the input generator  
-        $inputFormat = array_map('trim', $inputFormat);                            //   (removing dangerous character, seperating each row,
-        $inputFormat = array_filter($inputFormat, function($element) {      //  triming each row and removing empty row)
-            return strlen($element) != 0;                                                      //
-        });
+        $inputFormat = $_POST['inputFormat'];
+        inputGenerator::prepareInputFormat($inputFormat);
     } else {
         $result['success'] = -2;
-        $result['message'] = EMPTY_INPUT; //TODO TRAD
+        $result['message'] = EMPTY_INPUT;
     }
 
     $generatedInputs = array();
@@ -63,14 +63,14 @@ if ($result['success'] == 1) {
 
     if (count($generatedInputs) > 0) { // if the inputs are generated correctly we check for error in each input
         foreach ($generatedInputs as $input) {
-            if (preg_match(regex::getInputGenerationErrorRegex(), $input)) {
+            if (preg_match(regex::INPUT_GENERATION_ERROR, $input)) {
                 $result['success'] = -2;
-                $result['message'] = PROBLEM_GENERATING_INPUT; 
+                $result['message'] = PROBLEM_GENERATING_INPUT;
             }
         }
     } else {
         $result['success'] = -2;
-        $result['message'] = PROBLEM_GENERATING_INPUT; 
+        $result['message'] = PROBLEM_GENERATING_INPUT;
     }
 }
 
@@ -83,13 +83,13 @@ if ($result['success'] == 1) {
         $langage = htmlspecialchars($_POST['langage']);
     } else {
         $result['success'] = -3;
-        $result['message'] = TRY_AGAIN_LATER; 
+        $result['message'] = TRY_AGAIN_LATER;
     }
     if (!empty($_POST['userCode'])) {
         $userCode = $_POST['userCode']; // TODO SECURE THIS 
     } else {
         $result['success'] = -3;
-        $result['message'] = EMPTY_CODE; 
+        $result['message'] = EMPTY_CODE;
     }
 
     $outputs = array();
@@ -98,17 +98,17 @@ if ($result['success'] == 1) {
             $result['outputs'][] = $outputs[] = compiler::compile($input, $langage, $userCode);
         }
     } else {
-        $result['success'] = -2;
+        $result['success'] = -3;
         $result['message'] = PROBLEM_GENERATING_OUTPUT;
     }
 
     if (count($outputs) > 0) { //if any outputs were generated we check for any error in each output
         foreach ($outputs as $output) {
-            if (isset($output['executionOutput']) && preg_match(regex::getOutputGenerationErrorRegex(), $output['executionOutput'])) {
+            if (isset($output['executionOutput']) && preg_match(regex::OUTPUT_GENERATION_ERROR, $output['executionOutput'])) {
                 $result['success'] = -3;
                 $result['message'] = PROBLEM_GENERATING_OUTPUT;
             }
-            if (isset($output['compilationOutput']) && preg_match(regex::getOutputGenerationErrorRegex(), $output['compilationOutput'])) {
+            if (isset($output['compilationOutput']) && preg_match(regex::OUTPUT_GENERATION_ERROR, $output['compilationOutput'])) {
                 $result['success'] = -3;
                 $result['message'] = PROBLEM_GENERATING_OUTPUT;
             }
